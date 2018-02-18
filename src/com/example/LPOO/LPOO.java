@@ -31,14 +31,42 @@ public class LPOO {
 
 
     }
+
+    public static class Guard {
+        public int x;
+        public int y;
+
+        //constructor
+        public Guard(int xcoord, int ycoord) {
+            x = xcoord;
+            y = ycoord;
+        }
+
+        public int getX() {
+            return x;
+        }
+        public int getY() {
+            return y;
+        }
+        public void setX(int xcoord){
+            x = xcoord;
+        }
+        public void setY(int ycoord){
+            y = ycoord;
+        }
+
+
+    }
+
     public static void main(String[] args) {
 
         create_map();
         Hero h = new Hero(1, 1);
+        Guard g = new Guard(1,8);
 
         print_map();
 
-        user_move(h);
+        user_move(h, g);
 
 
     }
@@ -155,7 +183,7 @@ public class LPOO {
         return input;
 
     }
-    public static void user_move(Hero h) {
+    public static void user_move(Hero h, Guard g) {
 
         char c;
         boolean exit = true;
@@ -196,6 +224,16 @@ public class LPOO {
                     exit = false;
                     break;
             }
+
+            //Checking if the hero is close to the guard, in case he is, the program will shut down cause the USER lost
+            //TODO: use guard coordinates
+            int hero_x = h.getX();
+            int hero_y = h.getY();
+            if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
+                System.out.println("The guard has restrained you, you LOST ! :( ");
+                exit = false;
+            }
+
 
             print_map();
 
