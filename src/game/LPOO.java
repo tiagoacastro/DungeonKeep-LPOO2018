@@ -61,25 +61,25 @@ public class LPOO {
             switch (c) {
 
                 case 'w':
-                    if( move(h, h.getX()-1,h.getY()) ) {
+                    if( move(h, h.getX()-1,h.getY(), g) ) {
                         System.out.println("You won the game! Congrats ");
                         exit = false;
                     }
                 break;
                 case 'a':
-                   if( move(h, h.getX(),h.getY()-1) ) {
+                   if( move(h, h.getX(),h.getY()-1, g) ) {
                        System.out.println("You won the game! Congrats ");
                        exit = false;
                    }
                     break;
                 case 's':
-                    if( move(h, h.getX()+1,h.getY()) ) {
+                    if( move(h, h.getX()+1,h.getY(), g) ) {
                         System.out.println("You won the game! Congrats ");
                         exit = false;
                     }
                     break;
                 case 'd':
-                    if( move(h, h.getX(),h.getY()+1) ) {
+                    if( move(h, h.getX(),h.getY()+1, g) ) {
                         System.out.println("You won the game! Congrats ");
                         exit = false;
                     }
@@ -105,12 +105,13 @@ public class LPOO {
         } while (exit);
     }
 
-    public static boolean move(Hero h,int next_x, int next_y) {
+    public static boolean move(Hero h,int next_x, int next_y, Guard g) {
         if (map[next_x][next_y] == ' ') {
             map[h.getX()][h.getY()] = ' ';
             map[next_x][next_y] = 'H';
             h.setX(next_x);
             h.setY(next_y);
+            guard_move(g);
             return false;
         }
 
@@ -121,8 +122,8 @@ public class LPOO {
             h.setY(next_y);
             map[5][0] = 'S';
             map[6][0] = 'S';
+            guard_move(g);
             return false;
-
         }
 
         if (map[next_x][next_y] == 'S') {
@@ -130,10 +131,40 @@ public class LPOO {
             map[next_x][next_y] = 'H';
             h.setX(next_x);
             h.setY(next_y);
+            guard_move(g);
             return true;
-
         }
+
         return false;
+    }
+
+    public static void guard_move(Guard g) {
+        switch (g.path[g.mov]) {
+            case 'u':
+                g_move(g, g.getX() - 1, g.getY());
+                break;
+            case 'l':
+                g_move(g, g.getX(), g.getY() - 1);
+                break;
+            case 'd':
+                g_move(g, g.getX() + 1, g.getY());
+                break;
+            case 'r':
+                g_move(g, g.getX(), g.getY() + 1);
+                break;
+        }
+        g.mov = g.mov + 1;
+        if (g.mov == 24)
+            g.mov = 0;
+    }
+
+    public static void g_move(Guard h,int next_x, int next_y) {
+        if (map[next_x][next_y] == ' ') {
+            map[h.getX()][h.getY()] = ' ';
+            map[next_x][next_y] = 'G';
+            h.setX(next_x);
+            h.setY(next_y);
+        }
     }
 
     public static void print_map() {
