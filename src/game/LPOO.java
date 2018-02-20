@@ -30,6 +30,7 @@ public class LPOO {
         Door d2 = new Door(6,0,1);
         map[d2.getX()][d2.getY()] = 'I';
         Lever l = new Lever(8,7,1);
+        map[l.getX()][l.getY()] = 'k';
 
         print_map();
 
@@ -60,20 +61,29 @@ public class LPOO {
             switch (c) {
 
                 case 'w':
-                    move_space(h, h.getX()-1,h.getY());
+                    if( move(h, h.getX()-1,h.getY()) ) {
+                        System.out.println("You won the game! Congrats ");
+                        exit = false;
+                    }
                 break;
                 case 'a':
-                    move_space(h, h.getX(),h.getY()-1);
+                   if( move(h, h.getX(),h.getY()-1) ) {
+                       System.out.println("You won the game! Congrats ");
+                       exit = false;
+                   }
                     break;
                 case 's':
-                    move_space(h, h.getX()+1,h.getY());
+                    if( move(h, h.getX()+1,h.getY()) ) {
+                        System.out.println("You won the game! Congrats ");
+                        exit = false;
+                    }
                     break;
                 case 'd':
-                    move_space(h, h.getX(),h.getY()+1);
-
-
-
-                break;
+                    if( move(h, h.getX(),h.getY()+1) ) {
+                        System.out.println("You won the game! Congrats ");
+                        exit = false;
+                    }
+                    break;
                 case 'e':
                     exit = false;
                     break;
@@ -84,6 +94,7 @@ public class LPOO {
             int hero_x = h.getX();
             int hero_y = h.getY();
 
+            if(hero_x != 0 && hero_y != 0)
             if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
                 System.out.println("The guard has restrained you, you LOST ! :( ");
                 exit = false;
@@ -94,22 +105,35 @@ public class LPOO {
         } while (exit);
     }
 
-    public static void move_space(Hero h,int next_x, int next_y) {
+    public static boolean move(Hero h,int next_x, int next_y) {
         if (map[next_x][next_y] == ' ') {
             map[h.getX()][h.getY()] = ' ';
             map[next_x][next_y] = 'H';
             h.setX(next_x);
             h.setY(next_y);
+            return false;
         }
-    }
 
-    public static void move_lever(Hero h,int next_x, int next_y) {
         if (map[next_x][next_y] == 'k') {
             map[h.getX()][h.getY()] = ' ';
             map[next_x][next_y] = 'H';
             h.setX(next_x);
             h.setY(next_y);
+            map[5][0] = 'S';
+            map[6][0] = 'S';
+            return false;
+
         }
+
+        if (map[next_x][next_y] == 'S') {
+            map[h.getX()][h.getY()] = ' ';
+            map[next_x][next_y] = 'H';
+            h.setX(next_x);
+            h.setY(next_y);
+            return true;
+
+        }
+        return false;
     }
 
     public static void print_map() {
