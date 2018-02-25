@@ -31,13 +31,10 @@ public class LPOO {
 
         Door d1 = new Door(5,0);
         levels[0].addDoor(d1);
-        map1[d1.getX()][d1.getY()] = 'I';
         Door d2 = new Door(6,0);
         levels[0].addDoor(d2);
-        map1[d2.getX()][d2.getY()] = 'I';
         Lever l = new Lever(8,7);
         levels[0].addLever(l);
-        map1[l.getX()][l.getY()] = 'k';
 
         levels[0].print_map();
 
