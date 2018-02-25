@@ -2,12 +2,19 @@ package game;
 
 public class Door extends Game_object {
 
-    public int idgroup;
+    private char symbol;
 
-    public Door (int xcoord, int ycoord, int ID){
+    public Door (int xcoord, int ycoord){
         x = xcoord;
         y = ycoord;
-        idgroup = ID;
-        opened = false;
+        symbol = 'I';
+    }
+
+    void open() {
+        symbol = 'S';
+    }
+
+    void draw(Character[][] map){
+        map[x][y] = symbol;
     }
 }
