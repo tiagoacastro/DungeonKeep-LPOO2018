@@ -6,11 +6,11 @@ public class Level {
 
     private Character[][] map;
     private Hero hero;
-    private Guard guards[];
+    private Guard guards[] = new Guard[10];
     private int guardNumber;
     //private Ogre ogres[];
     private int ogreNumber;
-    private Door doors[];
+    private Door doors[] = new Door[10];
     private int doorNumber;
     private Lever lever;
     //private Key key;
@@ -21,12 +21,21 @@ public class Level {
         hero = h;
         guardNumber=0;
         ogreNumber=0;
-        type = t
+        type = t;
     }
 
     void addGuard(Guard g) {
         guards[guardNumber] = g;
         guardNumber++;
+    }
+
+    void addLever(Lever l) {
+        lever = l;
+    }
+
+    void addDoor(Door d){
+        doors[doorNumber] = d;
+        doorNumber++;
     }
 
     /*
@@ -168,7 +177,7 @@ public class Level {
     }
 
 
-    private void print_map() {
+    void print_map() {
 
         //Printing the map
         for (int i = 0; i < 10; i++) {

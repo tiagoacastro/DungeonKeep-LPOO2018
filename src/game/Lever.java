@@ -8,6 +8,6 @@ public class Lever extends Game_object {
     }
 
     void draw(Character[][] map){
-        map[x][y] = 'K';
+        map[x][y] = 'k';
     }
 }
