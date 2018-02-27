@@ -1,6 +1,6 @@
-package game;
+package logic;
 
-public class Guard extends Game_Character{
+public class Guard extends GameCharacter {
 
     private char path[];
     private int mov;

@@ -1,28 +1,28 @@
-package game;
+package logic;
 
-public class Game_Character {
+public class GameObject {
+
     public int x;
     public int y;
 
-    Game_Character() {
+    GameObject() {}
 
-    }
-
-    //constructor
-    Game_Character(int xcoord, int ycoord) {
+    GameObject(int xcoord, int ycoord) {
         x = xcoord;
         y = ycoord;
     }
-
     int getX() {
         return x;
     }
+
     int getY() {
         return y;
     }
+
     void setX(int xcoord){
         x = xcoord;
     }
+
     void setY(int ycoord){
         y = ycoord;
     }

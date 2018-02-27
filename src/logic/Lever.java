@@ -1,6 +1,6 @@
-package game;
+package logic;
 
-public class Lever extends Game_object {
+public class Lever extends GameObject {
 
     public Lever (int xcoord, int ycoord){
         x = xcoord;

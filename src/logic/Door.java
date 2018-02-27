@@ -1,6 +1,6 @@
-package game;
+package logic;
 
-public class Door extends Game_object {
+public class Door extends GameObject {
 
     private char symbol;
 

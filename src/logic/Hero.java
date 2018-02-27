@@ -1,6 +1,6 @@
-package game;
+package logic;
 
-public class Hero extends Game_Character{
+public class Hero extends GameCharacter {
 
     public Hero(int xcoord, int ycoord) {
         x = xcoord;
