@@ -33,6 +33,10 @@ public class Level {
         lever = l;
     }
 
+    void addKey(Key k){
+        key =k;
+    }
+
     void addDoor(Door d){
         doors[doorNumber] = d;
         doorNumber++;
@@ -41,6 +45,10 @@ public class Level {
     void addOgre(Ogre o) {
         ogres[ogreNumber] = o;
         ogreNumber++;
+    }
+
+    int getType(){
+        return type;
     }
 
     Guard[] getGuards() {
@@ -112,7 +120,12 @@ public class Level {
     private boolean move(int next_x, int next_y) {
         if (map[next_x][next_y] == ' ') {
             map[hero.getX()][hero.getY()] = ' ';
-            map[next_x][next_y] = 'H';
+
+            if(getType() == 0){
+                map[next_x][next_y] = 'H';
+            } else
+                hero_caught_key(next_x, next_y);
+
             hero.setX(next_x);
             hero.setY(next_y);
             for (int j = 0; j < doorNumber; ++j){
@@ -123,12 +136,20 @@ public class Level {
             }
             if(type == 0)
                 lever.draw(map);
+            else key.draw(map);
             return false;
         }
 
         if (map[next_x][next_y] == 'k' && type == 0) {
             map[hero.getX()][hero.getY()] = ' ';
-            map[next_x][next_y] = 'H';
+
+            if(getType() == 0){
+                map[next_x][next_y] = 'H';
+            } else {
+                key.grab();
+                hero_caught_key(next_x, next_y);
+            }
+
             hero.setX(next_x);
             hero.setY(next_y);
             for (int j = 0; j < doorNumber; ++j){
@@ -146,7 +167,11 @@ public class Level {
                 doors[j].draw(map);
             }
             map[hero.getX()][hero.getY()] = ' ';
-            map[next_x][next_y] = 'H';
+            if(getType() == 0){
+                map[next_x][next_y] = 'H';
+            } else
+            hero_caught_key(next_x, next_y);
+
             hero.setX(next_x);
             hero.setY(next_y);
             for (int i = 0; i < guardNumber; ++i){
@@ -154,12 +179,22 @@ public class Level {
             }
             if(type == 0)
                 lever.draw(map);
+            else key.draw(map);
             return true;
         }
 
         return false;
     }
+    private void hero_caught_key(int next_x,int next_y) {
 
+        if (key.check()) {
+            map[next_x][next_y] = 'K';
+        } else
+            map[next_x][next_y] = 'H';
+
+        return;
+
+    }
     private char user_input() {
 
         //Asking the user for a direction input to move the hero

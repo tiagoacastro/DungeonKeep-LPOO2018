@@ -60,6 +60,11 @@ public class LPOO {
         Door d3 = new Door(1,0);
         levels[1].addDoor(d3);
 
+        Key k = new Key(8,7);
+        levels[1].addKey(k);
+
+
+
         for (int i = 0; i < level; ++i){
             levels[i].print_map();
 
