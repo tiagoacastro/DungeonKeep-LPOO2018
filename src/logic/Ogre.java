@@ -44,5 +44,9 @@ public class Ogre extends GameCharacter {
             x=next_x;
             y=next_y;
         }
+
+        if (map[next_x][next_y] == 'X') {
+            draw(map);
+        }
     }
 }

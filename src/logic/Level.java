@@ -6,11 +6,11 @@ public class Level {
 
     private Character[][] map;
     private Hero hero;
-    private Guard guards[] = new Guard[10];
+    private Guard guards[] = new Guard[1];
     private int guardNumber;
-    private Ogre ogres[];
+    private Ogre ogres[] = new Ogre[1];
     private int ogreNumber;
-    private Door doors[] = new Door[10];
+    private Door doors[] = new Door[2];
     private int doorNumber;
     private Lever lever;
     private Key key;
@@ -63,11 +63,9 @@ public class Level {
         return map;
     }
 
-    public void user_move() {
+    boolean user_move() {
 
-        boolean exit = true;
-
-        UserInterface.Direction input;
+        UserInput.Direction input;
         do {
 
             input = UserInterface.user_input();
@@ -77,25 +75,25 @@ public class Level {
                 case UP:
                     if( move(hero.getX()-1,hero.getY()) ) {
                         System.out.println("You won the game! Congrats ");
-                        exit = false;
+                        return true;
                     }
                     break;
                 case LEFT:
                     if( move(hero.getX(),hero.getY()-1) ) {
                         System.out.println("You won the game! Congrats ");
-                        exit = false;
+                        return true;
                     }
                     break;
                 case DOWN:
                     if( move(hero.getX()+1,hero.getY()) ) {
                         System.out.println("You won the game! Congrats ");
-                        exit = false;
+                        return true;
                     }
                     break;
                 case RIGHT:
                     if( move(hero.getX(),hero.getY()+1) ) {
                         System.out.println("You won the game! Congrats ");
-                        exit = false;
+                        return true;
                     }
                     break;
                 default:
@@ -105,15 +103,35 @@ public class Level {
             int hero_x = hero.getX();
             int hero_y = hero.getY();
 
-            if(hero_x != 0 && hero_y != 0)
-                if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
-                    System.out.println("The guard has restrained you, you LOST ! :( ");
-                    exit = false;
+            if(hero_x != 0 && hero_y != 0){
+                if(type==0){
+                    if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
+                        System.out.println("The guard has restrained you, you LOST ! :( ");
+                        return false;
+                    }
+                    for (int i = 0; i < guardNumber; ++i) {
+                        if(guards[i].getX() == hero.getX() && guards[i].getY() == hero.getY()){
+                            System.out.println("The guard has restrained you, you LOST ! :( ");
+                            return false;
+                        }
+                    }
+                } else {
+                    if ((map[hero_x + 1][hero_y] == '0') || (map[hero_x - 1][hero_y] == '0') || (map[hero_x][hero_y +1] == '0') || (map[hero_x][hero_y-1]== '0')) {
+                        System.out.println("The ogre has slaughtered you, you LOST ! :( ");
+                        return false;
+                    }
+                    for (int i = 0; i < ogreNumber; ++i) {
+                        if(ogres[i].getX() == hero.getX() && ogres[i].getY() == hero.getY()){
+                            System.out.println("The ogre has slaughtered you, you LOST ! :( ");
+                            return false;
+                        }
+                    }
                 }
+            }
 
             UserInterface.print_map(this);
 
-        } while (exit);
+        } while (true);
     }
 
     public boolean move(int next_x, int next_y) {
@@ -203,17 +221,24 @@ public class Level {
                     doors[j].draw(map);
                 }
 
-                for (int i = 0; i < guardNumber; ++i) {
-                    ogres[i].draw(map);
-                }
-
                 if (key.check()) {
                     map[next_x][next_y] = 'K';
                 } else {
                     map[next_x][next_y] = 'H';
                 }
 
-                key.draw(map);
+                for (int i = 0; i < ogreNumber; ++i) {
+                    if(ogres[i].getX() == key.getX() && ogres[i].getY() == key.getY()){
+                        ogres[i].draw(map);
+                        key.draw(map);
+                    } else {
+                        key.draw(map);
+                        ogres[i].draw(map);
+                    }
+                }
+
+
+
 
                 return false;
             }
@@ -230,7 +255,7 @@ public class Level {
                     doors[j].draw(map);
                 }
 
-                for (int i = 0; i < guardNumber; ++i) {
+                for (int i = 0; i < ogreNumber; ++i) {
                     ogres[i].draw(map);
                 }
 
@@ -250,31 +275,24 @@ public class Level {
                 hero.setX(next_x);
                 hero.setY(next_y);
 
-                for (int i = 0; i < guardNumber; ++i) {
+                map[next_x][next_y] = 'K';
+
+                for (int i = 0; i < ogreNumber; ++i) {
                     ogres[i].draw(map);
                 }
-
-                if (key.check()) {
-                    map[next_x][next_y] = 'K';
-                } else {
-                    map[next_x][next_y] = 'H';
-                }
-
-                key.draw(map);
 
                 return true;
             }
 
-            if (map[next_x][next_y] == 'I') {
-                for (int j = 0; j < doorNumber; ++j) {
-                    if (doors[j].getX() == next_x && doors[j].getY() == next_y) {
-                        doors[j].open();
-                    }
-                    doors[j].draw(map);
-                }
 
-                for (int i = 0; i < guardNumber; ++i) {
-                    ogres[i].draw(map);
+            if (map[next_x][next_y] == 'I') {
+                if(key.check()){
+                    for (int j = 0; j < doorNumber; ++j) {
+                        if (doors[j].getX() == next_x && doors[j].getY() == next_y) {
+                            doors[j].open();
+                        }
+                        doors[j].draw(map);
+                    }
                 }
                 return false;
             }
@@ -294,4 +312,31 @@ public class Level {
 
     }
     */
+
+    void print_map() {
+
+        //Printing the map
+        if(type == 0)
+            for (int i = 0; i < 10; i++) {
+
+                for (int j = 0; j < 10; j++) {
+                  if(j != 0) {
+                      System.out.print(' ');
+                   }
+                   System.out.print(map[i][j]);
+             }
+             System.out.print("\n");
+        }
+        else
+            for (int i = 0; i < 9; i++) {
+
+                for (int j = 0; j < 9; j++) {
+                    if(j != 0) {
+                        System.out.print(' ');
+                    }
+                    System.out.print(map[i][j]);
+                }
+                System.out.print("\n");
+            }
+    }
 }
