@@ -7,7 +7,7 @@ public class Lever extends GameObject {
         y = ycoord;
     }
 
-    void draw(Character[][] map){
+    public void draw(Character[][] map){
         map[x][y] = 'k';
     }
 }

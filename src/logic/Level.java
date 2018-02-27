@@ -17,7 +17,7 @@ public class Level {
     private Key key;
     private int type; //0 is lever level, 1 is key level
 
-    Level(Character[][] m, Hero h, int t) {
+    public Level(Character[][] m, Hero h, int t) {
         map = m;
         hero = h;
         guardNumber=0;
@@ -25,46 +25,46 @@ public class Level {
         type = t;
     }
 
-    void addGuard(Guard g) {
+    public void addGuard(Guard g) {
         guards[guardNumber] = g;
         guardNumber++;
     }
 
-    void addLever(Lever l) {
+    public void addLever(Lever l) {
         lever = l;
     }
 
-    void addKey(Key k){
+    public void addKey(Key k){
         key =k;
     }
 
-    void addDoor(Door d){
+    public void addDoor(Door d){
         doors[doorNumber] = d;
         doorNumber++;
     }
 
-    void addOgre(Ogre o) {
+    public void addOgre(Ogre o) {
         ogres[ogreNumber] = o;
         ogreNumber++;
     }
 
-    int getType(){
+    public int getType(){
         return type;
     }
 
-    Guard[] getGuards() {
+    public Guard[] getGuards() {
         return guards;
     }
 
-    Ogre[] getOgres() {
+    public Ogre[] getOgres() {
         return ogres;
     }
 
-    Character[][] getMap() {
+    public Character[][] getMap() {
         return map;
     }
 
-    void user_move() {
+    public void user_move() {
 
         boolean exit = true;
         UserInput.Direction input;
@@ -116,7 +116,7 @@ public class Level {
         } while (exit);
     }
 
-    private boolean move(int next_x, int next_y) {
+    public boolean move(int next_x, int next_y) {
 
         if(type == 0) {
 
@@ -295,7 +295,7 @@ public class Level {
     }
     */
 
-    void print_map() {
+    public void print_map() {
 
         //Printing the map
         for (int i = 0; i < 10; i++) {

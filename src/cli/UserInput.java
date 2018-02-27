@@ -1,11 +1,12 @@
 package cli;
 
 import java.util.Scanner;
+import logic.*;
 
 public class UserInput {
 
     public enum Direction {
-        UP,LEFT,DOWN,RIGHT,NONE
+        UP, LEFT, DOWN, RIGHT, NONE
     }
 
     public static Direction user_input() {
@@ -30,5 +31,4 @@ public class UserInput {
                 return Direction.NONE;
         }
     }
-
 }

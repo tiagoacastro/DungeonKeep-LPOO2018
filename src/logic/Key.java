@@ -10,16 +10,16 @@ public class Key extends GameObject {
         grabbed = false;
     }
 
-    void draw(Character[][] map){
+    public void draw(Character[][] map){
         if(!grabbed)
         map[x][y] = 'k';
     }
 
-    boolean check(){
+    public boolean check(){
         return grabbed;
     }
 
-    void grab(){
+    public void grab(){
         grabbed = true;
     }
 }

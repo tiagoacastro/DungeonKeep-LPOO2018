@@ -13,7 +13,7 @@ public class Guard extends GameCharacter {
         mov = 0;
     }
 
-    void draw(Character[][] map){
+    public void draw(Character[][] map){
         switch (path[mov]) {
             case 'u':
                 move(map, x - 1, y);

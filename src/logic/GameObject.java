@@ -13,19 +13,19 @@ public class GameObject {
         y = ycoord;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
-    void setX(int xcoord) {
+    public void setX(int xcoord) {
         x = xcoord;
     }
 
-    void setY(int ycoord) {
+    public void setY(int ycoord) {
         y = ycoord;
     }
 
