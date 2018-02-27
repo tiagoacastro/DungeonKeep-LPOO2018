@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameCharacter {
-    public int x;
-    public int y;
+    protected int x;
+    protected int y;
 
     GameCharacter() {
 

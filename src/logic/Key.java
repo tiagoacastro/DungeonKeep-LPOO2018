@@ -22,4 +22,8 @@ public class Key extends GameObject {
     public void grab(){
         grabbed = true;
     }
+
+    public void use() {
+        grabbed = false;
+    };
 }

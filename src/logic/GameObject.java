@@ -2,8 +2,8 @@ package logic;
 
 public class GameObject {
 
-    public int x;
-    public int y;
+    protected int x;
+    protected int y;
 
     GameObject() {
     }

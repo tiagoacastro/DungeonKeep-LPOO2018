@@ -63,12 +63,12 @@ public class Level {
         return map;
     }
 
-    boolean user_move() {
+    public boolean user_move() {
 
-        UserInput.Direction input;
+        UserInterface.LPOO.Direction input;
         do {
 
-            input = UserInterface.user_input();
+            input = UserInterface.LPOO.user_input();
 
             switch (input) {
 
@@ -106,22 +106,36 @@ public class Level {
             if(hero_x != 0 && hero_y != 0){
                 if(type==0){
                     if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
+                        UserInterface.LPOO.print_map(type, map);
                         System.out.println("The guard has restrained you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < guardNumber; ++i) {
                         if(guards[i].getX() == hero.getX() && guards[i].getY() == hero.getY()){
+                            UserInterface.LPOO.print_map(type, map);
                             System.out.println("The guard has restrained you, you LOST ! :( ");
                             return false;
                         }
                     }
                 } else {
                     if ((map[hero_x + 1][hero_y] == '0') || (map[hero_x - 1][hero_y] == '0') || (map[hero_x][hero_y +1] == '0') || (map[hero_x][hero_y-1]== '0')) {
+                        UserInterface.LPOO.print_map(type, map);
+                        System.out.println("The ogre has slaughtered you, you LOST ! :( ");
+                        return false;
+                    }
+                    if ((map[hero_x + 1][hero_y] == '*') || (map[hero_x - 1][hero_y] == '*') || (map[hero_x][hero_y +1] == '*') || (map[hero_x][hero_y-1]== '*')) {
+                        UserInterface.LPOO.print_map(type, map);
                         System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < ogreNumber; ++i) {
                         if(ogres[i].getX() == hero.getX() && ogres[i].getY() == hero.getY()){
+                            UserInterface.LPOO.print_map(type, map);
+                            System.out.println("The ogre has slaughtered you, you LOST ! :( ");
+                            return false;
+                        }
+                        if(ogres[i].getClubX() == hero.getX() && ogres[i].getClubY() == hero.getY()){
+                            UserInterface.LPOO.print_map(type, map);
                             System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                             return false;
                         }
@@ -129,7 +143,7 @@ public class Level {
                 }
             }
 
-            UserInterface.print_map(this);
+            UserInterface.LPOO.print_map(type, map);
 
         } while (true);
     }
@@ -228,7 +242,7 @@ public class Level {
                 }
 
                 for (int i = 0; i < ogreNumber; ++i) {
-                    if(ogres[i].getX() == key.getX() && ogres[i].getY() == key.getY()){
+                    if(ogres[i].getX() == key.getX() && ogres[i].getY() == key.getY() || ogres[i].getClubX() == key.getX() && ogres[i].getClubY() == key.getY()){
                         ogres[i].draw(map);
                         key.draw(map);
                     } else {
@@ -237,11 +251,9 @@ public class Level {
                     }
                 }
 
-
-
-
                 return false;
             }
+
 
             if (map[next_x][next_y] == 'k') {
                 map[hero.getX()][hero.getY()] = ' ';
@@ -264,6 +276,7 @@ public class Level {
 
                 return false;
             }
+
 
             if (map[next_x][next_y] == 'S') {
                 for (int j = 0; j < doorNumber; ++j) {
@@ -293,6 +306,8 @@ public class Level {
                         }
                         doors[j].draw(map);
                     }
+                    key.use();
+                    map[hero.getX()][hero.getY()] = 'H';
                 }
                 return false;
             }
@@ -300,43 +315,5 @@ public class Level {
 
         return false;
     }
-    /*
-    private void hero_caught_key(int next_x,int next_y) {
 
-        if (key.check()) {
-            map[next_x][next_y] = 'K';
-        } else
-            map[next_x][next_y] = 'H';
-
-        return;
-
-    }
-    */
-
-    void print_map() {
-
-        //Printing the map
-        if(type == 0)
-            for (int i = 0; i < 10; i++) {
-
-                for (int j = 0; j < 10; j++) {
-                  if(j != 0) {
-                      System.out.print(' ');
-                   }
-                   System.out.print(map[i][j]);
-             }
-             System.out.print("\n");
-        }
-        else
-            for (int i = 0; i < 9; i++) {
-
-                for (int j = 0; j < 9; j++) {
-                    if(j != 0) {
-                        System.out.print(' ');
-                    }
-                    System.out.print(map[i][j]);
-                }
-                System.out.print("\n");
-            }
-    }
 }
