@@ -2,7 +2,9 @@ package cli;
 
 import logic.*;
 
-public class GameLoop {
+import java.util.Scanner;
+
+public class UserInterface {
 
     public static class LPOO {
 
@@ -74,10 +76,54 @@ public class GameLoop {
             k.draw(levels[1].getMap());
 
             for (int i = 0; i < level; ++i){
-                levels[i].print_map();
+                print_map(levels[i]);
 
                 levels[i].user_move();
             }
+        }
+
+    }
+
+    public enum Direction {
+        UP, LEFT, DOWN, RIGHT, NONE
+    }
+
+    public static Direction user_input() {
+
+
+        //Asking the user for a direction input to move the hero
+        System.out.print("Enter a direction with 'w'(up), 'a'(left), 's'(down), 'd'(right), 'e' to exit the logic : ");
+        Scanner reader = new Scanner(System.in);
+        //saving the first char of the input to a variable c
+        char input = reader.findInLine(".").charAt(0);
+
+        switch (input) {
+            case 'w':
+                return Direction.UP;
+            case 'a':
+                return Direction.LEFT;
+            case 's':
+                return Direction.DOWN;
+            case 'd':
+                return Direction.RIGHT;
+            default:
+                return Direction.NONE;
+        }
+    }
+
+    public static void print_map(Level l) {
+
+        //Printing the map
+        for (int i = 0; i < 10; i++) {
+
+            for (int j = 0; j < 10; j++) {
+                if(j != 0) {
+                    System.out.print(' ');
+                }
+
+                System.out.print(l.getMap()[i][j]);
+            }
+            System.out.print("\n");
         }
 
     }

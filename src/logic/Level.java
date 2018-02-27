@@ -1,7 +1,6 @@
 package logic;
 
-import java.util.Scanner;
-import cli.UserInput;
+import cli.UserInterface;
 
 public class Level {
 
@@ -67,10 +66,11 @@ public class Level {
     public void user_move() {
 
         boolean exit = true;
-        UserInput.Direction input;
+
+        UserInterface.Direction input;
         do {
 
-            input = UserInput.user_input();
+            input = UserInterface.user_input();
 
             switch (input) {
 
@@ -111,7 +111,7 @@ public class Level {
                     exit = false;
                 }
 
-            print_map();
+            UserInterface.print_map(this);
 
         } while (exit);
     }
@@ -294,20 +294,4 @@ public class Level {
 
     }
     */
-
-    public void print_map() {
-
-        //Printing the map
-        for (int i = 0; i < 10; i++) {
-
-            for (int j = 0; j < 10; j++) {
-                if(j != 0) {
-                    System.out.print(' ');
-                }
-                System.out.print(map[i][j]);
-            }
-            System.out.print("\n");
-        }
-
-    }
 }
