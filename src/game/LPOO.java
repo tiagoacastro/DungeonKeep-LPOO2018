@@ -3,6 +3,7 @@ package game;
 public class LPOO {
 
     static Level[] levels = new Level[10];
+    static int level = 0;
 
     public static void main(String[] args) {
 
@@ -23,6 +24,7 @@ public class LPOO {
         map1[h.getX()][h.getY()] = 'H';
 
         levels[0] = new Level(map1, h, 0);
+        level++;
 
         //map = maps[0];
         Guard g = new Guard(1,8, new char[]{'l','d','d','d','d','l','l','l','l','l','l','d','r','r','r','r','r','r','r','u','u','u','u','u'});
@@ -36,11 +38,7 @@ public class LPOO {
         Lever l = new Lever(8,7);
         levels[0].addLever(l);
 
-        levels[0].print_map();
-
-        levels[0].user_move();
-
-        /* Character[][] map2 = new Character[][] {
+        Character[][] map2 = new Character[][] {
                         {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
                         {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
@@ -51,9 +49,22 @@ public class LPOO {
                         {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
                         {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
                         {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-                } ;
-                */
+            } ;
 
+        Hero h2 = new Hero(7, 1);
+        map2[h.getX()][h.getY()] = 'H';
+
+        levels[1] = new Level(map2, h2, 1);
+        level++;
+
+        Door d3 = new Door(1,0);
+        levels[1].addDoor(d3);
+
+        for (int i = 0; i < level; ++i){
+            levels[i].print_map();
+
+            levels[i].user_move();
+        }
     }
 
 }

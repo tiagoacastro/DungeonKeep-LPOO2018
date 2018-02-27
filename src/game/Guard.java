@@ -9,7 +9,7 @@ public class Guard extends Game_Character{
     public Guard(int xcoord, int ycoord, char[] p) {
         x = xcoord;
         y = ycoord;
-        path = p; //new char[]{'l','d','d','d','d','l','l','l','l','l','l','d','r','r','r','r','r','r','r','u','u','u','u','u'};
+        path = p;
         mov = 0;
     }
 

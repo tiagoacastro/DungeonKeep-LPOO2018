@@ -8,12 +8,12 @@ public class Level {
     private Hero hero;
     private Guard guards[] = new Guard[10];
     private int guardNumber;
-    //private Ogre ogres[];
+    private Ogre ogres[];
     private int ogreNumber;
     private Door doors[] = new Door[10];
     private int doorNumber;
     private Lever lever;
-    //private Key key;
+    private Key key;
     private int type; //0 is lever level, 1 is key level
 
     Level(Character[][] m, Hero h, int t) {
@@ -38,22 +38,18 @@ public class Level {
         doorNumber++;
     }
 
-    /*
     void addOgre(Ogre o) {
         ogres[ogreNumber] = o;
         ogreNumber++;
     }
-    */
 
     Guard[] getGuards() {
         return guards;
     }
 
-    /*
     Ogre[] getOgres() {
         return ogres;
     }
-    */
 
     Character[][] getMap() {
         return map;
