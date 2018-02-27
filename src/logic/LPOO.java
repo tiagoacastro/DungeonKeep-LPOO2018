@@ -2,7 +2,7 @@ package logic;
 
 public class LPOO {
 
-    static Level[] levels = new Level[10];
+    static Level[] levels = new Level[2];
     static int level = 0;
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class LPOO {
         //map = maps[0];
         Guard g = new Guard(1,8, new char[]{'l','d','d','d','d','l','l','l','l','l','l','d','r','r','r','r','r','r','r','u','u','u','u','u'});
         levels[0].addGuard(g);
-        g.draw(levels[0].getMap());
+        map1[g.getX()][g.getY()] = 'G';
 
         Door d1 = new Door(5,0);
         levels[0].addDoor(d1);
@@ -43,16 +43,15 @@ public class LPOO {
         l.draw(levels[0].getMap());
 
         Character[][] map2 = new Character[][] {
-                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
         } ;
 
         Hero h2 = new Hero(7, 1);
@@ -63,16 +62,21 @@ public class LPOO {
 
         Door d3 = new Door(1,0);
         levels[1].addDoor(d3);
-        d3.draw(levels[1].getMap());
+        d3.draw(levels  [1].getMap());
 
-        Key k = new Key(8,7);
+        Key k = new Key(1,7);
         levels[1].addKey(k);
         k.draw(levels[1].getMap());
+
+        Ogre o = new Ogre(1,4);
+        levels[1].addOgre(o);
+        map2[o.getX()][o.getY()] = '0';
 
         for (int i = 0; i < level; ++i){
             levels[i].print_map();
 
-            levels[i].user_move();
+            if(!levels[i].user_move())
+                break;
         }
     }
 
