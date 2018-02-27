@@ -1,5 +1,8 @@
 package logic;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class GameCharacter {
     public int x;
     public int y;
@@ -17,13 +20,16 @@ public class GameCharacter {
     int getX() {
         return x;
     }
+
     int getY() {
         return y;
     }
-    void setX(int xcoord){
+
+    void setX(int xcoord) {
         x = xcoord;
     }
-    void setY(int ycoord){
+
+    void setY(int ycoord) {
         y = ycoord;
     }
 }

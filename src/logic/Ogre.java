@@ -14,9 +14,18 @@ public class Ogre extends GameCharacter {
         int n = 4;
         int randnum = rand.nextInt(n);
 
-        switch(n){
+        switch(randnum){
             case 0:
-
+                move(map, x+1, y);
+                break;
+            case 1:
+                move(map, x, y+1);
+                break;
+            case 2:
+                move(map, x-1, y);
+                break;
+            case 3:
+                move(map, x, y-1);
                 break;
         }
     }
