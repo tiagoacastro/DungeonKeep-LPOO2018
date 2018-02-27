@@ -33,10 +33,14 @@ public class LPOO {
 
         Door d1 = new Door(5,0);
         levels[0].addDoor(d1);
+        d1.draw(levels[0].getMap());
         Door d2 = new Door(6,0);
         levels[0].addDoor(d2);
+        d2.draw(levels[0].getMap());
+
         Lever l = new Lever(8,7);
         levels[0].addLever(l);
+        l.draw(levels[0].getMap());
 
         Character[][] map2 = new Character[][] {
                         {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -52,18 +56,18 @@ public class LPOO {
             } ;
 
         Hero h2 = new Hero(7, 1);
-        map2[h.getX()][h.getY()] = 'H';
+        map2[h2.getX()][h2.getY()] = 'H';
 
         levels[1] = new Level(map2, h2, 1);
         level++;
 
         Door d3 = new Door(1,0);
         levels[1].addDoor(d3);
+        d3.draw(levels[1].getMap());
 
         Key k = new Key(8,7);
         levels[1].addKey(k);
-
-
+        k.draw(levels[1].getMap());
 
         for (int i = 0; i < level; ++i){
             levels[i].print_map();
