@@ -63,12 +63,12 @@ public class Level {
         return map;
     }
 
-    public boolean user_move() {
+    public boolean userMove() {
 
         UserInterface.LPOO.Direction input;
         do {
 
-            input = UserInterface.LPOO.user_input();
+            input = UserInterface.LPOO.userInput();
 
             switch (input) {
 
@@ -100,42 +100,39 @@ public class Level {
                     continue;
             }
 
-            int hero_x = hero.getX();
-            int hero_y = hero.getY();
-
-            if(hero_x != 0 && hero_y != 0){
+            if(hero.getX() != 0 && hero.getY() != 0){
                 if(type==0){
-                    if ((map[hero_x + 1][hero_y] == 'G') || (map[hero_x - 1][hero_y] == 'G') || (map[hero_x][hero_y +1] == 'G') || (map[hero_x][hero_y-1]== 'G')) {
-                        UserInterface.LPOO.print_map(type, map);
+                    if ((map[hero.getX() + 1][hero.getY()] == 'G') || (map[hero.getX() - 1][hero.getY()] == 'G') || (map[hero.getX()][hero.getY() +1] == 'G') || (map[hero.getX()][hero.getY()-1]== 'G')) {
+                        UserInterface.LPOO.printMap(type, map);
                         System.out.println("The guard has restrained you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < guardNumber; ++i) {
                         if(guards[i].getX() == hero.getX() && guards[i].getY() == hero.getY()){
-                            UserInterface.LPOO.print_map(type, map);
+                            UserInterface.LPOO.printMap(type, map);
                             System.out.println("The guard has restrained you, you LOST ! :( ");
                             return false;
                         }
                     }
                 } else {
-                    if ((map[hero_x + 1][hero_y] == '0') || (map[hero_x - 1][hero_y] == '0') || (map[hero_x][hero_y +1] == '0') || (map[hero_x][hero_y-1]== '0')) {
-                        UserInterface.LPOO.print_map(type, map);
+                    if ((map[hero.getX() + 1][hero.getY()] == '0') || (map[hero.getX() - 1][hero.getY()] == '0') || (map[hero.getX()][hero.getY() +1] == '0') || (map[hero.getX()][hero.getY()-1]== '0')) {
+                        UserInterface.LPOO.printMap(type, map);
                         System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                         return false;
                     }
-                    if ((map[hero_x + 1][hero_y] == '*') || (map[hero_x - 1][hero_y] == '*') || (map[hero_x][hero_y +1] == '*') || (map[hero_x][hero_y-1]== '*')) {
-                        UserInterface.LPOO.print_map(type, map);
+                    if ((map[hero.getX() + 1][hero.getY()] == '*') || (map[hero.getX() - 1][hero.getY()] == '*') || (map[hero.getX()][hero.getY() +1] == '*') || (map[hero.getX()][hero.getY()-1]== '*')) {
+                        UserInterface.LPOO.printMap(type, map);
                         System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < ogreNumber; ++i) {
                         if(ogres[i].getX() == hero.getX() && ogres[i].getY() == hero.getY()){
-                            UserInterface.LPOO.print_map(type, map);
+                            UserInterface.LPOO.printMap(type, map);
                             System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                             return false;
                         }
                         if(ogres[i].getClubX() == hero.getX() && ogres[i].getClubY() == hero.getY()){
-                            UserInterface.LPOO.print_map(type, map);
+                            UserInterface.LPOO.printMap(type, map);
                             System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                             return false;
                         }
@@ -143,21 +140,21 @@ public class Level {
                 }
             }
 
-            UserInterface.LPOO.print_map(type, map);
+            UserInterface.LPOO.printMap(type, map);
 
         } while (true);
     }
 
-    public boolean move(int next_x, int next_y) {
+    public boolean move(int nextX, int nextY) {
 
         if(type == 0) {
 
 
-            if (map[next_x][next_y] == ' ') {
+            if (map[nextX][nextY] == ' ') {
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
                 for (int j = 0; j < doorNumber; ++j) {
                     doors[j].draw(map);
@@ -167,7 +164,7 @@ public class Level {
                     guards[i].draw(map);
                 }
 
-                map[next_x][next_y] = 'H';
+                map[nextX][nextY] = hero.getSymbol();
 
                 lever.draw(map);
 
@@ -175,11 +172,11 @@ public class Level {
             }
 
 
-            if (map[next_x][next_y] == 'k') {
+            if (map[nextX][nextY] == 'k') {
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
                 for (int j = 0; j < doorNumber; ++j) {
                     if (type == 0)
@@ -191,27 +188,27 @@ public class Level {
                     guards[i].draw(map);
                 }
 
-                map[next_x][next_y] = 'H';
+                map[nextX][nextY] = hero.getSymbol();
 
                 return false;
             }
 
 
-            if (map[next_x][next_y] == 'S') {
+            if (map[nextX][nextY] == 'S') {
                 for (int j = 0; j < doorNumber; ++j) {
                     doors[j].draw(map);
                 }
 
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
                 for (int i = 0; i < guardNumber; ++i) {
                     guards[i].draw(map);
                 }
 
-                map[next_x][next_y] = 'H';
+                map[nextX][nextY] = hero.getSymbol();
 
                 lever.draw(map);
 
@@ -225,21 +222,17 @@ public class Level {
 
 
 
-            if (map[next_x][next_y] == ' ') {
+            if (map[nextX][nextY] == ' ') {
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
                 for (int j = 0; j < doorNumber; ++j) {
                     doors[j].draw(map);
                 }
 
-                if (key.check()) {
-                    map[next_x][next_y] = 'K';
-                } else {
-                    map[next_x][next_y] = 'H';
-                }
+                map[nextX][nextY] = hero.getSymbol();
 
                 for (int i = 0; i < ogreNumber; ++i) {
                     if(ogres[i].getX() == key.getX() && ogres[i].getY() == key.getY() || ogres[i].getClubX() == key.getX() && ogres[i].getClubY() == key.getY()){
@@ -255,11 +248,11 @@ public class Level {
             }
 
 
-            if (map[next_x][next_y] == 'k') {
+            if (map[nextX][nextY] == 'k') {
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
                 for (int j = 0; j < doorNumber; ++j) {
                     if (type == 0)
@@ -272,23 +265,24 @@ public class Level {
                 }
 
                 key.grab();
-                map[next_x][next_y] = 'K';
+                hero.setSymbol('K');
+                map[nextX][nextY] = hero.getSymbol();
 
                 return false;
             }
 
 
-            if (map[next_x][next_y] == 'S') {
+            if (map[nextX][nextY] == 'S') {
                 for (int j = 0; j < doorNumber; ++j) {
                     doors[j].draw(map);
                 }
 
                 map[hero.getX()][hero.getY()] = ' ';
 
-                hero.setX(next_x);
-                hero.setY(next_y);
+                hero.setX(nextX);
+                hero.setY(nextY);
 
-                map[next_x][next_y] = 'K';
+                map[nextX][nextY] = hero.getSymbol();
 
                 for (int i = 0; i < ogreNumber; ++i) {
                     ogres[i].draw(map);
@@ -298,16 +292,16 @@ public class Level {
             }
 
 
-            if (map[next_x][next_y] == 'I') {
+            if (map[nextX][nextY] == 'I') {
                 if(key.check()){
                     for (int j = 0; j < doorNumber; ++j) {
-                        if (doors[j].getX() == next_x && doors[j].getY() == next_y) {
+                        if (doors[j].getX() == nextX && doors[j].getY() == nextY) {
                             doors[j].open();
                         }
                         doors[j].draw(map);
                     }
-                    key.use();
-                    map[hero.getX()][hero.getY()] = 'H';
+                    hero.setSymbol('H');
+                    map[hero.getX()][hero.getY()] = hero.getSymbol();
                 }
                 return false;
             }

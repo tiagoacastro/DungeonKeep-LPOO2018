@@ -8,9 +8,9 @@ public class GameObject {
     GameObject() {
     }
 
-    GameObject(int xcoord, int ycoord) {
-        x = xcoord;
-        y = ycoord;
+    GameObject(int xCoord, int yCoord) {
+        x = xCoord;
+        y = yCoord;
     }
 
     public int getX() {
@@ -21,12 +21,12 @@ public class GameObject {
         return y;
     }
 
-    public void setX(int xcoord) {
-        x = xcoord;
+    public void setX(int xCoord) {
+        x = xCoord;
     }
 
-    public void setY(int ycoord) {
-        y = ycoord;
+    public void setY(int yCoord) {
+        y = yCoord;
     }
 
 }

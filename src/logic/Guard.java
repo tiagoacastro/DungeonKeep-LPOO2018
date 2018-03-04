@@ -1,45 +1,25 @@
 package logic;
 
-public class Guard extends GameCharacter {
+import java.util.Vector;
 
-    private char path[];
-    private int mov;
+public abstract class Guard extends GameCharacter {
+
+    protected Vector<Character> path = new Vector<Character>();
+    protected int mov;
+    protected char symbol;
 
     //constructor
-    public Guard(int xcoord, int ycoord, char[] p) {
-        x = xcoord;
-        y = ycoord;
-        path = p;
+    public Guard(int xCoord, int yCoord, Vector<Character> p) {
+        super(xCoord, yCoord);
         mov = 0;
+        path = p;
+        symbol = 'G';
     }
 
-    public void draw(Character[][] map){
-        switch (path[mov]) {
-            case 'u':
-                move(map, x - 1, y);
-                break;
-            case 'l':
-                move(map, x, y - 1);
-                break;
-            case 'd':
-                move(map, x + 1, y);
-                break;
-            case 'r':
-                move(map, x, y + 1);
-                break;
-        }
-        mov = mov + 1;
-        if (mov == 24)
-            mov = 0;
-    }
+    public char getSymbol() {
+        return symbol;
+    };
 
-    private void move(Character[][] map,int next_x, int next_y) {
-        if (map[next_x][next_y] == ' ') {
-            map[x][y] = ' ';
-            map[next_x][next_y] = 'G';
-            x = next_x;
-            y = next_y;
-        }
-    }
+    abstract void draw(Character[][] map);
 }
 

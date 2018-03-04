@@ -4,6 +4,10 @@ import logic.*;
 
 import java.io.*;
 
+import java.util.Vector;
+
+import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -29,15 +33,15 @@ public class UserInterface {
             };
 
             Hero h = new Hero(1, 1);
-            map1[h.getX()][h.getY()] = 'H';
+            map1[h.getX()][h.getY()] = h.getSymbol();
 
             levels[0] = new Level(map1, h, 0);
             level++;
 
-            //map = maps[0];
-            Guard g = new Guard(1, 8, new char[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'});
+            Character[] route = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
+            Guard g = new DrunkenGuard(1, 8, new Vector<Character>(Arrays.asList(route)));
             levels[0].addGuard(g);
-            map1[g.getX()][g.getY()] = 'G';
+            map1[g.getX()][g.getY()] = g.getSymbol();
 
             Door d1 = new Door(5, 0);
             levels[0].addDoor(d1);
@@ -63,7 +67,7 @@ public class UserInterface {
             };
 
             Hero h2 = new Hero(7, 1);
-            map2[h2.getX()][h2.getY()] = 'H';
+            map2[h2.getX()][h2.getY()] = h2.getSymbol();
 
             levels[1] = new Level(map2, h2, 1);
             level++;
@@ -78,13 +82,13 @@ public class UserInterface {
 
             Ogre o = new Ogre(1, 4, 1, 3);
             levels[1].addOgre(o);
-            map2[o.getX()][o.getY()] = '0';
-            map2[o.getClubX()][o.getClubY()] = '*';
+            map2[o.getX()][o.getY()] = o.getSymbol();
+            map2[o.getClubX()][o.getClubY()] = o.getClubSymbol();
 
             for (int i = 0; i < level; ++i) {
-                print_map(levels[i].getType(), levels[i].getMap());
+                printMap(levels[i].getType(), levels[i].getMap());
 
-                if (!levels[i].user_move())
+                if (!levels[i].userMove())
                     break;
             }
         }
@@ -94,7 +98,7 @@ public class UserInterface {
             UP, LEFT, DOWN, RIGHT, NONE
         }
 
-        public static Direction user_input() {
+        public static Direction userInput() {
 
             char input;
             String s;
@@ -129,7 +133,7 @@ public class UserInterface {
             }
         }
 
-        public static void print_map(int type, Character[][] map) {
+        public static void printMap(int type, Character[][] map) {
 
             //Printing the map
             if (type == 0)

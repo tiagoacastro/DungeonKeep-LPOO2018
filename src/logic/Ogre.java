@@ -5,13 +5,16 @@ public class Ogre extends GameCharacter {
 
     private int xClub;
     private int yClub;
+    private char symbol;
+    private char clubSymbol;
 
     //constructor
-    public Ogre(int xcoord, int ycoord, int xClubCoord, int yClubCoord) {
-        x = xcoord;
-        y = ycoord;
+    public Ogre(int xCoord, int yCoord, int xClubCoord, int yClubCoord) {
+        super(xCoord, yCoord);
         xClub = xClubCoord;
         yClub = yClubCoord;
+        symbol = '0';
+        clubSymbol = '*';
     }
 
     public int getClubX() {
@@ -20,6 +23,14 @@ public class Ogre extends GameCharacter {
 
     public int getClubY() {
         return yClub;
+    }
+
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public char getClubSymbol() {
+        return clubSymbol;
     }
 
     void draw(Character[][] map){
@@ -49,7 +60,8 @@ public class Ogre extends GameCharacter {
             x=next_x;
             y=next_y;
             drawClub(map);
-            map[next_x][next_y] = '0';
+            symbol = '0';
+            map[next_x][next_y] = symbol;
         }
 
         if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
@@ -57,7 +69,8 @@ public class Ogre extends GameCharacter {
             x=next_x;
             y=next_y;
             drawClub(map);
-            map[next_x][next_y] = '$';
+            symbol = '$';
+            map[next_x][next_y] = symbol;
         }
 
         if (map[next_x][next_y] == 'X') {
@@ -89,14 +102,16 @@ public class Ogre extends GameCharacter {
     private void clubMove(Character[][] map, int next_x, int next_y) {
         if (map[next_x][next_y] == ' ') {
             map[xClub][yClub] = ' ';
-            map[next_x][next_y] = '*';
+            clubSymbol = '*';
+            map[next_x][next_y] = clubSymbol;
             xClub=next_x;
             yClub=next_y;
         }
 
         if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
             map[xClub][yClub] = ' ';
-            map[next_x][next_y] = '$';
+            clubSymbol = '$';
+            map[next_x][next_y] = clubSymbol;
             xClub=next_x;
             yClub=next_y;
         }

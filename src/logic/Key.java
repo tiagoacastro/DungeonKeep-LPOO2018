@@ -4,9 +4,8 @@ public class Key extends GameObject {
 
     private boolean grabbed;
 
-    public Key (int xcoord, int ycoord){
-        x = xcoord;
-        y = ycoord;
+    public Key (int xCoord, int yCoord){
+        super(xCoord, yCoord);
         grabbed = false;
     }
 
@@ -22,8 +21,4 @@ public class Key extends GameObject {
     public void grab(){
         grabbed = true;
     }
-
-    public void use() {
-        grabbed = false;
-    };
 }
