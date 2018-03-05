@@ -1,14 +1,14 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 public class DrunkenGuard extends Guard{
 
     private boolean sleeping;
     private boolean way;
 
-    public DrunkenGuard(int xCoord, int yCoord, Vector<Character> p) {
+    public DrunkenGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
         sleeping = false;
         way = true;

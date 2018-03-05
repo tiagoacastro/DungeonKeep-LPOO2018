@@ -7,6 +7,8 @@ public class Ogre extends GameCharacter {
     private int yClub;
     private char symbol;
     private char clubSymbol;
+    private boolean stunned;
+    private int stunTimer;
 
     //constructor
     public Ogre(int xCoord, int yCoord, int xClubCoord, int yClubCoord) {
@@ -15,6 +17,8 @@ public class Ogre extends GameCharacter {
         yClub = yClubCoord;
         symbol = '0';
         clubSymbol = '*';
+        stunned = false;
+        stunTimer = 0;
     }
 
     public int getClubX() {
@@ -33,24 +37,45 @@ public class Ogre extends GameCharacter {
         return clubSymbol;
     }
 
-    void draw(Character[][] map){
-        Random rand = new Random();
-        int n = 4;
-        int randnum = rand.nextInt(n);
+    public void stun(Character[][] map){
+        stunned = true;
+        stunTimer = 0;
+        symbol = '8';
+        map[x][y] = symbol;
+    }
 
-        switch(randnum){
-            case 0:
-                move(map, x+1, y);
-                break;
-            case 1:
-                move(map, x, y+1);
-                break;
-            case 2:
-                move(map, x-1, y);
-                break;
-            case 3:
-                move(map, x, y-1);
-                break;
+    public void draw(Character[][] map){
+        if(!stunned) {
+            Random rand = new Random();
+            int n = 4;
+            int randnum = rand.nextInt(n);
+
+            switch (randnum) {
+                case 0:
+                    move(map, x + 1, y);
+                    break;
+                case 1:
+                    move(map, x, y + 1);
+                    break;
+                case 2:
+                    move(map, x - 1, y);
+                    break;
+                case 3:
+                    move(map, x, y - 1);
+                    break;
+            }
+        } else {
+            drawClub(map);
+            switch (stunTimer){
+                case 0:
+                    stunTimer++;
+                    break;
+                case 1:
+                    stunTimer = 0;
+                    stunned = false;
+                    symbol = '0';
+                    break;
+            }
         }
     }
 

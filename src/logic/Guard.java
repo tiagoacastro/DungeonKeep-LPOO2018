@@ -1,15 +1,15 @@
 package logic;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public abstract class Guard extends GameCharacter {
 
-    protected Vector<Character> path = new Vector<Character>();
+    protected ArrayList<Character> path = new ArrayList<Character>();
     protected int mov;
     protected char symbol;
 
     //constructor
-    public Guard(int xCoord, int yCoord, Vector<Character> p) {
+    public Guard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord);
         mov = 0;
         path = p;

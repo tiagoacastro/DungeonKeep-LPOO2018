@@ -1,10 +1,10 @@
 package logic;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class RookieGuard extends Guard{
 
-    public RookieGuard(int xCoord, int yCoord, Vector<Character> p) {
+    public RookieGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
     }
 

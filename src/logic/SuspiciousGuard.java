@@ -1,14 +1,13 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import java.util.Vector;
 
 public class SuspiciousGuard extends Guard{
 
     private boolean way;
 
-    public SuspiciousGuard(int xCoord, int yCoord, Vector<Character> p) {
+    public SuspiciousGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
         way = true;
     }
