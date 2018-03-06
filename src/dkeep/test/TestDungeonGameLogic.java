@@ -10,7 +10,12 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testMoveHeroIntoToFreeCell(){
+    Game newGame = new Game();
+    assertEquals(1, newGame.getLevels().get(0).getHero().getX());
+    assertEquals(1, newGame.getLevels().get(0).getHero().getY());
 
+    newGame.start();
+    newGame.userMove();
 
 
     }

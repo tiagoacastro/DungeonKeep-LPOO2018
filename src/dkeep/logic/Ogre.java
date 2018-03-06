@@ -81,21 +81,17 @@ public class Ogre extends GameCharacter {
 
     private void move(Character[][] map, int next_x, int next_y) {
         if (map[next_x][next_y] == ' ' || map[next_x][next_y] == '*') {
-            map[x][y] = ' ';
             x=next_x;
             y=next_y;
             drawClub(map);
             symbol = '0';
-            map[next_x][next_y] = symbol;
         }
 
         if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
-            map[x][y] = ' ';
             x=next_x;
             y=next_y;
             drawClub(map);
             symbol = '$';
-            map[next_x][next_y] = symbol;
         }
 
         if (map[next_x][next_y] == 'X') {
@@ -126,17 +122,13 @@ public class Ogre extends GameCharacter {
 
     private void clubMove(Character[][] map, int next_x, int next_y) {
         if (map[next_x][next_y] == ' ') {
-            map[xClub][yClub] = ' ';
             clubSymbol = '*';
-            map[next_x][next_y] = clubSymbol;
             xClub=next_x;
             yClub=next_y;
         }
 
         if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
-            map[xClub][yClub] = ' ';
             clubSymbol = '$';
-            map[next_x][next_y] = clubSymbol;
             xClub=next_x;
             yClub=next_y;
         }

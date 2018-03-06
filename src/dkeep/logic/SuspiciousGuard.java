@@ -73,8 +73,6 @@ public class SuspiciousGuard extends Guard{
 
     private void move(Character[][] map,int nextX, int nextY) {
         if (map[nextX][nextY] == ' ') {
-            map[x][y] = ' ';
-            map[nextX][nextY] = symbol;
             x = nextX;
             y = nextY;
         }

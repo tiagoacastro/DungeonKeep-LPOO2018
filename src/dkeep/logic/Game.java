@@ -88,7 +88,9 @@ public class Game {
         level++;
     }
 
-    private boolean userMove() {
+    public boolean userMove() {
         return levels.get(level).userMove();
     }
+
+    public ArrayList<Level> getLevels() { return levels;}
 }
