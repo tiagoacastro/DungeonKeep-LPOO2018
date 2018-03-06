@@ -62,10 +62,10 @@ public class Level {
 
     public boolean userMove() {
 
-        UserInterface.Game.Direction input;
+        UserInterface.Direction input;
         do {
 
-            input = UserInterface.Game.userInput();
+            input = UserInterface.userInput();
 
             switch (input) {
 
@@ -100,13 +100,13 @@ public class Level {
             if(hero.getX() != 0 && hero.getY() != 0){
                 if(type==0){
                     if ((map[hero.getX() + 1][hero.getY()] == 'G') || (map[hero.getX() - 1][hero.getY()] == 'G') || (map[hero.getX()][hero.getY() +1] == 'G') || (map[hero.getX()][hero.getY()-1]== 'G')) {
-                        UserInterface.Game.printMap(map);
+                        UserInterface.printMap(map);
                         System.out.println("The guard has restrained you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < guards.size(); ++i) {
                         if(guards.get(i).getX() == hero.getX() && guards.get(i).getY() == hero.getY()){
-                            UserInterface.Game.printMap(map);
+                            UserInterface.printMap(map);
                             System.out.println("The guard has restrained you, you LOST ! :( ");
                             return false;
                         }
@@ -118,13 +118,13 @@ public class Level {
                                 o.stun(map);
                     }
                     if ((map[hero.getX() + 1][hero.getY()] == '*') || (map[hero.getX() - 1][hero.getY()] == '*') || (map[hero.getX()][hero.getY() +1] == '*') || (map[hero.getX()][hero.getY()-1]== '*')) {
-                        UserInterface.Game.printMap(map);
+                        UserInterface.printMap(map);
                         System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                         return false;
                     }
                     for (int i = 0; i < ogres.size(); ++i) {
                         if(ogres.get(i).getClubX() == hero.getX() && ogres.get(i).getClubY() == hero.getY()){
-                            UserInterface.Game.printMap(map);
+                            UserInterface.printMap(map);
                             System.out.println("The ogre has slaughtered you, you LOST ! :( ");
                             return false;
                         }
@@ -132,7 +132,7 @@ public class Level {
                 }
             }
 
-            UserInterface.Game.printMap(map);
+            UserInterface.printMap(map);
 
         } while (true);
     }
