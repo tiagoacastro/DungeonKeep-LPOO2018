@@ -1,4 +1,4 @@
-package logic;
+package dkeep.logic;
 
 public class Lever extends GameObject {
 
