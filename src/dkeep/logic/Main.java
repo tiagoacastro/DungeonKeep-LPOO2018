@@ -1,6 +1,6 @@
-package logic;
+package dkeep.logic;
 
-import cli.UserInterface;
+import dkeep.cli.UserInterface;
 
 import java.util.ArrayList;
 

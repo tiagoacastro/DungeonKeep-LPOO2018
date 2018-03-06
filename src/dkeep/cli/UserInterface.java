@@ -1,4 +1,4 @@
-package cli;
+package dkeep.cli;
 
 import java.util.Scanner;
 
