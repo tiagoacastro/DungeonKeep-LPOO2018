@@ -1,17 +1,17 @@
 package dkeep.logic;
 
-public class Hero extends GameCharacter {
+public class Hero {
 
     private char symbol;
     private boolean armed;
+    private int x;
+    private int y;
 
     public Hero(int xCoord, int yCoord) {
-        super(xCoord, yCoord);
-        symbol = 'H';
-    }
+        x=xCoord;
+        y=yCoord;
 
-    public char getSymbol() {
-        return symbol;
+        symbol = 'H';
     }
 
     public void setSymbol(char s) { symbol = s; }
@@ -23,6 +23,28 @@ public class Hero extends GameCharacter {
 
     public boolean armed(){
         return armed;
+    }
+
+    public void grabsKey() {symbol = 'K';}
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
     }
 }
 

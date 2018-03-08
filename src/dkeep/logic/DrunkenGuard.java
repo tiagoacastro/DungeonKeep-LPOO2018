@@ -14,7 +14,11 @@ public class DrunkenGuard extends Guard{
         way = true;
     }
 
-    public void draw(Character[][] map){
+    public boolean sleeping(){
+        return sleeping;
+    }
+
+    public void update(Character[][] map){
         Random rand = new Random();
         int n = 5;
         int randnum = rand.nextInt(n);
@@ -22,7 +26,7 @@ public class DrunkenGuard extends Guard{
         switch(randnum){
             case 0:
                 if(!sleeping)
-                    sleep(map);
+                    sleep();
                 break;
             default:
                 if(sleeping)
@@ -75,10 +79,9 @@ public class DrunkenGuard extends Guard{
         }
     }
 
-    private void sleep(Character[][] map){
+    private void sleep(){
         sleeping = true;
         symbol = 'g';
-        map[x][y] = symbol;
     }
 
     private void wake(){
@@ -105,5 +108,9 @@ public class DrunkenGuard extends Guard{
         }
         sleeping = false;
         symbol = 'G';
+    }
+
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
     }
 }

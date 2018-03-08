@@ -3,7 +3,7 @@ package dkeep.logic;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GameCharacter {
+public abstract class GameCharacter {
     protected int x;
     protected int y;
 
@@ -32,4 +32,8 @@ public class GameCharacter {
     public void setY(int yCoord) {
         y = yCoord;
     }
+
+    public abstract void update(Character[][] map);
+
+    public abstract void draw(Character[][] map);
 }

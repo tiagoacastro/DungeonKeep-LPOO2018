@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class GameObject {
+public abstract class GameObject {
 
     protected int x;
     protected int y;
@@ -29,4 +29,5 @@ public class GameObject {
         y = yCoord;
     }
 
+    public abstract void draw(Character[][] map);
 }

@@ -8,7 +8,7 @@ public class RookieGuard extends Guard{
         super(xCoord, yCoord, p);
     }
 
-    public void draw(Character[][] map){
+    public void update(Character[][] map){
         switch (path.get(mov)) {
             case 'u':
                 move(map, x - 1, y);
@@ -33,5 +33,9 @@ public class RookieGuard extends Guard{
             x = nextX;
             y = nextY;
         }
+    }
+
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
     }
 }

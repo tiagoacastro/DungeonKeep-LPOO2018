@@ -7,7 +7,7 @@ import org.junit.Test;
 import dkeep.logic.*;
 
 public class TestDungeonGameLogic {
-
+/*
     @Test
     public void testMoveHeroIntoToFreeCell(){
     Game newGame = new Game();
@@ -24,4 +24,5 @@ public class TestDungeonGameLogic {
     public void testHeroIsCapturedByGuard() {
 
     }
+    */
 }

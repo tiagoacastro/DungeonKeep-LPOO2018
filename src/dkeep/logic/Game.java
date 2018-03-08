@@ -28,7 +28,7 @@ public class Game {
 
         Hero h = new Hero(1, 1);
 
-        levels.add(new Level(map1, h, 0));
+        levels.add(new Level(map1, h));
 
         Character[] route = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
         Guard g = new DrunkenGuard(1, 8, new ArrayList<Character>(Arrays.asList(route)));
@@ -57,7 +57,7 @@ public class Game {
         Hero h2 = new Hero(7, 1);
         h2.arm();
 
-        levels.add(new Level(map2, h2, 1));
+        levels.add(new Level(map2, h2));
 
         Door d3 = new Door(1, 0);
         levels.get(1).addDoor(d3);
@@ -73,12 +73,41 @@ public class Game {
 
     }
 
-    public void start(){
-        for (Level lvl : levels) {
-            UserInterface.printMap(lvl.getMap());
+    public enum levelState {
+        WIN, LOSE, NONE
+    }
 
-            if (!userMove())
-                break;
+    public void start(){
+        UserInterface.Direction input;
+        boolean stop;
+        boolean lose;
+
+        for (Level lvl : levels) {
+            lvl.draw();
+
+            stop = false;
+            lose = false;
+
+            while (true){
+                input = UserInterface.userInput();
+                switch (userMove(input)) {
+                    case WIN:
+                        stop = true;
+                        break;
+                    case LOSE:
+                        stop = true;
+                        lose = true;
+                        break;
+                    case NONE:
+                        break;
+                }
+
+                if(stop)
+                    break;
+            }
+
+            if(lose)
+                return;
 
             incLevel();
         }
@@ -88,8 +117,8 @@ public class Game {
         level++;
     }
 
-    public boolean userMove() {
-        return levels.get(level).userMove();
+    public levelState userMove(UserInterface.Direction input) {
+        return levels.get(level).userMove(input);
     }
 
     public ArrayList<Level> getLevels() { return levels;}

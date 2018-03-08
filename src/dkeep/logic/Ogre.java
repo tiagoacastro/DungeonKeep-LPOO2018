@@ -44,7 +44,7 @@ public class Ogre extends GameCharacter {
         map[x][y] = symbol;
     }
 
-    public void draw(Character[][] map){
+    public void update(Character[][] map){
         if(!stunned) {
             Random rand = new Random();
             int n = 4;
@@ -65,7 +65,7 @@ public class Ogre extends GameCharacter {
                     break;
             }
         } else {
-            drawClub(map);
+            updateClub(map);
             switch (stunTimer){
                 case 0:
                     stunTimer++;
@@ -83,23 +83,23 @@ public class Ogre extends GameCharacter {
         if (map[next_x][next_y] == ' ' || map[next_x][next_y] == '*') {
             x=next_x;
             y=next_y;
-            drawClub(map);
+            updateClub(map);
             symbol = '0';
         }
 
-        if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
+        if (map[next_x][next_y] == 'k') {
             x=next_x;
             y=next_y;
-            drawClub(map);
+            update(map);
             symbol = '$';
         }
 
         if (map[next_x][next_y] == 'X') {
-            draw(map);
+            update(map);
         }
     }
 
-    private void drawClub (Character[][] map){
+    private void updateClub (Character[][] map){
         Random rand = new Random();
         int n = 4;
         int randnum = rand.nextInt(n);
@@ -127,14 +127,19 @@ public class Ogre extends GameCharacter {
             yClub=next_y;
         }
 
-        if (map[next_x][next_y] == 'k' || map[next_x][next_y] == '$') {
+        if (map[next_x][next_y] == 'k') {
             clubSymbol = '$';
             xClub=next_x;
             yClub=next_y;
         }
 
         if (map[next_x][next_y] == 'X') {
-            drawClub(map);
+            updateClub(map);
         }
+    }
+
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
+        map[xClub][yClub] = clubSymbol;
     }
 }

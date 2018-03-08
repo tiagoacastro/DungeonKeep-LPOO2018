@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
-//TODO: Arranjar colisoes, meter ogres a dar overlap bem (primeiro desenhar unmovables, depois movables no fim)
+//TODO meter drunken a dormir mais que uma ronda, arranjar desenho com ogres, key e colisao
 
 public class Main {
 

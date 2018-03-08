@@ -20,6 +20,9 @@ public abstract class Guard extends GameCharacter {
         return symbol;
     };
 
-    abstract void draw(Character[][] map);
+    public abstract void update(Character[][] map);
+
+    public abstract void draw(Character[][] map);
+
 }
 

@@ -12,7 +12,7 @@ public class SuspiciousGuard extends Guard{
         way = true;
     }
 
-    public void draw(Character[][] map){
+    public void update(Character[][] map){
         Random rand = new Random();
         int n = 10;
         int randnum = rand.nextInt(n);
@@ -76,6 +76,10 @@ public class SuspiciousGuard extends Guard{
             x = nextX;
             y = nextY;
         }
+    }
+
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
     }
 }
 
