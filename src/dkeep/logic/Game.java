@@ -31,7 +31,7 @@ public class Game {
         levels.add(new Level(map1, h));
 
         Character[] route = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
-        Guard g = new DrunkenGuard(1, 8, new ArrayList<Character>(Arrays.asList(route)));
+        Guard g = new RookieGuard(1, 8, new ArrayList<Character>(Arrays.asList(route)));
         levels.get(0).addGuard(g);
 
         Door d1 = new Door(5, 0);
@@ -69,7 +69,7 @@ public class Game {
         levels.get(1).addOgre(o);
 
         Ogre o2 = new Ogre(3, 6, 3, 5);
-        levels.get(1).addOgre(o2);
+        //levels.get(1).addOgre(o2);
 
     }
 

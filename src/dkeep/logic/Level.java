@@ -11,6 +11,7 @@ public class Level {
     private ArrayList<GameCharacter> chars = new ArrayList<GameCharacter>();
     private ArrayList<Door> doors = new ArrayList<Door>();
     private GameObject object;
+    private boolean moved;
 
     public Level(Character[][] m, Hero h) {
         lvlMap = m;
@@ -47,48 +48,51 @@ public class Level {
 
             drawImovable(map);
 
+            moved = false;
+
             switch (input) {
 
                 case UP:
                     if( heroMove(map,hero.getX()-1,hero.getY()) ) {
-                        System.out.println("You won the game! Congrats ");
+                        win(map);
                         return Game.levelState.WIN;
                     }
                     break;
                 case LEFT:
                     if( heroMove(map, hero.getX(),hero.getY()-1) ) {
-                        System.out.println("You won the game! Congrats ");
+                        win(map);
                         return Game.levelState.WIN;
                     }
                     break;
                 case DOWN:
                     if( heroMove(map, hero.getX()+1,hero.getY()) ) {
-                        System.out.println("You won the game! Congrats ");
+                        win(map);
                         return Game.levelState.WIN;
                     }
                     break;
                 case RIGHT:
                     if( heroMove(map, hero.getX(),hero.getY()+1) ) {
-                        System.out.println("You won the game! Congrats ");
+                        win(map);
                         return Game.levelState.WIN;
                     }
                     break;
             }
 
+            if(moved)
             for(GameCharacter c : chars)
                 c.update(map);
-
-            drawMovable(map);
 
             if(hero.getX() != 0 && hero.getY() != 0){
                 for(int i = 0; i < chars.size() ; i++)
                     if (checkCollision(map, hero, chars.get(i))) {
+                        drawMovable(map);
                         UserInterface.printMap(map);
                         System.out.println("The villain has restrained you, you LOST ! :( ");
                         return Game.levelState.LOSE;
                     }
                 for (int i = 0; i < chars.size(); ++i) {
                     if(chars.get(i).getX() == hero.getX() && chars.get(i).getY() == hero.getY()){
+                        drawMovable(map);
                         UserInterface.printMap(map);
                         System.out.println("The villain has restrained you, you LOST ! :( ");
                         return Game.levelState.LOSE;
@@ -96,9 +100,20 @@ public class Level {
                 }
             }
 
+            drawMovable(map);
+
             UserInterface.printMap(map);
 
             return Game.levelState.NONE;
+    }
+
+    private void win(Character map[][]){
+        if(moved)
+            for(GameCharacter c : chars)
+                c.update(map);
+        drawMovable(map);
+        UserInterface.printMap(map);
+        System.out.println("You won the game! Congrats ");
     }
 
     public boolean checkCollision(Character[][] map, Hero h, GameCharacter v){
@@ -108,9 +123,9 @@ public class Level {
             if(h.armed() && heroAndVillain) {
                 ((Ogre) v).stun(map);
             }
-            boolean heroAndClub = ((h.getX() == ((Ogre) v).getClubX() && h.getY() == ((Ogre) v).getClubY() ) || (h.getX() == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()));
+            boolean heroAndClub = ((h.getX() == ((Ogre) v).getClubX() && h.getY() == ((Ogre) v).getClubY() ) || (h.getX()+1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX()-1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()+1 == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()-1 == ((Ogre) v).getClubY()));
 
-            return heroAndClub || heroAndVillain;
+            return heroAndClub;
         }
         if (v instanceof DrunkenGuard) {
             if(((DrunkenGuard) v).sleeping())
@@ -125,6 +140,8 @@ public class Level {
                 hero.setX(nextX);
                 hero.setY(nextY);
 
+                moved = true;
+
                 return false;
             }
 
@@ -135,13 +152,15 @@ public class Level {
 
                 if (object instanceof Lever)
                     for (Door d : doors) {
-                        d.open();
+                        d.open(map);
                      }
 
                 if (object instanceof Key) {
                     ((Key) object).grab();
                     hero.grabsKey();
                 }
+
+                moved = true;
 
                 return false;
             }
@@ -152,6 +171,8 @@ public class Level {
                 hero.setX(nextX);
                 hero.setY(nextY);
 
+                moved = true;
+
                 return true;
             }
 
@@ -160,13 +181,16 @@ public class Level {
                     if (((Key)object).check()) {
                         for (Door d : doors) {
                             if (d.getX() == nextX && d.getY() == nextY) {
-                                d.open();
+                                d.open(map);
                             }
                         }
+
                         if (hero.armed())
                             hero.setSymbol('A');
                         else
                             hero.setSymbol('H');
+
+                        moved = true;
                     }
                 return false;
             }
@@ -203,6 +227,10 @@ public class Level {
     private void drawMovable(Character[][] map){
         hero.draw(map);
 
+        for(GameCharacter c : chars)
+            if(c instanceof Ogre) {
+                ((Ogre)c).drawClub(map);
+            }
         for(GameCharacter c : chars)
             c.draw(map);
     }

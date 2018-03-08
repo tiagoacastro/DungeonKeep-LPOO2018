@@ -29,19 +29,10 @@ public class Ogre extends GameCharacter {
         return yClub;
     }
 
-    public char getSymbol() {
-        return symbol;
-    }
-
-    public char getClubSymbol() {
-        return clubSymbol;
-    }
-
     public void stun(Character[][] map){
         stunned = true;
         stunTimer = 0;
         symbol = '8';
-        map[x][y] = symbol;
     }
 
     public void update(Character[][] map){
@@ -90,7 +81,7 @@ public class Ogre extends GameCharacter {
         if (map[next_x][next_y] == 'k') {
             x=next_x;
             y=next_y;
-            update(map);
+            updateClub(map);
             symbol = '$';
         }
 
@@ -140,6 +131,9 @@ public class Ogre extends GameCharacter {
 
     public void draw(Character[][] map){
         map[x][y] = symbol;
+    }
+
+    public void drawClub(Character[][] map){
         map[xClub][yClub] = clubSymbol;
     }
 }

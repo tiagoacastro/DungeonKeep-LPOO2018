@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
-//TODO meter drunken a dormir mais que uma ronda, arranjar desenho com ogres, key e colisao
+//TODO meter drunken a dormir mais que uma ronda, arranjar esparguete dos guards, organizar funçoes
 
 public class Main {
 
