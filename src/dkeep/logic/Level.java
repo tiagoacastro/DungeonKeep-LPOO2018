@@ -12,10 +12,15 @@ public class Level {
     private ArrayList<Door> doors = new ArrayList<Door>();
     private GameObject object;
     private boolean moved;
+    private boolean frozenLevel;
 
     public Level(Character[][] m, Hero h) {
         lvlMap = m;
         hero = h;
+    }
+
+    public Level(Character[][]m){
+        lvlMap = m;
     }
 
     public void addGuard(Guard g) {
@@ -38,8 +43,28 @@ public class Level {
         chars.add(o);
     }
 
+    public void freezeLevel() {
+        frozenLevel = true;
+    }
+
     public Character[][] getMap() {
         return lvlMap;
+    }
+
+    public ArrayList<Door> getDoors() {
+        return doors;
+    }
+
+    public ArrayList<GameCharacter> getChars() {
+        return chars;
+    }
+
+    public void setMap(Character [][] map) {
+        this.lvlMap = map;
+    }
+
+    public Hero getHero() {
+        return hero;
     }
 
     public Game.levelState userMove(UserInterface.Direction input) {
@@ -78,9 +103,12 @@ public class Level {
                     break;
             }
 
-            if(moved)
-            for(GameCharacter c : chars)
-                c.update(map);
+            if (!frozenLevel) {
+                if (moved)
+                    for (GameCharacter c : chars)
+                        c.update(map);
+            }
+
 
             if(hero.getX() != 0 && hero.getY() != 0){
                 for(int i = 0; i < chars.size() ; i++)

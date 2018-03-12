@@ -46,5 +46,9 @@ public class Hero {
     public void draw(Character[][] map){
         map[x][y] = symbol;
     }
+
+    public char getSymbol() {
+        return this.symbol;
+    }
 }
 

@@ -25,6 +25,14 @@ public abstract class GameCharacter {
         return y;
     }
 
+    public int getxClub() {
+        return 0;
+    }
+
+    public int getyClub() {
+        return 0;
+    }
+
     public void setX(int xCoord) {
         x = xCoord;
     }
