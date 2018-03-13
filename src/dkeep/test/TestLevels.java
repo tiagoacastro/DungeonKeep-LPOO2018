@@ -7,12 +7,6 @@ import java.util.Arrays;
 
 public class TestLevels {
 
-    public void loadTestLevels(Game g) {
-        loadTestLevel1(g);
-
-        loadTestLevel2(g);
-    }
-
     public void loadTestLevel1(Game g){
         Character[][] map = new Character[][]{
                 {'X', 'X', 'X', 'X', 'X'},
@@ -53,10 +47,13 @@ public class TestLevels {
         };
 
 
-        Level l2 = (new Level(map2));
+        Hero h2 = new Hero(7, 1);
+        h2.arm();
 
-        Door d3 = new Door(1, 0);
-        l2.addDoor(d3);
+        Level l2 = (new Level(map2, h2));
+
+        Door d2 = new Door(1, 0);
+        l2.addDoor(d2);
 
         Key k = new Key(1, 7);
         l2.addKey(k);
@@ -65,5 +62,32 @@ public class TestLevels {
         l2.addOgre(o);
 
         g.loadLevel(l2);
+    }
+
+    public void loadTestLevel3(Game g){
+        Character[][] map3 = new Character[][]{
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+        };
+
+        Level l3 = new Level(map3);
+
+        Door d3 = new Door(1, 0);
+        l3.addDoor(d3);
+
+        Key k = new Key(1, 7);
+        l3.addKey(k);
+
+        Ogre o = new Ogre(1, 4, 1, 3);
+        l3.addOgre(o);
+
+        g.loadLevel(l3);
     }
 }

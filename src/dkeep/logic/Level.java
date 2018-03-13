@@ -245,7 +245,7 @@ public class Level {
         return map;
     }
 
-    private void drawImovable(Character[][] map){
+    public void drawImovable(Character[][] map){
         object.draw(map);
 
         for(Door d : doors)

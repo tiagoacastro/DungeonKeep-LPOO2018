@@ -14,9 +14,8 @@ public class TestKeepGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel2(newGame);
 
-        newGame.incLevel();
         newGame.getLevel().freezeLevel();
 
         assertFalse(newGame.isGameOver());
@@ -40,9 +39,8 @@ public class TestKeepGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel2(newGame);
 
-        newGame.incLevel();
         newGame.getLevel().freezeLevel();
 
         newGame.userMove(UserInterface.Direction.RIGHT);
@@ -69,9 +67,8 @@ public class TestKeepGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel2(newGame);
 
-        newGame.incLevel();
         newGame.getLevel().freezeLevel();
 
         newGame.userMove(UserInterface.Direction.UP);
@@ -95,9 +92,8 @@ public class TestKeepGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel2(newGame);
 
-        newGame.incLevel();
         newGame.getLevel().freezeLevel();
 
         newGame.userMove(UserInterface.Direction.RIGHT);
@@ -139,9 +135,8 @@ public class TestKeepGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel2(newGame);
 
-        newGame.incLevel();
         newGame.getLevel().freezeLevel();
 
         newGame.userMove(UserInterface.Direction.RIGHT);

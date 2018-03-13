@@ -150,6 +150,8 @@ public class Game {
              levelState = levelState.LOSE;
          } else if (lvlState == levelState.WIN){
              levelState = levelState.WIN;
+             if (level == levels.size() -1)
+                 state = gameState.WIN;
          } else  levelState = levelState.NONE;
     }
 

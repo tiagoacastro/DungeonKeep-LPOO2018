@@ -19,9 +19,7 @@ public class TestRandomBehaviour extends TestLevels {
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
-
-        newGame.incLevel();
+        loadTestLevel3(newGame);
 
         int oX = newGame.getLevel().getChars().get(0).getX();
         int oY = newGame.getLevel().getChars().get(0).getX();
@@ -35,6 +33,7 @@ public class TestRandomBehaviour extends TestLevels {
 
             while (!OgreUpClubUp || !OgreUpClubLeft || !OgreUpClubDown || !OgreUpClubRight || !OgreLeftClubUp || !OgreLeftClubDown || !OgreLeftClubLeft || !OgreLeftClubRight || !OgreRightClubUp || !OgreRightClubLeft || !OgreRightClubDown || !OgreRightClubRight || !OgreDownClubUp || !OgreDownClubDown || !OgreDownClubLeft || !OgreDownClubRight) {
 
+                newGame.getLevel().drawImovable(newGame.getLevel().getMap());
                 newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
 
                 nextOX = newGame.getLevel().getChars().get(0).getX();

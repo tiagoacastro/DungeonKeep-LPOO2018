@@ -14,7 +14,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
 
@@ -32,7 +32,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -49,7 +49,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
 
@@ -65,7 +65,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -87,7 +87,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -112,7 +112,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevels(newGame);
+        loadTestLevel1(newGame);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
