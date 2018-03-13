@@ -6,12 +6,10 @@ import java.util.Random;
 public class DrunkenGuard extends Guard{
 
     private boolean sleeping;
-    private boolean way;
 
     public DrunkenGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
         sleeping = false;
-        way = true;
     }
 
     public boolean sleeping(){
@@ -33,46 +31,15 @@ public class DrunkenGuard extends Guard{
                     wake();
                 break;
         }
+
         if(!sleeping) {
-            switch (path.get(mov)) {
-                case 'u':
-                    if(way)
-                        move(map, x - 1, y);
-                    else
-                        move(map, x + 1, y);
-                    break;
-                case 'l':
-                    if(way)
-                        move(map, x, y - 1);
-                    else
-                        move(map, x, y + 1);
-                    break;
-                case 'd':
-                    if(way)
-                        move(map, x + 1, y);
-                    else
-                        move(map, x - 1, y);
-                    break;
-                case 'r':
-                    if(way)
-                        move(map, x, y + 1);
-                    else
-                        move(map, x, y - 1);
-                    break;
-            }
-            if(way) {
-                mov += 1;
-                if (mov == path.size())
-                    mov = 0;
-            } else {
-                mov -= 1;
-                if (mov == -1)
-                    mov = path.size()-1;
-            }
+            bidirectionalMovement(map);
+
+            movementIncrementation();
         }
     }
 
-    private void move(Character[][] map,int nextX, int nextY) {
+    public void move(Character[][] map,int nextX, int nextY) {
         if (map[nextX][nextY] == ' ') {
             x = nextX;
             y = nextY;
@@ -89,23 +56,8 @@ public class DrunkenGuard extends Guard{
         int n = 2;
         int randnum = rand.nextInt(n);
 
-        switch(randnum){
-            case 0:
-                if(way) {
-                    mov -= 1;
-                    if (mov == -1)
-                        mov = path.size() - 1;
-                    way = false;
-                }else {
-                    mov += 1;
-                    if (mov == path.size())
-                        mov = 0;
-                    way = true;
-                }
-                break;
-            default:
-                break;
-        }
+        wayDecision(randnum);
+
         sleeping = false;
         symbol = 'G';
     }

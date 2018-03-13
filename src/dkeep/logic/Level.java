@@ -174,7 +174,7 @@ public class Level {
             }
 
 
-            if (map[nextX][nextY] == 'k') {
+            else if (map[nextX][nextY] == 'k') {
                 hero.setX(nextX);
                 hero.setY(nextY);
 
@@ -194,7 +194,7 @@ public class Level {
             }
 
 
-            if (map[nextX][nextY] == 'S') {
+            else if (map[nextX][nextY] == 'S') {
 
                 hero.setX(nextX);
                 hero.setY(nextY);
@@ -204,7 +204,7 @@ public class Level {
                 return true;
             }
 
-            if (map[nextX][nextY] == 'I') {
+            else if (map[nextX][nextY] == 'I') {
                 if (object instanceof Key)
                     if (((Key)object).check()) {
                         for (Door d : doors) {

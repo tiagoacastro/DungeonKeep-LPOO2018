@@ -28,7 +28,7 @@ public class RookieGuard extends Guard{
             mov = 0;
     }
 
-    private void move(Character[][] map,int nextX, int nextY) {
+    public void move(Character[][] map,int nextX, int nextY) {
         if (map[nextX][nextY] == ' ') {
             x = nextX;
             y = nextY;

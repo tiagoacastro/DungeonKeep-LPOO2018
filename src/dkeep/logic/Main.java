@@ -20,6 +20,10 @@ public class Main {
 
         Game game = new Game();
 
+        game.loadLevel1();
+
+        game.loadLevel2();
+
         game.start();
     }
 }

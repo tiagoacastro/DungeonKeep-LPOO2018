@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestRandomBehaviour {
+public class TestRandomBehaviour extends TestLevels {
 
     @Test(timeout = 1000)
     public void RandomBehaviour() {
@@ -18,27 +18,29 @@ public class TestRandomBehaviour {
         boolean OgreDownClubUp = false, OgreDownClubDown = false, OgreDownClubLeft = false, OgreDownClubRight = false;
 
         Game newGame = new Game();
-        newGame.testLevel();
+
+        loadTestLevels(newGame);
+
         newGame.incLevel();
 
-        int oX = newGame.getTestLevel().get(1).getChars().get(0).getX();
-        int oY = newGame.getTestLevel().get(1).getChars().get(0).getX();
+        int oX = newGame.getLevel().getChars().get(0).getX();
+        int oY = newGame.getLevel().getChars().get(0).getX();
 
-        if (newGame.getTestLevel().get(1).getChars().get(0) instanceof Ogre) {
-            int cX = ((Ogre) newGame.getTestLevel().get(1).getChars().get(0)).getClubX();
-            int cY = ((Ogre) newGame.getTestLevel().get(1).getChars().get(0)).getClubY();
+        if (newGame.getLevel().getChars().get(0) instanceof Ogre) {
+            int cX = ((Ogre) newGame.getLevel().getChars().get(0)).getClubX();
+            int cY = ((Ogre) newGame.getLevel().getChars().get(0)).getClubY();
 
             int nextOX, nextOY;
             int nextCX, nextCY;
 
             while (!OgreUpClubUp || !OgreUpClubLeft || !OgreUpClubDown || !OgreUpClubRight || !OgreLeftClubUp || !OgreLeftClubDown || !OgreLeftClubLeft || !OgreLeftClubRight || !OgreRightClubUp || !OgreRightClubLeft || !OgreRightClubDown || !OgreRightClubRight || !OgreDownClubUp || !OgreDownClubDown || !OgreDownClubLeft || !OgreDownClubRight) {
 
-                newGame.getTestLevel().get(1).getChars().get(0).update(newGame.getTestLevel().get(1).getMap());
+                newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
 
-                nextOX = newGame.getTestLevel().get(1).getChars().get(0).getX();
-                nextOY = newGame.getTestLevel().get(1).getChars().get(0).getY();
-                nextCX = ((Ogre)newGame.getTestLevel().get(1).getChars().get(0)).getClubX();
-                nextCY = ((Ogre)newGame.getTestLevel().get(1).getChars().get(0)).getClubY();
+                nextOX = newGame.getLevel().getChars().get(0).getX();
+                nextOY = newGame.getLevel().getChars().get(0).getY();
+                nextCX = ((Ogre)newGame.getLevel().getChars().get(0)).getClubX();
+                nextCY = ((Ogre)newGame.getLevel().getChars().get(0)).getClubY();
 
                 if (nextOX > oX && nextCX > cX)
                     OgreRightClubRight = true;

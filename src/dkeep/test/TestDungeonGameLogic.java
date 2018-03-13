@@ -7,48 +7,54 @@ import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestDungeonGameLogic {
+public class TestDungeonGameLogic extends TestLevels{
 
     @Test
     public void testMoveHeroIntoToFreeCell(){
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
 
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        loadTestLevels(newGame);
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        newGame.getLevel().freezeLevel();
 
-        assertEquals(2, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
+
+        newGame.userMove(UserInterface.Direction.DOWN);
+
+        assertEquals(2, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
        }
 
     @Test
     public void testMoveHeroIntoToWall() {
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.LEFT);
+        loadTestLevels(newGame);
 
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        newGame.getLevel().freezeLevel();
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
+
+        newGame.userMove(UserInterface.Direction.LEFT);
+
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
     }
 
     @Test
     public void testMoveHeroIntoToGuard() {
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
+
+        loadTestLevels(newGame);
+
+        newGame.getLevel().freezeLevel();
 
         assertFalse(newGame.isGameOver());
-        newGame.userMoveTests(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
 
         assertTrue(newGame.isGameOver());
 
@@ -58,64 +64,70 @@ public class TestDungeonGameLogic {
     public void testMoveHeroIntoToClosedDoors() {
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        loadTestLevels(newGame);
 
-        assertEquals(2, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        newGame.getLevel().freezeLevel();
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.DOWN);
 
-        assertEquals(2, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        assertEquals(2, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
+
+        newGame.userMove(UserInterface.Direction.LEFT);
+
+        assertEquals(2, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
     }
 
     @Test
     public void testMoveHeroIntoToLever() {
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        loadTestLevels(newGame);
 
-        assertEquals(2, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        newGame.getLevel().freezeLevel();
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
 
-        assertEquals(3, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        assertEquals(2, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
 
-        assertEquals('S', newGame.getTestLevel().get(0).getDoors().get(0).getSymbol());
-        assertEquals('S', newGame.getTestLevel().get(0).getDoors().get(1).getSymbol());
+        newGame.userMove(UserInterface.Direction.DOWN);
+
+        assertEquals(3, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
+
+        assertEquals('S', newGame.getLevel().getDoors().get(0).getSymbol());
+        assertEquals('S', newGame.getLevel().getDoors().get(1).getSymbol());
     }
 
     @Test
     public void testMoveHeroIntoToKeep() {
 
         Game newGame = new Game();
-        newGame.testLevel();
-        newGame.getTestLevel().get(0).freezeLevel();
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        loadTestLevels(newGame);
 
-        assertEquals(2, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        newGame.getLevel().freezeLevel();
+        assertEquals(1, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
 
-        assertEquals(3, newGame.getTestLevel().get(0).getHero().getX());
-        assertEquals(1, newGame.getTestLevel().get(0).getHero().getY());
+        assertEquals(2, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
 
-        newGame.userMoveTests(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.DOWN);
+
+        assertEquals(3, newGame.getLevel().getHero().getX());
+        assertEquals(1, newGame.getLevel().getHero().getY());
+
+        newGame.userMove(UserInterface.Direction.LEFT);
     }
 }
