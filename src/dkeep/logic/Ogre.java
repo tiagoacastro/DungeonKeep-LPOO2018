@@ -86,6 +86,7 @@ public class Ogre extends GameCharacter {
         }
     }
 
+    
     private void updateClub (Character[][] map){
         Random rand = new Random();
         int n = 4;
