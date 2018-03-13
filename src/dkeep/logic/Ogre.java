@@ -78,14 +78,14 @@ public class Ogre extends GameCharacter {
             symbol = '0';
         }
 
-        else if (map[next_x][next_y] == 'k') {
+        if (map[next_x][next_y] == 'k') {
             x=next_x;
             y=next_y;
             updateClub(map);
             symbol = '$';
         }
 
-        else if (map[next_x][next_y] == 'X' || map[next_x][next_y] == 'I' || map[next_x][next_y] == 'S') {
+        if (map[next_x][next_y] == 'X' || map[next_x][next_y] == 'I' || map[next_x][next_y] == 'S') {
             update(map);
         }
     }
