@@ -1,5 +1,4 @@
 package dkeep.logic;
-
 import java.util.ArrayList;
 
 public class RookieGuard extends Guard{

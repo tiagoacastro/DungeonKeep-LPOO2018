@@ -5,9 +5,6 @@ public abstract class GameObject {
     protected int x;
     protected int y;
 
-    GameObject() {
-    }
-
     GameObject(int xCoord, int yCoord) {
         x = xCoord;
         y = yCoord;

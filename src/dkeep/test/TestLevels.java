@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class TestLevels {
 
-    public void loadTestLevel1(Game g){
+    public void loadTestLevel1(Game g, String guardType){
         Character[][] map = new Character[][]{
                 {'X', 'X', 'X', 'X', 'X'},
                 {'X', ' ', ' ', 'G', 'X'},
@@ -18,9 +18,21 @@ public class TestLevels {
         Hero h1 = new Hero(1, 1);
         Level l1 = (new Level(map, h1));
 
-        Character[] route1 = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
-        Guard g0 = new RookieGuard(1, 3, new ArrayList<Character>(Arrays.asList(route1)));
-        l1.addGuard(g0);
+        Character[] route = new Character[]{'d', 'd', 'l', 'l', 'u', 'u', 'r', 'r'};
+        switch(guardType) {
+            case "Rookie":
+                Guard g1 = new RookieGuard(1, 3, new ArrayList<Character>(Arrays.asList(route)));
+                l1.addGuard(g1);
+                break;
+            case "Drunken":
+                Guard g2 = new DrunkenGuard(1, 3, new ArrayList<Character>(Arrays.asList(route)));
+                l1.addGuard(g2);
+                break;
+            case "Suspicious":
+                Guard g3 = new SuspiciousGuard(1, 3, new ArrayList<Character>(Arrays.asList(route)));
+                l1.addGuard(g3);
+                break;
+        }
 
         Door d1 = new Door(2, 0);
         l1.addDoor(d1);

@@ -46,12 +46,12 @@ public class DrunkenGuard extends Guard{
         }
     }
 
-    private void sleep(){
+    public void sleep(){
         sleeping = true;
         symbol = 'g';
     }
 
-    private void wake(){
+    public void wake(){
         Random rand = new Random();
         int n = 2;
         int randnum = rand.nextInt(n);

@@ -8,7 +8,7 @@ public abstract class Guard extends GameCharacter {
     protected ArrayList<Character> path = new ArrayList<Character>();
     protected int mov;
     protected char symbol;
-    protected boolean way;
+    private boolean way;
 
     //constructor
     public Guard(int xCoord, int yCoord, ArrayList<Character> p) {
@@ -17,6 +17,10 @@ public abstract class Guard extends GameCharacter {
         path = p;
         symbol = 'G';
         way = true;
+    }
+
+    public boolean getWay() {
+        return way;
     }
 
     public char getSymbol() {
