@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Level {
 
     private Character[][] lvlMap;
+    private Character[][] map;
     private Hero hero;
     private ArrayList<GameCharacter> chars = new ArrayList<GameCharacter>();
     private ArrayList<Door> doors = new ArrayList<Door>();
@@ -50,6 +51,10 @@ public class Level {
     public Character[][] getMap() {
         return lvlMap;
     }
+    
+    public Character[][] getMapCopy() {
+        return map;
+    }
 
     public ArrayList<Door> getDoors() {
         return doors;
@@ -69,35 +74,34 @@ public class Level {
 
     public Game.levelState userMove(UserInterface.Direction input) {
 
-            Character[][] map = mapCopy();
+            map = mapCopy();
 
             drawImovable(map);
 
             moved = false;
 
             switch (input) {
-
                 case UP:
-                    if( heroMove(map,hero.getX()-1,hero.getY()) ) {
-                        win(map);
+                    if( heroMove(hero.getX()-1,hero.getY()) ) {
+                        win();
                         return Game.levelState.WIN;
                     }
                     break;
                 case LEFT:
-                    if( heroMove(map, hero.getX(),hero.getY()-1) ) {
-                        win(map);
-                        return Game.levelState.WIN;
-                    }
-                    break;
-                case DOWN:
-                    if( heroMove(map, hero.getX()+1,hero.getY()) ) {
-                        win(map);
+                    if( heroMove(hero.getX(),hero.getY()-1) ) {
+                        win();
                         return Game.levelState.WIN;
                     }
                     break;
                 case RIGHT:
-                    if( heroMove(map, hero.getX(),hero.getY()+1) ) {
-                        win(map);
+                    if( heroMove(hero.getX(),hero.getY()+1) ) {
+                        win();
+                        return Game.levelState.WIN;
+                    }
+                    break;
+                case DOWN:
+                    if( heroMove(hero.getX()+1,hero.getY()) ) {
+                        win();
                         return Game.levelState.WIN;
                     }
                     break;
@@ -112,17 +116,13 @@ public class Level {
 
             if(hero.getX() != 0 && hero.getY() != 0){
                 for(int i = 0; i < chars.size() ; i++)
-                    if (checkCollision(map, hero, chars.get(i))) {
-                        drawMovable(map);
-                        UserInterface.printMap(map);
-                        System.out.println("The villain has restrained you, you LOST ! :( ");
+                    if (checkCollision(hero, chars.get(i))) {
+                        drawMovable(map);     
                         return Game.levelState.LOSE;
                     }
                 for (int i = 0; i < chars.size(); ++i) {
                     if(chars.get(i).getX() == hero.getX() && chars.get(i).getY() == hero.getY()){
                         drawMovable(map);
-                        UserInterface.printMap(map);
-                        System.out.println("The villain has restrained you, you LOST ! :( ");
                         return Game.levelState.LOSE;
                     }
                 }
@@ -130,21 +130,17 @@ public class Level {
 
             drawMovable(map);
 
-            UserInterface.printMap(map);
-
             return Game.levelState.NONE;
     }
 
-    private void win(Character map[][]){
+    private void win(){
         if(moved)
             for(GameCharacter c : chars)
                 c.update(map);
         drawMovable(map);
-        UserInterface.printMap(map);
-        System.out.println("You won the game! Congrats ");
     }
 
-    public boolean checkCollision(Character[][] map, Hero h, GameCharacter v){
+    public boolean checkCollision(Hero h, GameCharacter v){
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
         boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
         if (v instanceof Ogre) {
@@ -162,7 +158,7 @@ public class Level {
         return heroAndVillain;
     }
 
-    public boolean heroMove(Character[][] map, int nextX, int nextY) {
+    public boolean heroMove(int nextX, int nextY) {
             if (map[nextX][nextY] == ' ') {
 
                 hero.setX(nextX);
@@ -227,10 +223,9 @@ public class Level {
     }
 
     public void draw(){
-        Character[][] map = mapCopy();
+        map = mapCopy();
         drawImovable(map);
         drawMovable(map);
-        UserInterface.printMap(map);
     }
 
     public Character[][] mapCopy(){
@@ -262,5 +257,16 @@ public class Level {
         for(GameCharacter c : chars)
             c.draw(map);
     }
-
+    
+   	public String getMapString() {
+    	String stringMap = "";
+    	for(int i = 0; i < map.length; ++i) {
+    		for(int j = 0; j < map[i].length; ++j) {
+    			stringMap += map[i][j];
+    			stringMap += " ";
+    		}
+    		stringMap += "\n";
+    	}
+    	return stringMap;
+    }
 }
