@@ -21,6 +21,10 @@ public class Ogre extends GameCharacter {
         stunTimer = 0;
     }
 
+    public boolean isStunned() {
+        return stunned;
+    }
+
     public int getClubX() {
         return xClub;
     }

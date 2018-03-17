@@ -8,9 +8,9 @@ public class Main {
 
         Game game = new Game();
 
-        game.loadLevel1();
+        game.loadLevel1("Rookie");
 
-        game.loadLevel2();
+        game.loadLevel2(1);
 
         game.start();
     }

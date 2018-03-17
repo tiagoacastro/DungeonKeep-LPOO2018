@@ -17,9 +17,11 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        loadTestLevel1(newGame, "Rookie",true);
 
         newGame.getLevel().freezeLevel();
+
+        assertEquals(1, newGame.getCurrentLevel());
 
         assertEquals(1, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
@@ -35,7 +37,8 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        loadTestLevel1(newGame, "Rookie",true);
+
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -52,7 +55,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        loadTestLevel1(newGame, "Rookie",true);
 
         newGame.getLevel().freezeLevel();
 
@@ -68,7 +71,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        loadTestLevel1(newGame, "Rookie",true);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -90,7 +93,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        loadTestLevel1(newGame, "Rookie",true);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -115,40 +118,64 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Rookie");
+        newGame.loadLevel1("Rookie");
+
+        newGame.loadLevel2(0);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
 
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
         newGame.userMove(UserInterface.Direction.DOWN);
-
-        assertEquals(2, newGame.getLevel().getHero().getX());
-        assertEquals(1, newGame.getLevel().getHero().getY());
-
         newGame.userMove(UserInterface.Direction.DOWN);
-
-        assertEquals(3, newGame.getLevel().getHero().getX());
-        assertEquals(1, newGame.getLevel().getHero().getY());
-
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.DOWN);
+        newGame.userMove(UserInterface.Direction.DOWN);
         newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+        newGame.userMove(UserInterface.Direction.LEFT);
+
+        assertEquals(6, newGame.getLevel().getHero().getX());
+        assertEquals(0, newGame.getLevel().getHero().getY());
+
     }
 
     @Test
     public void testMoveDrunkenGuard() {
 
         boolean sleep = false;
-        boolean way = false;
 
         Game newGame = new Game();
-        loadTestLevel1(newGame, "Drunken");
+        loadTestLevel1(newGame, "Drunken",false);
 
         assertEquals(1,newGame.getLevel().getChars().get(0).getX());
         assertEquals(3,newGame.getLevel().getChars().get(0).getY());
 
         if(newGame.getLevel().getChars().get(0) instanceof DrunkenGuard) {
 
-            while (!sleep && !way) {
+            while (!sleep) {
                 newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
                 newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
                 if (((DrunkenGuard) newGame.getLevel().getChars().get(0)).sleeping()) {
@@ -158,16 +185,14 @@ public class TestDungeonGameLogic extends TestLevels{
 
                     ((DrunkenGuard) newGame.getLevel().getChars().get(0)).wake();
 
-                    if (!(((DrunkenGuard) newGame.getLevel().getChars().get(0)).getWay())) {
-                        way = true;
-                    }
-
                 } else {
                     assertEquals('G', ((DrunkenGuard) newGame.getLevel().getChars().get(0)).getSymbol());
                 }
 
             }
         }
+
+        assertTrue(sleep);
     }
 
     @Test
@@ -175,21 +200,27 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Suspicious");
+        loadTestLevel1(newGame, "Suspicious", false);
 
         assertEquals(1, newGame.getLevel().getChars().get(0).getX());
         assertEquals(3, newGame.getLevel().getChars().get(0).getY());
 
         boolean way = false;
-        while (!way) {
 
-            newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
-            newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
+        if (newGame.getLevel().getChars().get(0) instanceof SuspiciousGuard) {
 
-            if (!(((SuspiciousGuard) newGame.getLevel().getChars().get(0)).getWay())) {
-                way = true;
+            while (!way) {
+
+                newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
+                newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
+
+                if (!(((SuspiciousGuard) newGame.getLevel().getChars().get(0)).getWay())) {
+                    way = true;
+                }
             }
+            ((SuspiciousGuard)newGame.getLevel().getChars().get(0)).wayDecision(0);
         }
+        assertTrue(way);
 
     }
 }

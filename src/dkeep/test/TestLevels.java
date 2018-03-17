@@ -7,18 +7,24 @@ import java.util.Arrays;
 
 public class TestLevels {
 
-    public void loadTestLevel1(Game g, String guardType){
+    public void loadTestLevel1(Game g, String guardType, boolean hero){
         Character[][] map = new Character[][]{
                 {'X', 'X', 'X', 'X', 'X'},
                 {'X', ' ', ' ', 'G', 'X'},
-                {' ', ' ', ' ', ' ', 'X'},
-                {' ', 'k', ' ', ' ', 'X'},
+                {'I', ' ', ' ', ' ', 'X'},
+                {'I', 'k', ' ', ' ', 'X'},
                 {'X', 'X', 'X', 'X', 'X'}};
 
         Hero h1 = new Hero(1, 1);
-        Level l1 = (new Level(map, h1));
+        Level l1;
+        if (hero) {
+            l1 = (new Level(map, h1));
+        }
+        else {
+            l1 = (new Level(map));
+        }
 
-        Character[] route = new Character[]{'d', 'd', 'l', 'l', 'u', 'u', 'r', 'r'};
+        Character[] route = new Character[]{'d', 'd', 'l', 'u', 'u', 'r'};
         switch(guardType) {
             case "Rookie":
                 Guard g1 = new RookieGuard(1, 3, new ArrayList<Character>(Arrays.asList(route)));

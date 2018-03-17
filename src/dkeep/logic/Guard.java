@@ -29,9 +29,16 @@ public abstract class Guard extends GameCharacter {
 
     public abstract void update(Character[][] map);
 
-    public abstract void draw(Character[][] map);
+    public void draw(Character[][] map){
+        map[x][y] = symbol;
+    }
 
-    public abstract void move(Character[][] map,int nextX, int nextY);
+    public void move(Character[][] map,int nextX, int nextY) {
+        if (map[nextX][nextY] == ' ') {
+            x = nextX;
+            y = nextY;
+        }
+    }
 
     public void bidirectionalMovement( Character[][] map){
         switch (path.get(mov)) {
@@ -93,5 +100,6 @@ public abstract class Guard extends GameCharacter {
                 mov = path.size() - 1;
         }
     }
+
 }
 

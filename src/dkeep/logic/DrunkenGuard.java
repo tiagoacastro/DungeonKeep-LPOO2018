@@ -39,13 +39,6 @@ public class DrunkenGuard extends Guard{
         }
     }
 
-    public void move(Character[][] map,int nextX, int nextY) {
-        if (map[nextX][nextY] == ' ') {
-            x = nextX;
-            y = nextY;
-        }
-    }
-
     public void sleep(){
         sleeping = true;
         symbol = 'g';
@@ -60,9 +53,5 @@ public class DrunkenGuard extends Guard{
 
         sleeping = false;
         symbol = 'G';
-    }
-
-    public void draw(Character[][] map){
-        map[x][y] = symbol;
     }
 }

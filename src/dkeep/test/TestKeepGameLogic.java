@@ -35,6 +35,34 @@ public class TestKeepGameLogic extends TestLevels{
     }
 
     @Test
+    public void testMoveHeroIntoToStunOgre() {
+
+        Game newGame = new Game();
+
+        loadTestLevel2(newGame);
+
+        newGame.getLevel().freezeLevel();
+
+        assertFalse(newGame.isGameOver());
+
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.RIGHT);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+        newGame.userMove(UserInterface.Direction.UP);
+
+        if (newGame.getLevel().getChars().get(0) instanceof Ogre) {
+            assertTrue(((Ogre) newGame.getLevel().getChars().get(0)).isStunned());
+        }
+
+        newGame.userMove(UserInterface.Direction.LEFT);
+        assertTrue(newGame.isGameOver());
+    }
+
+    @Test
     public void testMoveHeroIntoToKeyCell() {
 
         Game newGame = new Game();
@@ -84,7 +112,6 @@ public class TestKeepGameLogic extends TestLevels{
         assertFalse(newGame.isGameOver());
 
         assertEquals('I', newGame.getLevel().getDoors().get(0).getSymbol());
-
     }
 
     @Test
@@ -126,8 +153,13 @@ public class TestKeepGameLogic extends TestLevels{
 
         assertFalse(newGame.isGameOver());
 
+        assertEquals('A', newGame.getLevel().getHero().getSymbol());
+
         assertEquals('S', newGame.getLevel().getDoors().get(0).getSymbol());
 
+        newGame.userMove(UserInterface.Direction.LEFT);
+
+        assertEquals(Game.gameState.WIN,newGame.getState());
     }
 
     @Test

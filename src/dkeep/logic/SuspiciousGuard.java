@@ -20,16 +20,5 @@ public class SuspiciousGuard extends Guard{
 
         movementIncrementation();
     }
-
-    public void move(Character[][] map,int nextX, int nextY) {
-        if (map[nextX][nextY] == ' ') {
-            x = nextX;
-            y = nextY;
-        }
-    }
-
-    public void draw(Character[][] map){
-        map[x][y] = symbol;
-    }
 }
 
