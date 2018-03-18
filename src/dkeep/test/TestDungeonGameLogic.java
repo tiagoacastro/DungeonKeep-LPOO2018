@@ -86,6 +86,8 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals(2, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
+
+        assertFalse(newGame.isGameOver());
     }
 
     @Test
@@ -111,6 +113,8 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals('S', newGame.getLevel().getDoors().get(0).getSymbol());
         assertEquals('S', newGame.getLevel().getDoors().get(1).getSymbol());
+
+        assertEquals('H', newGame.getLevel().getHero().getSymbol());
     }
 
     @Test
@@ -218,9 +222,9 @@ public class TestDungeonGameLogic extends TestLevels{
                     way = true;
                 }
             }
-            ((SuspiciousGuard)newGame.getLevel().getChars().get(0)).wayDecision(0);
         }
         assertTrue(way);
 
     }
+
 }

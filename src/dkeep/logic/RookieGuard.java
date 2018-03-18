@@ -1,13 +1,13 @@
 package dkeep.logic;
 import java.util.ArrayList;
 
-public class RookieGuard extends Guard{
+public class RookieGuard extends Guard {
 
     public RookieGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
     }
 
-    public void update(Character[][] map){
+    public void update(Character[][] map) {
         switch (path.get(mov)) {
             case 'u':
                 move(map, x - 1, y);

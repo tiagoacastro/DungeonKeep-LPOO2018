@@ -19,6 +19,7 @@ public class TestKeepGameLogic extends TestLevels{
         newGame.getLevel().freezeLevel();
 
         assertFalse(newGame.isGameOver());
+        assertEquals('A', newGame.getLevel().getHero().getSymbol());
 
         newGame.userMove(UserInterface.Direction.UP);
         newGame.userMove(UserInterface.Direction.UP);

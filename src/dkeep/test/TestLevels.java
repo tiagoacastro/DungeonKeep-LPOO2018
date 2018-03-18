@@ -103,8 +103,11 @@ public class TestLevels {
         Key k = new Key(1, 7);
         l3.addKey(k);
 
-        Ogre o = new Ogre(1, 4, 1, 3);
-        l3.addOgre(o);
+
+        for(int i = 0; i < 3; ++i) {
+            Ogre o = new Ogre(1, 1+i, 2, 1+i);
+            l3.addOgre(o);
+        }
 
         g.loadLevel(l3);
     }
