@@ -117,8 +117,7 @@ public class DungeonKeepGUI {
 		downButton.setBounds(472, 248, 75, 25);
 		downButton.setEnabled(false);
 		frame.add(downButton);
-		
-		
+
 		//game status
 		status = new JLabel("You can start a new game");
 		status.setBounds(10, 380, 400, 20);
@@ -179,10 +178,6 @@ public class DungeonKeepGUI {
 	private class startGameEvent implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg) {
-			upButton.setEnabled(true);
-			leftButton.setEnabled(true);
-			rightButton.setEnabled(true);
-			downButton.setEnabled(true);
 			
 			game = new Game();
 			game.loadLevel1(guardType.getSelectedItem().toString());
@@ -191,6 +186,10 @@ public class DungeonKeepGUI {
 		        game.loadLevel2(Integer.parseInt(ogres.getText()));
 		        game.getLevel().draw();
 		        gameBox.setText(game.getLevel().getMapString());
+				upButton.setEnabled(true);
+				leftButton.setEnabled(true);
+				rightButton.setEnabled(true);
+				downButton.setEnabled(true);
 			} else {
 				JOptionPane.showMessageDialog(frame, "You have to insert a positive number of 5 or less!");
 			}
