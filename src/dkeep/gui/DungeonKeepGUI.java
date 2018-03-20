@@ -39,7 +39,7 @@ public class DungeonKeepGUI {
 	
 	public DungeonKeepGUI() {
 		//frame
-		frame = new JFrame("Interface");
+		frame = new JFrame("Dungeon Keep");
 		frame.setBounds(100, 100, 640, 480);
 		frame.getContentPane().setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -117,6 +117,12 @@ public class DungeonKeepGUI {
 		downButton.setBounds(472, 248, 75, 25);
 		downButton.setEnabled(false);
 		frame.add(downButton);
+
+		/*
+		GamePanel panel = new GamePanel();
+		panel.setBounds(0,0,200,200);
+		frame.add(panel);
+		*/
 
 		//game status
 		status = new JLabel("You can start a new game");
