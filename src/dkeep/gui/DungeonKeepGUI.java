@@ -8,8 +8,7 @@ import java.awt.event.*;
 import java.awt.Font;
 import dkeep.cli.UserInterface;
 
-//TODO:
-
+//TODO: meter Grid Bag Layout (preciso recomeçar tudo)
 public class DungeonKeepGUI {
 	
 	private JFrame frame;
