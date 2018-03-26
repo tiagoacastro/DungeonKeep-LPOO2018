@@ -8,19 +8,20 @@ import java.awt.event.*;
 import java.awt.Font;
 import dkeep.cli.UserInterface;
 
-//TODO: meter Grid Bag Layout (preciso recomeçar tudo)
+//TODO: meter Grid Bag Layout (preciso recomeçar tudo), dizer que o heroi se moveu so se se tiver movido mesmo(mover contra parede tambem esta a dar print)
 public class DungeonKeepGUI {
 	
 	private JFrame frame;
 	private JTextField ogres;
 	private JComboBox<String> guardType;
 	private Game game;
-	private JTextArea gameBox;
+	private GamePanel gameBox;
 	private JButton upButton;
 	private JButton leftButton;
 	private JButton rightButton;
 	private JButton downButton;
 	private JLabel status;
+	private boolean gamePlaying;
 	
 	
 	//main function
@@ -37,6 +38,8 @@ public class DungeonKeepGUI {
 	//GUI creator
 	
 	public DungeonKeepGUI() {
+		gamePlaying = false;
+
 		//frame
 		frame = new JFrame("Dungeon Keep");
 		frame.setBounds(100, 100, 640, 480);
@@ -84,11 +87,10 @@ public class DungeonKeepGUI {
 		frame.add(endGameButton);
 		
 		
-		//game text box
-		gameBox = new JTextArea();
+		//game box
+		gameBox = new GamePanel(this);
 		gameBox.setBounds(10, 80, 360, 280);
-		gameBox.setFont(new Font("Courier New", Font.PLAIN, 15));
-		gameBox.setEditable(false);
+		gameBox.setVisible(false);
 		frame.add(gameBox);
 		
 		
@@ -117,11 +119,6 @@ public class DungeonKeepGUI {
 		downButton.setEnabled(false);
 		frame.add(downButton);
 
-		/*
-		GamePanel panel = new GamePanel();
-		panel.setBounds(0,0,200,200);
-		frame.add(panel);
-		*/
 
 		//game status
 		status = new JLabel("You can start a new game");
@@ -134,7 +131,8 @@ public class DungeonKeepGUI {
 	
 	public void movementHandler(UserInterface.Direction way){
 		game.userMove(way);
-		gameBox.setText(game.getLevel().getMapString());
+		gameBox.repaint();
+		//gameBox.setText(game.getLevel().getMapString());
 		switch(game.getLevelState()) {
 			case WIN:
 				if(game.getCurrentLevel() == game.getLevels().size()) {
@@ -147,7 +145,7 @@ public class DungeonKeepGUI {
 				}else{
 					game.incLevel();
 					game.getLevel().draw();
-				    gameBox.setText(game.getLevel().getMapString());
+				    //gameBox.setText(game.getLevel().getMapString());
 				}
 				break;
 			case LOSE:
@@ -185,12 +183,14 @@ public class DungeonKeepGUI {
 		public void actionPerformed(ActionEvent arg) {
 			
 			game = new Game();
+			gamePlaying = true;
 			game.loadLevel1(guardType.getSelectedItem().toString());
 
 			if (ogres.getText().equals("1") || ogres.getText().equals("2") || ogres.getText().equals("3") || ogres.getText().equals("4") || ogres.getText().equals("5")) {
 		        game.loadLevel2(Integer.parseInt(ogres.getText()));
 		        game.getLevel().draw();
-		        gameBox.setText(game.getLevel().getMapString());
+		        //gameBox.setText(game.getLevel().getMapString());
+				gameBox.setVisible(true);
 				upButton.setEnabled(true);
 				leftButton.setEnabled(true);
 				rightButton.setEnabled(true);
@@ -200,6 +200,7 @@ public class DungeonKeepGUI {
 			}
 			
 			status.setText("You can play now.");
+			gameBox.repaint();
 		}
 	}
 	
@@ -236,5 +237,13 @@ public class DungeonKeepGUI {
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.DOWN);
 		}
+	}
+
+	public boolean checkGameStart(){
+		return gamePlaying;
+	}
+
+	public Game getGame(){
+		return game;
 	}
 }

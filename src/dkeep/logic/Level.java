@@ -269,4 +269,52 @@ public class Level {
     	}
     	return stringMap;
     }
+
+    public Character[][] getPlayMap() {
+        Character[][] map = mapCopy();
+        drawImovable(map);
+        drawMovable(map);
+
+        return map;
+    }
+
+/*
+    public Object[][] getMapObject() {
+        Object[][] objectMap = new Object[lvlMap.length][lvlMap[0].length];
+        for(int i = 0; i < lvlMap.length; ++i) {
+            for(int j = 0; j < lvlMap[i].length; ++j) {
+                switch(lvlMap[i][j]){
+                    case 'X':
+                        objectMap[i][j] = new Wall(i, j);
+                        break;
+                    case 'I':
+                        objectMap[i][j] = new InactiveDoor(i, j);
+                        break;
+                    case ' ':
+                        objectMap[i][j] = null;
+                        break;
+                }
+            }
+        }
+
+        objectMap[object.getX()][object.getY()] = object;
+
+        for(Door d : doors)
+            objectMap[d.getX()][d.getY()] = d;
+
+        objectMap[hero.getX()][hero.getY()] = hero;
+
+        for(GameCharacter c : chars)
+            if(c instanceof Ogre)
+                objectMap[((Ogre)c).getClubX()][((Ogre)c).getClubY()] = new Club(((Ogre)c).getClubX(),((Ogre)c).getClubY());
+
+        for(GameCharacter c : chars)
+            if(c instanceof Ogre)
+                objectMap[c.getX()][c.getY()] = ((Ogre)c);
+            else if (c instanceof Guard)
+                objectMap[c.getX()][c.getY()] = ((Guard)c);
+
+        return objectMap;
+    }
+    */
 }
