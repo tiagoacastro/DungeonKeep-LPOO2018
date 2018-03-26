@@ -9,7 +9,7 @@ import java.awt.Font;
 import dkeep.cli.UserInterface;
 
 //TODO: meter Grid Bag Layout (preciso recomeçar tudo), dizer que o heroi se moveu so se se tiver movido mesmo(mover contra parede tambem esta a dar print)
-public class DungeonKeepGUI {
+public class DungeonKeepGUI{
 	
 	private JFrame frame;
 	private JTextField ogres;
@@ -91,6 +91,35 @@ public class DungeonKeepGUI {
 		gameBox = new GamePanel(this);
 		gameBox.setBounds(10, 80, 360, 280);
 		gameBox.setVisible(false);
+		gameBox.setFocusable(false);
+		gameBox.addKeyListener(new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+						movementHandler(UserInterface.Direction.LEFT);
+						break;
+					case KeyEvent.VK_RIGHT:
+						movementHandler(UserInterface.Direction.RIGHT);
+						break;
+					case KeyEvent.VK_UP:
+						movementHandler(UserInterface.Direction.UP);
+						break;
+					case KeyEvent.VK_DOWN:
+						movementHandler(UserInterface.Direction.DOWN);
+						break;
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+		});
 		frame.add(gameBox);
 		
 		
@@ -142,6 +171,7 @@ public class DungeonKeepGUI {
 					leftButton.setEnabled(false);
 					rightButton.setEnabled(false);
 					downButton.setEnabled(false);
+					gameBox.setFocusable(false);
 				}else{
 					game.incLevel();
 					game.getLevel().draw();
@@ -155,6 +185,7 @@ public class DungeonKeepGUI {
 				leftButton.setEnabled(false);
 				rightButton.setEnabled(false);
 				downButton.setEnabled(false);
+				gameBox.setFocusable(false);
 				break;
 			case NONE:
 				switch (way) {
@@ -195,12 +226,13 @@ public class DungeonKeepGUI {
 				leftButton.setEnabled(true);
 				rightButton.setEnabled(true);
 				downButton.setEnabled(true);
+				status.setText("You can play now.");
+				gameBox.repaint();
+				gameBox.setFocusable(true);
+				gameBox.requestFocusInWindow();
 			} else {
 				JOptionPane.showMessageDialog(frame, "You have to insert a positive number of 5 or less!");
 			}
-			
-			status.setText("You can play now.");
-			gameBox.repaint();
 		}
 	}
 	
@@ -215,6 +247,7 @@ public class DungeonKeepGUI {
 		
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.UP);
+			gameBox.requestFocusInWindow();
 		}
 	}
 	
@@ -222,6 +255,7 @@ public class DungeonKeepGUI {
 		
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.LEFT);
+			gameBox.requestFocusInWindow();
 		}
 	}
 	
@@ -229,6 +263,7 @@ public class DungeonKeepGUI {
 		
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.RIGHT);
+			gameBox.requestFocusInWindow();
 		}
 	}
 	
@@ -236,8 +271,10 @@ public class DungeonKeepGUI {
 		
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.DOWN);
+			gameBox.requestFocusInWindow();
 		}
 	}
+
 
 	//extra functions
 
