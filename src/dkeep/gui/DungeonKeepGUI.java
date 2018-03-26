@@ -239,6 +239,8 @@ public class DungeonKeepGUI {
 		}
 	}
 
+	//extra functions
+
 	public boolean checkGameStart(){
 		return gamePlaying;
 	}
