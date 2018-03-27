@@ -85,6 +85,12 @@ public class DungeonKeepGUI{
 		endGameButton.addActionListener(new endGameEvent());
 		endGameButton.setBounds(460, 335, 100, 25);
 		frame.add(endGameButton);
+
+		//end game button
+		JButton editGameMap = new JButton("Edit Game");
+		editGameMap.addActionListener(new editGameMapEvent());
+		editGameMap.setBounds(460, 335, 100, 25);
+		frame.add(editGameMap);
 		
 		
 		//game box
@@ -240,6 +246,13 @@ public class DungeonKeepGUI{
 		
 		public void actionPerformed(ActionEvent arg) {
 			System.exit(0);
+		}
+	}
+
+	private class editGameMapEvent implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg) {
+
 		}
 	}
 	
