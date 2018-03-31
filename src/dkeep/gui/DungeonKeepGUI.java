@@ -22,6 +22,7 @@ public class DungeonKeepGUI{
 	private JButton downButton;
 	private JLabel status;
 	private boolean gamePlaying;
+	private MapEditor mapEditor;
 	
 	
 	//main function
@@ -47,6 +48,7 @@ public class DungeonKeepGUI{
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 		
+		initializePanel();
 		
 		//ogre input
 		JLabel ogreLabel = new JLabel();
@@ -85,49 +87,6 @@ public class DungeonKeepGUI{
 		endGameButton.addActionListener(new endGameEvent());
 		endGameButton.setBounds(460, 335, 100, 25);
 		frame.add(endGameButton);
-
-		//end game button
-		JButton editGameMap = new JButton("Edit Game");
-		editGameMap.addActionListener(new editGameMapEvent());
-		editGameMap.setBounds(460, 335, 100, 25);
-		frame.add(editGameMap);
-		
-		
-		//game box
-		gameBox = new GamePanel(this);
-		gameBox.setBounds(10, 80, 360, 280);
-		gameBox.setVisible(false);
-		gameBox.setFocusable(false);
-		gameBox.addKeyListener(new KeyListener(){
-			@Override
-			public void keyPressed(KeyEvent e) {
-
-				switch (e.getKeyCode()) {
-					case KeyEvent.VK_LEFT:
-						movementHandler(UserInterface.Direction.LEFT);
-						break;
-					case KeyEvent.VK_RIGHT:
-						movementHandler(UserInterface.Direction.RIGHT);
-						break;
-					case KeyEvent.VK_UP:
-						movementHandler(UserInterface.Direction.UP);
-						break;
-					case KeyEvent.VK_DOWN:
-						movementHandler(UserInterface.Direction.DOWN);
-						break;
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-		});
-		frame.add(gameBox);
-		
 		
 		//hero move buttons
 		upButton = new JButton("Up");
@@ -159,6 +118,7 @@ public class DungeonKeepGUI{
 		status = new JLabel("You can start a new game");
 		status.setBounds(10, 380, 400, 20);
 		frame.add(status);
+		
 	}
 	
 	
@@ -211,8 +171,42 @@ public class DungeonKeepGUI{
 				break;
 		}
 	}
-	
+	public void initializePanel() {
+		//game box
+		gameBox = new GamePanel(this);
+		gameBox.setBounds(10, 80, 360, 280);
+		gameBox.setVisible(false);
+		gameBox.setFocusable(false);
+		gameBox.addKeyListener(new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent e) {
 
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+						movementHandler(UserInterface.Direction.LEFT);
+						break;
+					case KeyEvent.VK_RIGHT:
+						movementHandler(UserInterface.Direction.RIGHT);
+						break;
+					case KeyEvent.VK_UP:
+						movementHandler(UserInterface.Direction.UP);
+						break;
+					case KeyEvent.VK_DOWN:
+						movementHandler(UserInterface.Direction.DOWN);
+						break;
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+		});
+		frame.add(gameBox);
+	}
 	//button events
 	
 	private class startGameEvent implements ActionListener{
@@ -236,10 +230,16 @@ public class DungeonKeepGUI{
 				gameBox.repaint();
 				gameBox.setFocusable(true);
 				gameBox.requestFocusInWindow();
+				
 			} else {
 				JOptionPane.showMessageDialog(frame, "You have to insert a positive number of 5 or less!");
 			}
+			helpMapEditor();
 		}
+	}
+	
+	public void helpMapEditor() {
+		this.mapEditor = new MapEditor(this);
 	}
 	
 	private class endGameEvent implements ActionListener{

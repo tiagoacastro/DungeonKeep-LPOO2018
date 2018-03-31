@@ -72,6 +72,9 @@ public class Level {
         return hero;
     }
 
+    public Object getObject() {
+    	return object;
+    }
     public Game.levelState userMove(UserInterface.Direction input) {
 
             map = mapCopy();
@@ -276,6 +279,10 @@ public class Level {
         drawMovable(map);
 
         return map;
+    }
+    
+    public void setLvlMap(Character [][] map) {
+    	this.lvlMap = map;
     }
 
 /*

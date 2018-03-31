@@ -3,11 +3,13 @@ package dkeep.gui;
 import dkeep.logic.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel{
 
     private Game game;
     private DungeonKeepGUI gui;
@@ -53,6 +55,9 @@ public class GamePanel extends JPanel {
                         case 'H':
                             g.drawImage(hero, j * 25, i * 25, null);
                             break;
+                        case 'A':
+                            g.drawImage(hero, j * 25, i * 25, null);
+                            break;
                         case 'G':
                             g.drawImage(guard, j * 25, i * 25, null);
                             break;
@@ -65,8 +70,11 @@ public class GamePanel extends JPanel {
                         case 'k':
                             g.drawImage(lever, j* 25 , i*25 ,null);
                             break;
+                            default:
+                          	break;
                     }
             }
         }
     }
+
 }
