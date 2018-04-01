@@ -37,7 +37,8 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 	private JButton hero;
 	private JButton wall;
 	private JButton key;
-    
+	private JButton finished;
+
 	public void createMap(Game g) {
 
 		Character[][]map1 = new Character [dimension][dimension];
@@ -53,8 +54,8 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		}
 		
 		map = map1;
-		game.getLevel().setMap(map1);
-		game.getLevel().setLvlMap(map1);
+		this.gui.getGame().getLevel().setMap(map1);
+		this.gui.getGame().getLevel().setLvlMap(map1);
 	}
 	
 	public MapEditor(DungeonKeepGUI d) {
@@ -154,6 +155,16 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		*/
 		key.setVisible(true);
 		frame.getContentPane().add(key);
+
+		finished = new JButton("Finished");
+		finished.addActionListener( new FinishedEvent());
+		finished.setBounds(400,10,100,50);
+		/*GridBagConstraints gbc_key = new GridBagConstraints();
+		gbc_key.gridx = 5;
+		gbc_key.gridy = 4;
+		*/
+		finished.setVisible(true);
+		frame.getContentPane().add(finished);
 		
 		
 	}
@@ -203,10 +214,8 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			System.out.println("pe");
-			  int x=arg0.getX();
-			  int y=arg0.getY();
-			  x = x - 100;
-			  y = y - 100;
+			  int y=arg0.getX();
+			  int x=arg0.getY();
 			  
 			  int cellX = x/25;
 			  int cellY = y/25;
@@ -215,26 +224,29 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 				  return;
 			  if (map[cellX][cellY] == ' ') {
 			  if(heroButtonPressed) {
-				game.getLevels().get(1).getHero().setX(cellX);
-				game.getLevels().get(1).getHero().setX(cellY);
+			  	map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
+
+			  	this.gui.getGame().getLevel().getHero().setX(cellX);
+			  	this.gui.getGame().getLevel().getHero().setY(cellY);
 			  }
 				else if(ogreButtonPressed) {
-				game.getLevels().get(1).getChars().get(ogreCount).setX(cellX);
-				game.getLevels().get(1).getChars().get(ogreCount).setY(cellX);
+				  this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
+				  this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellX);
 				ogreCount++;
 				}
 				else if(wallButtonPressed) {
 					map[cellX][cellY] = 'X';
-					game.getLevels().get(1).setMap(map);
 				}
 				else if(keyButtonPressed) {
-				if (game.getLevels().get(1).getObject() instanceof Key)
-				((Key)game.getLevels().get(1).getObject()).setX(cellX);
-				((Key)game.getLevels().get(1).getObject()).setX(cellY);
-				}	
-			  
+				if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key)
+				((Key)this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
+				((Key)this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
+				}
+
 			  resetFlags();
 			  this.gui.getGame().getLevel().drawImovable(map);
+			  this.gui.getGame().getLevel().drawMovable(map);
+			  this.gui.getGame().getLevel().setMap(map);
 			  this.gameBox.repaint();
 			}
 		}
@@ -264,7 +276,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
                 	frame.getContentPane().setLayout(null);
-                	gameBox.setBounds(100, 100, 360, 280);
+                	gameBox.setBounds(100, 100, 275, 275);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
                 }
@@ -293,6 +305,13 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		private class KeyEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				keyButtonPressed = true;
+			}
+		}
+
+		private class FinishedEvent implements ActionListener {
+			public void actionPerformed(ActionEvent arg0) {
+				gui.getGame().decLevel();
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 			}
 		}
 }

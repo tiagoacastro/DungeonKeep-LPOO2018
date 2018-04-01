@@ -250,7 +250,7 @@ public class Level {
             d.draw(map);
     }
 
-    private void drawMovable(Character[][] map){
+    public void drawMovable(Character[][] map){
         hero.draw(map);
 
         for(GameCharacter c : chars)

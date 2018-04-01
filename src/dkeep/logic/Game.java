@@ -172,6 +172,10 @@ public class Game {
         level++;
     }
 
+    public void decLevel() {
+        level--;
+    }
+
     public void userMove(UserInterface.Direction input) {
 
         levelState lvlState = levels.get(level).userMove(input);
