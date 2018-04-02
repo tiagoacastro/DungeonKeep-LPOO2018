@@ -112,6 +112,11 @@ public class Game {
         levels.add(l);
     }
 
+    public void substLevel(Level l, int pos){
+        levels.remove(pos);
+        levels.add(pos, l);
+    }
+
     public enum levelState {
         WIN, LOSE, NONE
     }
@@ -187,7 +192,11 @@ public class Game {
     public Level getLevel(){
         return levels.get(level);
     }
-    
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public int getCurrentLevel() {
     	return level+1;
     }

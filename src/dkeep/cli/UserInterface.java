@@ -58,8 +58,12 @@ public class UserInterface {
                 }
         }
 
-    public static void saveLevel(String filename, Level level) {
+    public static void saveState(String filename, Game game) {
+            Level level = game.getLevel();
+
         try (PrintWriter writer = new PrintWriter("levels/" + filename + ".txt", "UTF-8")) {
+            writer.println(game.getCurrentLevel() + "\n");
+
             for(int i = 0; i < level.getMap().length; ++i) {
                 for(int j = 0; j < level.getMap()[i].length; ++j) {
                     writer.println(level.getMap()[i][j]);
@@ -85,78 +89,84 @@ public class UserInterface {
         }
     }
 
-    public static void loadLevel(Game game, String filename) {
+    public static void loadState(Game game, String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader("map/" + filename + ".txt"))) {
             String sCurrentLine;
             boolean readingMap = true;
             ArrayList<Character[]>lines = new ArrayList<>();
             Level level = new Level();
             int x, y, clubX, clubY;
+            boolean levelGet = true;
+            int levelNumber=0;
 
             while ((sCurrentLine = br.readLine()) != null) {
                 System.out.println(sCurrentLine);
 
-                if(readingMap) {
-                    if(sCurrentLine.charAt(0) == '-'){
-                        Character[][] map = new Character[lines.size()][];
-                        for (int i = 0; i < lines.size(); ++i)
-                            map[i] = lines.get(i);
-                        level.setMap(map);
-                        readingMap = false;
-                        break;
-                    }
-
-                    Character[] line = new Character[sCurrentLine.length()];
-
-                    for (int i = 0, n = sCurrentLine.length(); i < n; ++i) {
-                        line[i] = sCurrentLine.charAt(i);
-                    }
-
-                    lines.add(line);
-                }
-
-                else {
-                    switch(sCurrentLine.charAt(0)){
-                        case 'h':
-                            sCurrentLine = sCurrentLine.substring(2);
-                            x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            y = Integer.parseInt(sCurrentLine);
-                            level.setHero(new Hero(x,y));
+                if(levelGet) {
+                    levelGet = false;
+                    levelNumber = Integer.parseInt(sCurrentLine);
+                    game.setLevel(levelNumber);
+                }else {
+                    if (readingMap) {
+                        if (sCurrentLine.charAt(0) == '-') {
+                            Character[][] map = new Character[lines.size()][];
+                            for (int i = 0; i < lines.size(); ++i)
+                                map[i] = lines.get(i);
+                            level.setMap(map);
+                            readingMap = false;
                             break;
+                        }
 
-                        case 'k':
-                            sCurrentLine = sCurrentLine.substring(2);
-                            x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            y = Integer.parseInt(sCurrentLine);
-                            level.addKey(new Key(x,y));
-                            break;
+                        Character[] line = new Character[sCurrentLine.length()];
 
-                        case 'o':
-                            sCurrentLine = sCurrentLine.substring(2);
-                            x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            y = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            clubX = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            clubY = Integer.parseInt(sCurrentLine);
-                            level.addOgre(new Ogre(x,y,clubX,clubY));
-                            break;
+                        for (int i = 0, n = sCurrentLine.length(); i < n; ++i) {
+                            line[i] = sCurrentLine.charAt(i);
+                        }
 
-                        case 'd':
-                            sCurrentLine = sCurrentLine.substring(2);
-                            x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';')-1));
-                            sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';')+1);
-                            y = Integer.parseInt(sCurrentLine);
-                            level.addDoor(new Door(x,y));
-                            break;
+                        lines.add(line);
+                    } else {
+                        switch (sCurrentLine.charAt(0)) {
+                            case 'h':
+                                sCurrentLine = sCurrentLine.substring(2);
+                                x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                y = Integer.parseInt(sCurrentLine);
+                                level.setHero(new Hero(x, y));
+                                break;
+
+                            case 'k':
+                                sCurrentLine = sCurrentLine.substring(2);
+                                x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                y = Integer.parseInt(sCurrentLine);
+                                level.addKey(new Key(x, y));
+                                break;
+
+                            case 'o':
+                                sCurrentLine = sCurrentLine.substring(2);
+                                x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                y = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                clubX = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                clubY = Integer.parseInt(sCurrentLine);
+                                level.addOgre(new Ogre(x, y, clubX, clubY));
+                                break;
+
+                            case 'd':
+                                sCurrentLine = sCurrentLine.substring(2);
+                                x = Integer.parseInt(sCurrentLine.substring(0, sCurrentLine.indexOf(';') - 1));
+                                sCurrentLine = sCurrentLine.substring(sCurrentLine.indexOf(';') + 1);
+                                y = Integer.parseInt(sCurrentLine);
+                                level.addDoor(new Door(x, y));
+                                break;
+                        }
                     }
                 }
             }
 
-            game.loadLevel(level);
+            game.substLevel(level,levelNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }
