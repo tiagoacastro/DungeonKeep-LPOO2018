@@ -19,6 +19,8 @@ import java.awt.event.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import static dkeep.gui.MapEditor.charButtonPressed.DOOR;
+
 
 public class MapEditor extends JPanel implements MouseListener, MouseMotionListener{
 
@@ -36,6 +38,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 	private JButton hero;
 	private JButton wall;
 	private JButton key;
+	private JButton door;
 	private JButton finished;
 
 	private charButtonPressed currButton = charButtonPressed.NONE;
@@ -128,33 +131,40 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	public enum charButtonPressed {
-		HERO, OGRE, WALL, KEY, NONE
+		HERO, OGRE, WALL, KEY, DOOR, NONE
 	}
 
 	void initializeCharButtons() {
 		ogre = new JButton("Ogre");
 		ogre.addActionListener( new OgreEvent());
-		ogre.setBounds(400,150,100,50);
+		ogre.setBounds(450,100,100,50);
 		ogre.setVisible(true);
 		frame.getContentPane().add(ogre);
 		
 		hero = new JButton("Hero");
 		hero.addActionListener( new HeroEvent());
-		hero.setBounds(400,215,100,50);
+		hero.setBounds(450,165,100,50);
 		hero.setVisible(true);
 		frame.getContentPane().add(hero);
 		
 		wall = new JButton("Wall");
 		wall.addActionListener( new WallEvent());
-		wall.setBounds(400,300,100,50);
+		wall.setBounds(450,230,100,50);
 		wall.setVisible(true);
 		frame.getContentPane().add(wall);
 		
 		key = new JButton("Key");
 		key.addActionListener( new KeyEvent());
-		key.setBounds(400,375,100,50);
+		key.setBounds(450,295,100,50);
 		key.setVisible(true);
 		frame.getContentPane().add(key);
+
+		door = new JButton("Door");
+		door.addActionListener( new DoorEvent());
+		door.setBounds(450,360,100,50);
+		door.setVisible(true);
+		frame.getContentPane().add(door);
+
 
 		finished = new JButton("Finished");
 		finished.addActionListener( new FinishedEvent());
@@ -193,6 +203,11 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			// TODO Auto-generated method stub
 
 		}
+		public boolean checkBoundaries(int cellX, int cellY) {
+			if ((cellX == 0) || (cellY == 0) || (cellX == dimension-1) || (cellY == dimension-1))
+				return true;
+			else return false;
+		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
@@ -200,11 +215,17 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			  int cellX = arg0.getY()/25;
 			  int cellY = arg0.getX()/25;
 
-			  if (cellX == 0 || cellY == 0) return;
+			  if (checkBoundaries(cellX,cellY))
+			  	if (currButton == DOOR){
+					Door d = new Door(cellX,cellY);
+					this.gui.getGame().getLevel().addDoor(d);
+					this.gui.getGame().getLevel().draw();
+					this.gui.getGame().getLevel().setMap(map);
+					this.gameBox.repaint();
+				} else return;
 			  if (map[cellX][cellY] == ' ') {
 			  	currButtonHandler(cellX, cellY);
-			  	this.gui.getGame().getLevel().drawImovable(map);
-			  	this.gui.getGame().getLevel().drawMovable(map);
+			  	this.gui.getGame().getLevel().draw();
 			  	this.gui.getGame().getLevel().setMap(map);
 			  	this.gameBox.repaint();
 			}
@@ -214,16 +235,16 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		int ogres = gui.getOgres();
 		switch (currButton) {
           case HERO:
-              map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
+              map[this.gui.getGame().getLevel().getHero().getX()][this.gui.getGame().getLevel().getHero().getY()] = ' ';
               this.gui.getGame().getLevel().getHero().setX(cellX);
               this.gui.getGame().getLevel().getHero().setY(cellY);
               break;
           case OGRE:
 			  if (ogreCount >= ogres)
 				  ogreCount = 0;
-			  map[this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).getX()][this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).getY()] = ' ';
-              this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
-              this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellY);
+			  map[this.gui.getGame().getLevel().getChars().get(ogreCount).getX()][this.gui.getGame().getLevel().getChars().get(ogreCount).getY()] = ' ';
+              this.gui.getGame().getLevel().getChars().get(ogreCount).setX(cellX);
+              this.gui.getGame().getLevel().getChars().get(ogreCount).setY(cellY);
 
               ogreCount++;
               break;
@@ -231,11 +252,15 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
               map[cellX][cellY] = 'X';
               break;
           case KEY:
-              if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key) {
-                  ((Key) this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
-                  ((Key) this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
+              if (this.gui.getGame().getLevel().getObject() instanceof Key) {
+                  ((Key) this.gui.getGame().getLevel().getObject()).setX(cellX);
+                  ((Key) this.gui.getGame().getLevel().getObject()).setY(cellY);
               }
               break;
+		  case DOOR:
+		  		Door d = new Door(cellX,cellY);
+				this.gui.getGame().getLevel().addDoor(d);
+				break;
           default:
               break;
       }
@@ -250,7 +275,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent arg0) {
                 int mazeSize = Integer.parseInt(textField.getText());
                 
-                if (mazeSize == 7 || mazeSize == 9 || mazeSize == 11) {
+                if (mazeSize >= 9 && mazeSize <=15) {
                 	dimension = mazeSize;
                 	createMap(game);
                 	textField.setVisible(false);
@@ -258,7 +283,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
                 	frame.getContentPane().setLayout(null);
-                	gameBox.setBounds(100, 100, 275, 275);
+                	gameBox.setBounds(50, 50, 25* dimension, 25 *dimension);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
                 }
@@ -287,6 +312,12 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		private class KeyEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				currButton = charButtonPressed.KEY;
+			}
+		}
+
+		private class DoorEvent implements ActionListener {
+			public void actionPerformed(ActionEvent arg0) {
+				currButton = DOOR;
 			}
 		}
 
