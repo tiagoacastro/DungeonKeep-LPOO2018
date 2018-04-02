@@ -183,13 +183,16 @@ public class DungeonKeepGUI{
                 break;
         }
 	}
-
-	public void initializePanel() {
+	public void createPanel() {
 		//game box
 		gameBox = new GamePanel(this);
 		gameBox.setBounds(10, 80, 360, 280);
 		gameBox.setVisible(false);
 		gameBox.setFocusable(false);
+	}
+	public void initializePanel() {
+
+		createPanel();
 		gameBox.addKeyListener(new KeyListener(){
 			@Override
 			public void keyPressed(KeyEvent e) {

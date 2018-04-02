@@ -75,11 +75,8 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		frame.getContentPane().add(lblSize, gbc_lblSize);
 
 		initializeTextField();
-
 		initializeCreateButton();
-		
 		ogreCount = 0;
-
 	}
 
 	public void initializeFrame() {

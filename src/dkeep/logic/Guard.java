@@ -43,28 +43,20 @@ public abstract class Guard extends GameCharacter {
     public void bidirectionalMovement( Character[][] map){
         switch (path.get(mov)) {
             case 'u':
-                if(way)
-                    move(map, x - 1, y);
-                else
-                    move(map, x + 1, y);
+                if(way) move(map, x - 1, y);
+                else move(map, x + 1, y);
                 break;
             case 'l':
-                if(way)
-                    move(map, x, y - 1);
-                else
-                    move(map, x, y + 1);
+                if(way) move(map, x, y - 1);
+                else move(map, x, y + 1);
                 break;
             case 'd':
-                if(way)
-                    move(map, x + 1, y);
-                else
-                    move(map, x - 1, y);
+                if(way) move(map, x + 1, y);
+                else move(map, x - 1, y);
                 break;
             case 'r':
-                if(way)
-                    move(map, x, y + 1);
-                else
-                    move(map, x, y - 1);
+                if(way)move(map, x, y + 1);
+                else move(map, x, y - 1);
                 break;
         }
     }

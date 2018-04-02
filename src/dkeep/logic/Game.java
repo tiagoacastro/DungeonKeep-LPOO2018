@@ -130,7 +130,6 @@ public class Game {
             UserInterface.printMap(lvl.getMapCopy());
             stop = false;
             lose = false;
-
             while (true){
                 input = UserInterface.userInput();
                 userMove(input);
@@ -146,10 +145,8 @@ public class Game {
                         lose = true;
                         this.state = gameState.LOSE;
                         break;
-                    case NONE:
-                        break;
+                    case NONE: break;
                 }
-
                 if(stop) break;
             }
             if(lose) return;
