@@ -44,21 +44,8 @@ public class Ogre extends GameCharacter {
             Random rand = new Random();
             int n = 4;
             int randnum = rand.nextInt(n);
-
-            switch (randnum) {
-                case 0:
-                    move(map, x + 1, y);
-                    break;
-                case 1:
-                    move(map, x, y + 1);
-                    break;
-                case 2:
-                    move(map, x - 1, y);
-                    break;
-                case 3:
-                    move(map, x, y - 1);
-                    break;
-            }
+            ogreWhereToMove(map, randnum);
+            
         } else {
             updateClub(map);
             switch (stunTimer){
@@ -71,6 +58,23 @@ public class Ogre extends GameCharacter {
                     symbol = '0';
                     break;
             }
+        }
+    }
+
+    public void ogreWhereToMove(Character[][] map, int randnum) {
+        switch (randnum) {
+            case 0:
+                move(map, x + 1, y);
+                break;
+            case 1:
+                move(map, x, y + 1);
+                break;
+            case 2:
+                move(map, x - 1, y);
+                break;
+            case 3:
+                move(map, x, y - 1);
+                break;
         }
     }
 

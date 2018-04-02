@@ -50,6 +50,18 @@ public class Game {
         levels.add(new Level(map1, h));
 
         Character[] route = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
+        loadGuardToLevel(guardType, route);
+
+        Door d1 = new Door(5, 0);
+        levels.get(0).addDoor(d1);
+        Door d2 = new Door(6, 0);
+        levels.get(0).addDoor(d2);
+
+        Lever l = new Lever(8, 7);
+        levels.get(0).addLever(l);
+    }
+
+    public void loadGuardToLevel(String guardType, Character[] route) {
         switch(guardType) {
         	case "Rookie":
                 Guard g1 = new RookieGuard(1, 8, new ArrayList<Character>(Arrays.asList(route)));
@@ -64,14 +76,6 @@ public class Game {
                 levels.get(0).addGuard(g3);
                 break;
         }
-
-        Door d1 = new Door(5, 0);
-        levels.get(0).addDoor(d1);
-        Door d2 = new Door(6, 0);
-        levels.get(0).addDoor(d2);
-
-        Lever l = new Lever(8, 7);
-        levels.get(0).addLever(l);
     }
 
     public void loadLevel2(int ogreNumber){

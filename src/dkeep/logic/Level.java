@@ -175,66 +175,40 @@ public class Level {
 
     public boolean heroMove(int nextX, int nextY) {
             if (map[nextX][nextY] == ' ') {
-
-                hero.setX(nextX);
-                hero.setY(nextY);
-
-                moved = true;
-
+                heroSetMove(nextX, nextY);
                 return false;
             }
-
-
             else if (map[nextX][nextY] == 'k') {
-                hero.setX(nextX);
-                hero.setY(nextY);
-
+                heroSetMove(nextX, nextY);
                 if (object instanceof Lever)
                     for (Door d : doors) {
                         d.open(map);
                      }
-
                 if (object instanceof Key) {
                     ((Key) object).grab();
                     hero.grabsKey();
-                }
-
-                moved = true;
-
-                return false;
-            }
-
-
-            else if (map[nextX][nextY] == 'S') {
-
-                hero.setX(nextX);
-                hero.setY(nextY);
-
-                moved = true;
-
+                } return false;
+            } else if (map[nextX][nextY] == 'S') {
+                heroSetMove(nextX, nextY);
                 return true;
-            }
-
-            else if (map[nextX][nextY] == 'I') {
+            } else if (map[nextX][nextY] == 'I') {
                 if (object instanceof Key)
                     if (((Key)object).check()) {
                         for (Door d : doors) {
-                            if (d.getX() == nextX && d.getY() == nextY) {
-                                d.open(map);
-                            }
+                            if (d.getX() == nextX && d.getY() == nextY) d.open(map);
                         }
-
-                        if (hero.armed())
-                            hero.setSymbol('A');
-                        else
-                            hero.setSymbol('H');
-
+                        if (hero.armed()) hero.setSymbol('A');
+                        else hero.setSymbol('H');
                         moved = true;
-                    }
-                return false;
-            }
+                    } return false;
+            } return false;
+    }
 
-            return false;
+    public void heroSetMove(int nextX, int nextY) {
+        hero.setX(nextX);
+        hero.setY(nextY);
+
+        moved = true;
     }
 
     public void draw(){
