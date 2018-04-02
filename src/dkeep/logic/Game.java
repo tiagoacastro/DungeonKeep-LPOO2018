@@ -172,9 +172,7 @@ public class Game {
         level++;
     }
 
-    public void decLevel() {
-        level--;
-    }
+
 
     public void userMove(UserInterface.Direction input) {
 
@@ -189,6 +187,7 @@ public class Game {
          } else  levelState = levelState.NONE;
     }
 
+    public void decLevel() {level--;}
     public ArrayList<Level> getLevels() { return levels;}
 
     public Level getLevel(){

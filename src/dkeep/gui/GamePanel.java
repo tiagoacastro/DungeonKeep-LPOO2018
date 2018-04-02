@@ -3,38 +3,31 @@ package dkeep.gui;
 import dkeep.logic.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
+import java.util.HashMap;
 
 public class GamePanel extends JPanel{
 
     private Game game;
     private DungeonKeepGUI gui;
 
-    private BufferedImage background;
-    private BufferedImage guard;
-    private BufferedImage hero;
-    private BufferedImage wall;
-    private BufferedImage closedDoor;
-    private BufferedImage openedDoor;
-    private BufferedImage lever;
+    private HashMap<String, BufferedImage> loadedImages;
 
     public GamePanel(DungeonKeepGUI d){
+        loadedImages = new HashMap<>();
         try {
-            background = ImageIO.read(new File("images/background.png"));
-            wall = ImageIO.read(new File("images/wall.png"));
-            guard = ImageIO.read(new File ("images/guard.png"));
-            hero = ImageIO.read(new File ("images/hero.png"));
-            closedDoor = ImageIO.read(new File ("images/closedDoor.png"));
-            openedDoor = ImageIO.read(new File ("images/openedDoor.png"));
-            lever = ImageIO.read(new File ("images/lever.png"));
+            loadedImages.put("wall",ImageIO.read(new File("images/wall.png")));
+            loadedImages.put("guard",ImageIO.read(new File ("images/guard.png")));
+            loadedImages.put("hero",ImageIO.read(new File ("images/hero.png")));
+            loadedImages.put("closedDoor",ImageIO.read(new File ("images/closedDoor.png")));
+            loadedImages.put("openedDoor",ImageIO.read(new File ("images/openedDoor.png")));
+            loadedImages.put("lever", ImageIO.read(new File ("images/lever.png")));
+            loadedImages.put("ogre", ImageIO.read(new File ("images/ogre.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }
-
         gui = d;
     }
 
@@ -50,25 +43,28 @@ public class GamePanel extends JPanel{
                 for (int j = 0; j < map[i].length; ++j){
                     switch(map[i][j]) {
                         case 'X':
-                            g.drawImage(wall, j * 25, i * 25, null);
+                            g.drawImage(loadedImages.get("wall"), j * 25, i * 25, null);
                             break;
                         case 'H':
-                            g.drawImage(hero, j * 25, i * 25, null);
+                            g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
                             break;
                         case 'A':
-                            g.drawImage(hero, j * 25, i * 25, null);
+                            g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
                             break;
                         case 'G':
-                            g.drawImage(guard, j * 25, i * 25, null);
+                            g.drawImage(loadedImages.get("guard"), j * 25, i * 25, null);
                             break;
                         case 'I':
-                            g.drawImage(closedDoor, j* 25 , i*25 ,null);
+                            g.drawImage(loadedImages.get("closedDoor"), j * 25, i * 25, null);
                             break;
                         case 'S':
-                            g.drawImage(openedDoor, j* 25 , i*25 ,null);
+                            g.drawImage(loadedImages.get("openedDoor"), j * 25, i * 25, null);
                             break;
                         case 'k':
-                            g.drawImage(lever, j* 25 , i*25 ,null);
+                            g.drawImage(loadedImages.get("lever"), j * 25, i * 25, null);
+                            break;
+                        case '0':
+                            g.drawImage(loadedImages.get("ogre"), j * 25, i * 25, null);
                             break;
                             default:
                           	break;

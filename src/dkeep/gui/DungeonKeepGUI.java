@@ -34,8 +34,11 @@ public class DungeonKeepGUI{
 			}
 		});
 	}
-	
-	
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
 	//GUI creator
 	
 	public DungeonKeepGUI() {
@@ -80,6 +83,13 @@ public class DungeonKeepGUI{
 		newGameButton.addActionListener(new startGameEvent());
 		newGameButton.setBounds(460, 80, 100, 25);
 		frame.add(newGameButton);
+
+		/*//edit keep level button
+		JButton editLevel = new JButton("Edit Keep");
+		editLevel.addActionListener(new editGameMapEvent());
+		editLevel.setBounds(460, 20, 100, 25);
+		frame.add(editLevel);
+		*/
 		
 		
 		//end game button
@@ -212,7 +222,7 @@ public class DungeonKeepGUI{
 	private class startGameEvent implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg) {
-			
+
 			game = new Game();
 			gamePlaying = true;
 			game.loadLevel1(guardType.getSelectedItem().toString());
@@ -234,11 +244,11 @@ public class DungeonKeepGUI{
 			} else {
 				JOptionPane.showMessageDialog(frame, "You have to insert a positive number of 5 or less!");
 			}
-			helpMapEditor();
+			MapEditor();
 		}
 	}
 	
-	public void helpMapEditor() {
+	public void MapEditor() {
 		this.mapEditor = new MapEditor(this);
 	}
 	

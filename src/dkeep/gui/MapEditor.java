@@ -19,6 +19,7 @@ import java.awt.event.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
 public class MapEditor extends JPanel implements MouseListener, MouseMotionListener{
 
 	private JFrame frame;
@@ -32,12 +33,12 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
     private JTextField textField;
     private JLabel lblSize;
 	private JButton ogre;
-	
-	boolean ogreButtonPressed,heroButtonPressed,wallButtonPressed,keyButtonPressed;
 	private JButton hero;
 	private JButton wall;
 	private JButton key;
 	private JButton finished;
+
+	private charButtonPressed currButton = charButtonPressed.NONE;
 
 	public void createMap(Game g) {
 
@@ -115,7 +116,11 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 				gameBox.addMouseListener(this);
 				frame.add(gameBox,gbc_panel);
 	}
-	
+
+	public enum charButtonPressed {
+		HERO, OGRE, WALL, KEY, NONE
+	}
+
 	void initializeCharButtons() {
 		ogre = new JButton("Ogre");
 		ogre.addActionListener( new OgreEvent());
@@ -213,7 +218,6 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			System.out.println("pe");
 			  int y=arg0.getX();
 			  int x=arg0.getY();
 			  
@@ -223,39 +227,40 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			  if (cellX == 0 || cellY == 0)
 				  return;
 			  if (map[cellX][cellY] == ' ') {
-			  if(heroButtonPressed) {
-			  	map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
 
-			  	this.gui.getGame().getLevel().getHero().setX(cellX);
-			  	this.gui.getGame().getLevel().getHero().setY(cellY);
-			  }
-				else if(ogreButtonPressed) {
-				  this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
-				  this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellX);
-				ogreCount++;
-				}
-				else if(wallButtonPressed) {
-					map[cellX][cellY] = 'X';
-				}
-				else if(keyButtonPressed) {
-				if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key)
-				((Key)this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
-				((Key)this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
+			  	switch (currButton) {
+
+					case HERO:
+						map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
+
+						this.gui.getGame().getLevel().getHero().setX(cellX);
+						this.gui.getGame().getLevel().getHero().setY(cellY);
+						break;
+
+					case OGRE:
+						this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
+						this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellY);
+						ogreCount++;
+						break;
+
+					case WALL:
+						map[cellX][cellY] = 'X';
+						break;
+					case KEY:
+						if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key) {
+							((Key) this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
+							((Key) this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
+						}
+						break;
+					default:
+						break;
 				}
 
-			  resetFlags();
 			  this.gui.getGame().getLevel().drawImovable(map);
 			  this.gui.getGame().getLevel().drawMovable(map);
 			  this.gui.getGame().getLevel().setMap(map);
 			  this.gameBox.repaint();
 			}
-		}
-		
-		public void resetFlags() {
-			heroButtonPressed = false;
-			ogreButtonPressed = false;
-			keyButtonPressed = false;
-			wallButtonPressed = false;
 		}
 
 		@Override
@@ -285,26 +290,26 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		
 		private class OgreEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				ogreButtonPressed = true;
+				currButton = charButtonPressed.OGRE;
 			}
 		}
 		
 		private class HeroEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				heroButtonPressed = true;
+				currButton = charButtonPressed.HERO;
 			}
 		}
 		
 		private class WallEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				wallButtonPressed = true;
+				currButton = charButtonPressed.WALL;
 			}
 		}
 		
 
 		private class KeyEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				keyButtonPressed = true;
+				currButton = charButtonPressed.KEY;
 			}
 		}
 
@@ -312,6 +317,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent arg0) {
 				gui.getGame().decLevel();
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				gui.getFrame().repaint();
 			}
 		}
 }
