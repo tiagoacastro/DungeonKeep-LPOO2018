@@ -239,20 +239,23 @@ public class DungeonKeepGUI{
 			if (ogres.getText().equals("1") || ogres.getText().equals("2") || ogres.getText().equals("3") || ogres.getText().equals("4") || ogres.getText().equals("5")) {
 		        game.loadLevel2(Integer.parseInt(ogres.getText()));
 		        game.getLevel().draw();
+		        /*
 				gameBox.setVisible(true);
 				upButton.setEnabled(true);
 				leftButton.setEnabled(true);
 				rightButton.setEnabled(true);
 				downButton.setEnabled(true);
+
 				status.setText("You can play now.");
 				gameBox.repaint();
 				gameBox.setFocusable(true);
-				gameBox.requestFocusInWindow();
-				
+				gameBox.requestFocusInWindow();*/
+				status.setText("Editing Level.");
+				MapEditor();
+
 			} else {
 				JOptionPane.showMessageDialog(frame, "You have to insert a positive number of 5 or less!");
 			}
-			MapEditor();
 		}
 	}
 	
@@ -300,8 +303,34 @@ public class DungeonKeepGUI{
 	}
 	//extra functions
 
+
+	public JButton getUpButton() {
+		return upButton;
+	}
+
+	public JLabel getStatus() {
+		return status;
+	}
+
+	public JButton getLeftButton() {
+
+		return leftButton;
+	}
+
+	public JButton getRightButton() {
+		return rightButton;
+	}
+
+	public JButton getDownButton() {
+		return downButton;
+	}
+
 	public boolean checkGameStart(){
 		return gamePlaying;
+	}
+
+	public GamePanel getGameBox() {
+		return gameBox;
 	}
 
 	public Game getGame(){

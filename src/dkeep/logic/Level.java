@@ -24,6 +24,13 @@ public class Level {
         lvlMap = m;
     }
 
+    public Level(){
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
     public void addGuard(Guard g) {
         chars.add(g);
     }
@@ -72,7 +79,7 @@ public class Level {
         return hero;
     }
 
-    public Object getObject() {
+    public GameObject getObject() {
     	return object;
     }
     public Game.levelState userMove(UserInterface.Direction input) {
