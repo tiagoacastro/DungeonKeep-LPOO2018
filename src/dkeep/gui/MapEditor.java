@@ -164,33 +164,34 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		
 		
 	}
-		@Override
-		public void mouseDragged(MouseEvent arg0) {
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			  
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -198,7 +199,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 
 			  int cellX = arg0.getY()/25;
 			  int cellY = arg0.getX()/25;
-			  
+
 			  if (cellX == 0 || cellY == 0) return;
 			  if (map[cellX][cellY] == ' ') {
 			  	currButtonHandler(cellX, cellY);
@@ -240,7 +241,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
       }
 	}
 
-	@Override
+		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			
 		}
@@ -293,6 +294,16 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent arg0) {
 				gui.getGame().decLevel();
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				gui.getGameBox().setVisible(true);
+				gui.getUpButton().setEnabled(true);
+				gui.getLeftButton().setEnabled(true);
+				gui.getRightButton().setEnabled(true);
+				gui.getDownButton().setEnabled(true);
+
+				gui.getStatus().setText("You can play now.");
+				gui.getGameBox().repaint();
+				gui.getGameBox().setFocusable(true);
+				gui.getGameBox().requestFocusInWindow();
 				gui.getFrame().repaint();
 			}
 		}
