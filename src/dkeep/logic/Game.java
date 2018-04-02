@@ -128,7 +128,6 @@ public class Game {
         for (Level lvl : levels) {
             lvl.draw();
             UserInterface.printMap(lvl.getMapCopy());
-
             stop = false;
             lose = false;
 
@@ -151,17 +150,11 @@ public class Game {
                         break;
                 }
 
-                if(stop)
-                    break;
+                if(stop) break;
             }
-
-            if(lose)
-                return;
-
+            if(lose) return;
             incLevel();
-        }
-        
-        this.state = gameState.WIN;
+        } this.state = gameState.WIN;
     }
 
     public void setState(gameState state) {

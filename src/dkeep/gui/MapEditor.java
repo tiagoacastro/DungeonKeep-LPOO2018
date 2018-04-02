@@ -185,52 +185,47 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			  int y=arg0.getX();
-			  int x=arg0.getY();
+
+			  int cellX = arg0.getY()/25;
+			  int cellY = arg0.getX()/25;
 			  
-			  int cellX = x/25;
-			  int cellY = y/25;
-			  
-			  if (cellX == 0 || cellY == 0)
-				  return;
+			  if (cellX == 0 || cellY == 0) return;
 			  if (map[cellX][cellY] == ' ') {
-
-			  	switch (currButton) {
-
-					case HERO:
-						map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
-
-						this.gui.getGame().getLevel().getHero().setX(cellX);
-						this.gui.getGame().getLevel().getHero().setY(cellY);
-						break;
-
-					case OGRE:
-						this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
-						this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellY);
-						ogreCount++;
-						break;
-
-					case WALL:
-						map[cellX][cellY] = 'X';
-						break;
-					case KEY:
-						if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key) {
-							((Key) this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
-							((Key) this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
-						}
-						break;
-					default:
-						break;
-				}
-
-			  this.gui.getGame().getLevel().drawImovable(map);
-			  this.gui.getGame().getLevel().drawMovable(map);
-			  this.gui.getGame().getLevel().setMap(map);
-			  this.gameBox.repaint();
+			  	currButtonHandler(cellX, cellY);
+			  	this.gui.getGame().getLevel().drawImovable(map);
+			  	this.gui.getGame().getLevel().drawMovable(map);
+			  	this.gui.getGame().getLevel().setMap(map);
+			  	this.gameBox.repaint();
 			}
 		}
 
-		@Override
+	public void currButtonHandler(int cellX, int cellY) {
+		switch (currButton) {
+          case HERO:
+              map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
+              this.gui.getGame().getLevel().getHero().setX(cellX);
+              this.gui.getGame().getLevel().getHero().setY(cellY);
+              break;
+          case OGRE:
+              this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
+              this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellY);
+              ogreCount++;
+              break;
+          case WALL:
+              map[cellX][cellY] = 'X';
+              break;
+          case KEY:
+              if (this.gui.getGame().getLevels().get(1).getObject() instanceof Key) {
+                  ((Key) this.gui.getGame().getLevels().get(1).getObject()).setX(cellX);
+                  ((Key) this.gui.getGame().getLevels().get(1).getObject()).setY(cellY);
+              }
+              break;
+          default:
+              break;
+      }
+	}
+
+	@Override
 		public void mouseReleased(MouseEvent arg0) {
 			
 		}

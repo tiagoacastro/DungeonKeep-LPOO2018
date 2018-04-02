@@ -45,7 +45,7 @@ public class Ogre extends GameCharacter {
             int n = 4;
             int randnum = rand.nextInt(n);
             ogreWhereToMove(map, randnum);
-            
+
         } else {
             updateClub(map);
             switch (stunTimer){
