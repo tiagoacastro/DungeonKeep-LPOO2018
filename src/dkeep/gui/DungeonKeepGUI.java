@@ -137,7 +137,6 @@ public class DungeonKeepGUI{
 	public void movementHandler(UserInterface.Direction way){
 		game.userMove(way);
 		gameBox.repaint();
-		//gameBox.setText(game.getLevel().getMapString());
 		switch(game.getLevelState()) {
 			case WIN:
 				if(game.getCurrentLevel() == game.getLevels().size()) {
@@ -151,7 +150,6 @@ public class DungeonKeepGUI{
 				}else{
 					game.incLevel();
 					game.getLevel().draw();
-				    //gameBox.setText(game.getLevel().getMapString());
 				}
 				break;
 			case LOSE:
@@ -230,7 +228,6 @@ public class DungeonKeepGUI{
 			if (ogres.getText().equals("1") || ogres.getText().equals("2") || ogres.getText().equals("3") || ogres.getText().equals("4") || ogres.getText().equals("5")) {
 		        game.loadLevel2(Integer.parseInt(ogres.getText()));
 		        game.getLevel().draw();
-		        //gameBox.setText(game.getLevel().getMapString());
 				gameBox.setVisible(true);
 				upButton.setEnabled(true);
 				leftButton.setEnabled(true);

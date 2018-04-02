@@ -125,49 +125,30 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		ogre = new JButton("Ogre");
 		ogre.addActionListener( new OgreEvent());
 		ogre.setBounds(400,150,100,50);
-		/*GridBagConstraints gbc_ogre = new GridBagConstraints();
-		gbc_ogre.gridx = 5;
-		gbc_ogre.gridy = 1;
-		*/
 		ogre.setVisible(true);
 		frame.getContentPane().add(ogre);
 		
 		hero = new JButton("Hero");
 		hero.addActionListener( new HeroEvent());
 		hero.setBounds(400,215,100,50);
-		/*GridBagConstraints gbc_hero = new GridBagConstraints();
-		gbc_hero.gridx = 5;
-		gbc_hero.gridy = 2;*/
 		hero.setVisible(true);
 		frame.getContentPane().add(hero);
 		
 		wall = new JButton("Wall");
 		wall.addActionListener( new WallEvent());
 		wall.setBounds(400,300,100,50);
-		/*GridBagConstraints gbc_wall = new GridBagConstraints();
-		gbc_wall.gridx = 5;
-		gbc_wall.gridy = 3;
-		*/
 		wall.setVisible(true);
 		frame.getContentPane().add(wall);
 		
 		key = new JButton("Key");
 		key.addActionListener( new KeyEvent());
 		key.setBounds(400,375,100,50);
-		/*GridBagConstraints gbc_key = new GridBagConstraints();
-		gbc_key.gridx = 5;
-		gbc_key.gridy = 4;
-		*/
 		key.setVisible(true);
 		frame.getContentPane().add(key);
 
 		finished = new JButton("Finished");
 		finished.addActionListener( new FinishedEvent());
 		finished.setBounds(400,10,100,50);
-		/*GridBagConstraints gbc_key = new GridBagConstraints();
-		gbc_key.gridx = 5;
-		gbc_key.gridy = 4;
-		*/
 		finished.setVisible(true);
 		frame.getContentPane().add(finished);
 		
@@ -184,20 +165,6 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 			// TODO Auto-generated method stub
 			
 		}
-		/*
-		public void initializeCombo(int x, int y) {
-			
-			characterType = new JComboBox();
-			characterType.setBounds(x, y, 100, 20);
-			characterType.addItem("Hero");
-			characterType.addItem("Ogre");
-			characterType.addItem("Key");
-			characterType.addItem("Wall");
-			characterType.setVisible(true);
-			frame.getContentPane().add(characterType);
-	
-		}
-		*/
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -265,7 +232,6 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 		
