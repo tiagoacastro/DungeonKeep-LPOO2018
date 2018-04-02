@@ -21,6 +21,7 @@ public class GamePanel extends JPanel{
             loadedImages.put("wall",ImageIO.read(new File("images/wall.png")));
             loadedImages.put("guard",ImageIO.read(new File ("images/guard.png")));
             loadedImages.put("hero",ImageIO.read(new File ("images/hero.png")));
+            loadedImages.put("heroArmed", ImageIO.read(new File ("images/heroArmed.png")));
             loadedImages.put("closedDoor",ImageIO.read(new File ("images/closedDoor.png")));
             loadedImages.put("openedDoor",ImageIO.read(new File ("images/openedDoor.png")));
             loadedImages.put("lever", ImageIO.read(new File ("images/lever.png")));
@@ -54,7 +55,7 @@ public class GamePanel extends JPanel{
                         g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
                         break;
                     case 'A':
-                        g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
+                        g.drawImage(loadedImages.get("heroArmed"), j * 25, i * 25, null);
                         break;
                     case 'G':
                         g.drawImage(loadedImages.get("guard"), j * 25, i * 25, null);

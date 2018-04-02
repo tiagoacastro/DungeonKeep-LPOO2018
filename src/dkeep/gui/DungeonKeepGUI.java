@@ -146,7 +146,6 @@ public class DungeonKeepGUI{
 	//movement button handler
 	
 	public void movementHandler(UserInterface.Direction way){
-		game.getLevel().draw();
 		game.userMove(way);
 		gameBox.repaint();
 		switch(game.getLevelState()) {

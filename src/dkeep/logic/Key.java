@@ -11,7 +11,7 @@ public class Key extends GameObject {
 
     public void draw(Character[][] map){
         if(!grabbed)
-        map[x][y] = 'k';
+            map[x][y] = 'k';
     }
 
     public boolean check(){
