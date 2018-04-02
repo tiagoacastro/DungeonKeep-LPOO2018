@@ -39,37 +39,41 @@ public class GamePanel extends JPanel{
             game = gui.getGame();
             Character[][] map = game.getLevel().getPlayMap();
 
-            for (int i = 0; i < map.length; ++i)
-                for (int j = 0; j < map[i].length; ++j){
-                    switch(map[i][j]) {
-                        case 'X':
-                            g.drawImage(loadedImages.get("wall"), j * 25, i * 25, null);
-                            break;
-                        case 'H':
-                            g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
-                            break;
-                        case 'A':
-                            g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
-                            break;
-                        case 'G':
-                            g.drawImage(loadedImages.get("guard"), j * 25, i * 25, null);
-                            break;
-                        case 'I':
-                            g.drawImage(loadedImages.get("closedDoor"), j * 25, i * 25, null);
-                            break;
-                        case 'S':
-                            g.drawImage(loadedImages.get("openedDoor"), j * 25, i * 25, null);
-                            break;
-                        case 'k':
-                            g.drawImage(loadedImages.get("lever"), j * 25, i * 25, null);
-                            break;
-                        case '0':
-                            g.drawImage(loadedImages.get("ogre"), j * 25, i * 25, null);
-                            break;
-                            default:
-                          	break;
-                    }
-            }
+            drawImagePanel(g, map);
+        }
+    }
+
+    public void drawImagePanel(Graphics g, Character[][] map) {
+        for (int i = 0; i < map.length; ++i)
+            for (int j = 0; j < map[i].length; ++j){
+                switch(map[i][j]) {
+                    case 'X':
+                        g.drawImage(loadedImages.get("wall"), j * 25, i * 25, null);
+                        break;
+                    case 'H':
+                        g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
+                        break;
+                    case 'A':
+                        g.drawImage(loadedImages.get("hero"), j * 25, i * 25, null);
+                        break;
+                    case 'G':
+                        g.drawImage(loadedImages.get("guard"), j * 25, i * 25, null);
+                        break;
+                    case 'I':
+                        g.drawImage(loadedImages.get("closedDoor"), j * 25, i * 25, null);
+                        break;
+                    case 'S':
+                        g.drawImage(loadedImages.get("openedDoor"), j * 25, i * 25, null);
+                        break;
+                    case 'k':
+                        g.drawImage(loadedImages.get("lever"), j * 25, i * 25, null);
+                        break;
+                    case '0':
+                        g.drawImage(loadedImages.get("ogre"), j * 25, i * 25, null);
+                        break;
+                        default:
+                          break;
+                }
         }
     }
 

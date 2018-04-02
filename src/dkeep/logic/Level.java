@@ -78,62 +78,74 @@ public class Level {
     public Game.levelState userMove(UserInterface.Direction input) {
 
             map = mapCopy();
-
             drawImovable(map);
-
             moved = false;
 
-            switch (input) {
-                case UP:
-                    if( heroMove(hero.getX()-1,hero.getY()) ) {
-                        win();
-                        return Game.levelState.WIN;
-                    }
-                    break;
-                case LEFT:
-                    if( heroMove(hero.getX(),hero.getY()-1) ) {
-                        win();
-                        return Game.levelState.WIN;
-                    }
-                    break;
-                case RIGHT:
-                    if( heroMove(hero.getX(),hero.getY()+1) ) {
-                        win();
-                        return Game.levelState.WIN;
-                    }
-                    break;
-                case DOWN:
-                    if( heroMove(hero.getX()+1,hero.getY()) ) {
-                        win();
-                        return Game.levelState.WIN;
-                    }
-                    break;
-            }
+        Game.levelState x = checkWhereHeroMove(input);
+        if (x != null) return x;
 
-            if (!frozenLevel) {
-                if (moved)
-                    for (GameCharacter c : chars)
-                        c.update(map);
-            }
+        checkFrozenLevel();
 
+        if (checkCharactersCollision()) return Game.levelState.LOSE;
 
-            if(hero.getX() != 0 && hero.getY() != 0){
+        drawMovable(map);
+
+        return Game.levelState.NONE;
+    }
+
+    public Game.levelState checkWhereHeroMove(UserInterface.Direction input) {
+        switch (input) {
+            case UP:
+                if( heroMove(hero.getX()-1,hero.getY()) ) {
+                    win();
+                    return Game.levelState.WIN;
+                }
+                break;
+            case LEFT:
+                if( heroMove(hero.getX(),hero.getY()-1) ) {
+                    win();
+                    return Game.levelState.WIN;
+                }
+                break;
+            case RIGHT:
+                if( heroMove(hero.getX(),hero.getY()+1) ) {
+                    win();
+                    return Game.levelState.WIN;
+                }
+                break;
+            case DOWN:
+                if( heroMove(hero.getX()+1,hero.getY()) ) {
+                    win();
+                    return Game.levelState.WIN;
+                }
+                break;
+        }
+        return null;
+    }
+
+    public boolean checkCharactersCollision() {
+        if(hero.getX() != 0 && hero.getY() != 0){
                 for(int i = 0; i < chars.size() ; i++)
                     if (checkCollision(hero, chars.get(i))) {
-                        drawMovable(map);     
-                        return Game.levelState.LOSE;
+                        drawMovable(map);
+                        return true;
                     }
                 for (int i = 0; i < chars.size(); ++i) {
                     if(chars.get(i).getX() == hero.getX() && chars.get(i).getY() == hero.getY()){
                         drawMovable(map);
-                        return Game.levelState.LOSE;
+                        return true;
                     }
                 }
             }
+        return false;
+    }
 
-            drawMovable(map);
-
-            return Game.levelState.NONE;
+    public void checkFrozenLevel() {
+        if (!frozenLevel) {
+            if (moved)
+                for (GameCharacter c : chars)
+                    c.update(map);
+        }
     }
 
     private void win(){
