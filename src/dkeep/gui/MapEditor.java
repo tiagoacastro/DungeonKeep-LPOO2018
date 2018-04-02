@@ -64,7 +64,25 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		gui = d;
 		game = d.getGame();
 		game.incLevel();
-	
+
+		initializeFrame();
+
+		lblSize = new JLabel("Size");
+		GridBagConstraints gbc_lblSize = new GridBagConstraints();
+		gbc_lblSize.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSize.gridx = 1;
+		gbc_lblSize.gridy = 1;
+		frame.getContentPane().add(lblSize, gbc_lblSize);
+
+		initializeTextField();
+
+		initializeCreateButton();
+		
+		ogreCount = 0;
+
+	}
+
+	public void initializeFrame() {
 		//frame
 		frame = new JFrame("Map Editor");
 		frame.setBounds(100, 100, 640, 480);
@@ -76,14 +94,18 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		frame.setVisible(true);
-		
-		lblSize = new JLabel("Size");
-		GridBagConstraints gbc_lblSize = new GridBagConstraints();
-		gbc_lblSize.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSize.gridx = 1;
-		gbc_lblSize.gridy = 1;
-		frame.getContentPane().add(lblSize, gbc_lblSize);
-		
+	}
+
+	public void initializeCreateButton() {
+		btnStartTheCreation = new JButton("Start the Creation !");
+		btnStartTheCreation.addActionListener( new CreationEvent());
+		GridBagConstraints gbc_btnStartTheCreation = new GridBagConstraints();
+		gbc_btnStartTheCreation.gridx = 4;
+		gbc_btnStartTheCreation.gridy = 2;
+		frame.getContentPane().add(btnStartTheCreation, gbc_btnStartTheCreation);
+	}
+
+	public void initializeTextField() {
 		textField = new JTextField();
 		textField.setText("11");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -93,17 +115,8 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		gbc_textField.gridy = 1;
 		frame.getContentPane().add(textField, gbc_textField);
 		textField.setColumns(10);
-		
-		btnStartTheCreation = new JButton("Start the Creation !");
-		btnStartTheCreation.addActionListener( new CreationEvent());
-		GridBagConstraints gbc_btnStartTheCreation = new GridBagConstraints();
-		gbc_btnStartTheCreation.gridx = 4;
-		gbc_btnStartTheCreation.gridy = 2;
-		frame.getContentPane().add(btnStartTheCreation, gbc_btnStartTheCreation);
-		
-		ogreCount = 0;
-
 	}
+
 	void initializePanel() {
 		//game box
 				gameBox = new GamePanel(gui);
