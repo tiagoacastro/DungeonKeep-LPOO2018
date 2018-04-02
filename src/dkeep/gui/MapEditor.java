@@ -210,6 +210,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		}
 
 	public void currButtonHandler(int cellX, int cellY) {
+		int ogres = gui.getOgres();
 		switch (currButton) {
           case HERO:
               map[this.gui.getGame().getLevels().get(1).getHero().getX()][this.gui.getGame().getLevels().get(1).getHero().getY()] = ' ';
@@ -217,8 +218,12 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
               this.gui.getGame().getLevel().getHero().setY(cellY);
               break;
           case OGRE:
+			  if (ogreCount >= ogres)
+				  ogreCount = 0;
+			  map[this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).getX()][this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).getY()] = ' ';
               this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setX(cellX);
               this.gui.getGame().getLevels().get(1).getChars().get(ogreCount).setY(cellY);
+
               ogreCount++;
               break;
           case WALL:

@@ -132,6 +132,7 @@ public class DungeonKeepGUI{
 		downButton.setEnabled(false);
 		frame.add(downButton);
 	}
+
 	public void stateHandler(gameState gameState) {
 
 		game.setState(gameState);
@@ -145,6 +146,7 @@ public class DungeonKeepGUI{
 	//movement button handler
 	
 	public void movementHandler(UserInterface.Direction way){
+		game.getLevel().draw();
 		game.userMove(way);
 		gameBox.repaint();
 		switch(game.getLevelState()) {
@@ -183,6 +185,11 @@ public class DungeonKeepGUI{
                 break;
         }
 	}
+
+	public int getOgres(){
+		return Integer.parseInt(this.ogres.getText());
+	}
+
 	public void createPanel() {
 		//game box
 		gameBox = new GamePanel(this);
@@ -190,6 +197,7 @@ public class DungeonKeepGUI{
 		gameBox.setVisible(false);
 		gameBox.setFocusable(false);
 	}
+
 	public void initializePanel() {
 
 		createPanel();
@@ -260,13 +268,6 @@ public class DungeonKeepGUI{
 		}
 	}
 
-	private class editGameMapEvent implements ActionListener{
-
-		public void actionPerformed(ActionEvent arg) {
-
-		}
-	}
-	
 	private class moveUpEvent implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg) {
@@ -291,15 +292,13 @@ public class DungeonKeepGUI{
 		}
 	}
 	
-	private class moveDownEvent implements ActionListener{
-		
+	private class moveDownEvent implements ActionListener {
+
 		public void actionPerformed(ActionEvent arg) {
 			movementHandler(UserInterface.Direction.DOWN);
 			gameBox.requestFocusInWindow();
 		}
 	}
-
-
 	//extra functions
 
 	public boolean checkGameStart(){
