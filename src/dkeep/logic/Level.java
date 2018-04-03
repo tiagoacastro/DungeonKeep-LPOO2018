@@ -166,7 +166,7 @@ public class Level {
     public boolean checkCollision(Hero h, GameCharacter v){
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
         boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
-        Boolean heroAndClub = checkCollisionOgreClub(h, v, heroAndVillain);
+        Boolean heroAndClub = checkCollisionOgre(h, v, heroAndVillain);
         if (heroAndClub != null) return heroAndClub;
         if (checkCollisionDrunkenGuard(v)) return false;
         return heroAndVillain;
@@ -180,16 +180,24 @@ public class Level {
         return false;
     }
 
-    private Boolean checkCollisionOgreClub(Hero h, GameCharacter v, boolean heroAndVillain) {
+    private Boolean checkCollisionOgre(Hero h, GameCharacter v, boolean heroAndVillain) {
         if (v instanceof Ogre) {
-            if(h.armed() && heroAndVillain) {
-                ((Ogre) v).stun(map);
-            }
-            boolean heroAndClub = ((h.getX() == ((Ogre) v).getClubX() && h.getY() == ((Ogre) v).getClubY() ) || (h.getX()+1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX()-1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()+1 == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()-1 == ((Ogre) v).getClubY()));
+            checkStun(h, (Ogre) v, heroAndVillain);
+            boolean heroAndClub = checkCollisionClub(h, (Ogre) v);
 
             return heroAndClub;
         }
         return null;
+    }
+
+    private boolean checkCollisionClub(Hero h, Ogre v) {
+        return ((h.getX() == v.getClubX() && h.getY() == v.getClubY() ) || (h.getX()+1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX()-1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()+1 == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()-1 == v.getClubY()));
+    }
+
+    private void checkStun(Hero h, Ogre v, boolean heroAndVillain) {
+        if(h.armed() && heroAndVillain) {
+            v.stun(map);
+        }
     }
 
     public boolean heroMove(int nextX, int nextY) {
