@@ -95,7 +95,7 @@ public class Ogre extends GameCharacter {
     }
 
 
-    private void updateClub (Character[][] map){
+    public void updateClub (Character[][] map){
         Random rand = new Random();
         int n = 4;
         int randnum = rand.nextInt(n);

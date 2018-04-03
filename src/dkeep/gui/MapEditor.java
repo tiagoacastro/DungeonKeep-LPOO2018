@@ -212,39 +212,39 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 
-			  int cellX = arg0.getY()/25;
-			  int cellY = arg0.getX()/25;
+			int cellX = arg0.getY() / 32;
+			int cellY = arg0.getX() / 32;
 
-			  if (checkBoundaries(cellX,cellY))
-			  	if (currButton == DOOR){
-					Door d = new Door(cellX,cellY);
+			if (checkBoundaries(cellX, cellY)){
+				if (currButton == DOOR) {
+					Door d = new Door(cellX, cellY);
 					this.gui.getGame().getLevel().addDoor(d);
 					this.gui.getGame().getLevel().draw();
 					this.gui.getGame().getLevel().setMap(map);
 					this.gameBox.repaint();
-				} else return;
-			  if (map[cellX][cellY] == ' ') {
-			  	currButtonHandler(cellX, cellY);
-			  	this.gui.getGame().getLevel().draw();
-			  	this.gui.getGame().getLevel().setMap(map);
-			  	this.gameBox.repaint();
+				}
+			}else {
+				currButtonHandler(cellX,cellY);
+				this.gui.getGame().getLevel().draw();
+				this.gui.getGame().getLevel().setMap(map);
+				this.gameBox.repaint();
 			}
-		}
+	}
 
 	public void currButtonHandler(int cellX, int cellY) {
 		int ogres = gui.getOgres();
 		switch (currButton) {
           case HERO:
-              map[this.gui.getGame().getLevel().getHero().getX()][this.gui.getGame().getLevel().getHero().getY()] = ' ';
               this.gui.getGame().getLevel().getHero().setX(cellX);
               this.gui.getGame().getLevel().getHero().setY(cellY);
               break;
           case OGRE:
 			  if (ogreCount >= ogres)
 				  ogreCount = 0;
-			  map[this.gui.getGame().getLevel().getChars().get(ogreCount).getX()][this.gui.getGame().getLevel().getChars().get(ogreCount).getY()] = ' ';
               this.gui.getGame().getLevel().getChars().get(ogreCount).setX(cellX);
               this.gui.getGame().getLevel().getChars().get(ogreCount).setY(cellY);
+              if (this.gui.getGame().getLevel().getChars().get(ogreCount) instanceof Ogre)
+				  ((Ogre)this.gui.getGame().getLevel().getChars().get(ogreCount)).updateClub(map);
 
               ogreCount++;
               break;
@@ -257,10 +257,6 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
                   ((Key) this.gui.getGame().getLevel().getObject()).setY(cellY);
               }
               break;
-		  case DOOR:
-		  		Door d = new Door(cellX,cellY);
-				this.gui.getGame().getLevel().addDoor(d);
-				break;
           default:
               break;
       }
@@ -283,7 +279,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
                 	frame.getContentPane().setLayout(null);
-                	gameBox.setBounds(50, 50, 25* dimension, 25 *dimension);
+                	gameBox.setBounds(100, 100, 32* dimension, 32 *dimension);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
                 }
