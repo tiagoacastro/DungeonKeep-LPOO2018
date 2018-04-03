@@ -135,44 +135,65 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	void initializeCharButtons() {
-		ogre = new JButton("Ogre");
-		ogre.addActionListener( new OgreEvent());
-		ogre.setBounds(450,100,100,50);
-		ogre.setVisible(true);
-		frame.getContentPane().add(ogre);
-		
-		hero = new JButton("Hero");
-		hero.addActionListener( new HeroEvent());
-		hero.setBounds(450,165,100,50);
-		hero.setVisible(true);
-		frame.getContentPane().add(hero);
-		
-		wall = new JButton("Wall");
-		wall.addActionListener( new WallEvent());
-		wall.setBounds(450,230,100,50);
-		wall.setVisible(true);
-		frame.getContentPane().add(wall);
-		
-		key = new JButton("Key");
-		key.addActionListener( new KeyEvent());
-		key.setBounds(450,295,100,50);
-		key.setVisible(true);
-		frame.getContentPane().add(key);
+		initializeOgreButton();
 
-		door = new JButton("Door");
-		door.addActionListener( new DoorEvent());
-		door.setBounds(450,360,100,50);
-		door.setVisible(true);
-		frame.getContentPane().add(door);
+		initializeHeroButton();
 
+		initializeWallButton();
 
+		initializeKeyButton();
+
+		initializeDoorButton();
+
+		initializeFinishButton();
+	}
+
+	private void initializeFinishButton() {
 		finished = new JButton("Finished");
 		finished.addActionListener( new FinishedEvent());
 		finished.setBounds(400,10,100,50);
 		finished.setVisible(true);
 		frame.getContentPane().add(finished);
-		
-		
+	}
+
+	private void initializeDoorButton() {
+		door = new JButton("Door");
+		door.addActionListener( new DoorEvent());
+		door.setBounds(450,360,100,50);
+		door.setVisible(true);
+		frame.getContentPane().add(door);
+	}
+
+	private void initializeKeyButton() {
+		key = new JButton("Key");
+		key.addActionListener( new KeyEvent());
+		key.setBounds(450,295,100,50);
+		key.setVisible(true);
+		frame.getContentPane().add(key);
+	}
+
+	private void initializeWallButton() {
+		wall = new JButton("Wall");
+		wall.addActionListener( new WallEvent());
+		wall.setBounds(450,230,100,50);
+		wall.setVisible(true);
+		frame.getContentPane().add(wall);
+	}
+
+	private void initializeHeroButton() {
+		hero = new JButton("Hero");
+		hero.addActionListener( new HeroEvent());
+		hero.setBounds(450,165,100,50);
+		hero.setVisible(true);
+		frame.getContentPane().add(hero);
+	}
+
+	private void initializeOgreButton() {
+		ogre = new JButton("Ogre");
+		ogre.addActionListener( new OgreEvent());
+		ogre.setBounds(450,100,100,50);
+		ogre.setVisible(true);
+		frame.getContentPane().add(ogre);
 	}
 
 	@Override

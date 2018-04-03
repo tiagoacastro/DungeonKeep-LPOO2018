@@ -82,6 +82,7 @@ public class Level {
     public GameObject getObject() {
     	return object;
     }
+
     public Game.levelState userMove(UserInterface.Direction input) {
 
             map = mapCopy();
@@ -165,50 +166,79 @@ public class Level {
     public boolean checkCollision(Hero h, GameCharacter v){
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
         boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
-        if (v instanceof Ogre) {
-            if(h.armed() && heroAndVillain) {
-                ((Ogre) v).stun(map);
-            }
-            boolean heroAndClub = ((h.getX() == ((Ogre) v).getClubX() && h.getY() == ((Ogre) v).getClubY() ) || (h.getX()+1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX()-1 == ((Ogre) v).getClubX()  && h.getY() == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()+1 == ((Ogre) v).getClubY()) || (h.getX() == ((Ogre) v).getClubX()  && h.getY()-1 == ((Ogre) v).getClubY()));
-
-            return heroAndClub;
-        }
-        if (v instanceof DrunkenGuard) {
-            if(((DrunkenGuard) v).sleeping())
-                return false;
-        }
+        Boolean heroAndClub = checkCollisionOgre(h, v, heroAndVillain);
+        if (heroAndClub != null) return heroAndClub;
+        if (checkCollisionDrunkenGuard(v)) return false;
         return heroAndVillain;
     }
 
-    public boolean heroMove(int nextX, int nextY) {
-            if (map[nextX][nextY] == ' ') {
-                heroSetMove(nextX, nextY);
-                return false;
-            }
-            else if (map[nextX][nextY] == 'k') {
-                heroSetMove(nextX, nextY);
-                if (object instanceof Lever)
-                    for (Door d : doors) {
-                        d.open(map);
-                     }
-                if (object instanceof Key) {
-                    ((Key) object).grab();
-                    hero.grabsKey();
-                } return false;
-            } else if (map[nextX][nextY] == 'S') {
-                heroSetMove(nextX, nextY);
+    private boolean checkCollisionDrunkenGuard(GameCharacter v) {
+        if (v instanceof DrunkenGuard) {
+            if(((DrunkenGuard) v).sleeping())
                 return true;
-            } else if (map[nextX][nextY] == 'I') {
-                if (object instanceof Key)
-                    if (((Key)object).check()) {
-                        for (Door d : doors) {
-                            if (d.getX() == nextX && d.getY() == nextY) d.open(map);
-                        }
-                        if (hero.armed()) hero.setSymbol('A');
-                        else hero.setSymbol('H');
-                        moved = true;
-                    } return false;
-            } return false;
+        }
+        return false;
+    }
+
+    private Boolean checkCollisionOgre(Hero h, GameCharacter v, boolean heroAndVillain) {
+        if (v instanceof Ogre) {
+            checkStun(h, (Ogre) v, heroAndVillain);
+            boolean heroAndClub = checkCollisionClub(h, (Ogre) v);
+
+            return heroAndClub;
+        }
+        return null;
+    }
+
+    private boolean checkCollisionClub(Hero h, Ogre v) {
+        return ((h.getX() == v.getClubX() && h.getY() == v.getClubY() ) || (h.getX()+1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX()-1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()+1 == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()-1 == v.getClubY()));
+    }
+
+    private void checkStun(Hero h, Ogre v, boolean heroAndVillain) {
+        if(h.armed() && heroAndVillain) {
+            v.stun(map);
+        }
+    }
+
+    public boolean heroMove(int nextX, int nextY) {
+            switch (map[nextX][nextY]) {
+                case ' ':
+                    heroSetMove(nextX, nextY);
+                    return false;
+                case 'k':
+                    heroSetMove(nextX, nextY);
+                    heroMoveToKey();
+                    return false;
+                case 'S':
+                    heroSetMove(nextX, nextY);
+                    return true;
+                case 'I':
+                    if (object instanceof Key) {
+                        checkOpenDoor(nextX, nextY);
+                        return false; }
+            }return false;
+    }
+
+    private void checkOpenDoor(int nextX, int nextY) {
+        if (((Key)object).check()) {
+            for (Door d : doors) {
+                if (d.getX() == nextX && d.getY() == nextY) d.open(map);
+            }
+            if (hero.armed()) hero.setSymbol('A');
+            else hero.setSymbol('H');
+            moved = true;
+        }
+    }
+
+    private void heroMoveToKey() {
+        if (object instanceof Lever)
+            for (Door d : doors) {
+                d.open(map);
+             }
+        if (object instanceof Key) {
+            ((Key) object).grab();
+            hero.grabsKey();
+        }
     }
 
     public void heroSetMove(int nextX, int nextY) {

@@ -60,42 +60,54 @@ public class GamePanel extends JPanel{
         drawBackground(g,map);
         for (int i = 0; i < map.length; ++i)
             for (int j = 0; j < map[i].length; ++j){
-                switch(map[i][j]) {
-                    case 'X':
-                        g.drawImage(loadedImages.get("wall"), j * 32, i * 32, null);
-                        break;
-                    case 'H':
-                        g.drawImage(loadedImages.get("hero"), j * 32, i * 32, null);
-                        break;
-                    case 'A':
-                        g.drawImage(loadedImages.get("heroArmed"), j * 32, i * 32, null);
-                        break;
-                    case 'K':
-                        g.drawImage(loadedImages.get("heroArmedWithKey"), j * 32, i * 32, null);
-                        break;
-                    case 'G':
-                        g.drawImage(loadedImages.get("guard"), j * 32, i * 32, null);
-                        break;
-                    case 'I':
-                        g.drawImage(loadedImages.get("closedDoor"), j * 32, i * 32, null);
-                        break;
-                    case 'S':
-                        g.drawImage(loadedImages.get("openedDoor"), j * 32, i * 32, null);
-                        break;
-                    case 'k':
-                        if (gui.getGame().getLevel().getObject() instanceof Key)
-                        g.drawImage(loadedImages.get("key"), j * 32, i * 32, null);
-                        else g.drawImage(loadedImages.get("lever"), j * 32, i * 32, null);
-                        break;
-                    case '0':
-                        g.drawImage(loadedImages.get("ogre"), j * 32, i * 32, null);
-                        break;
-                    case '*':
-                        g.drawImage(loadedImages.get("club"), j *32, i* 32, null);
-                        break;
-                        default:
-                          break;
-                }
+                chooseImage(g, map[i][j], i, j);
+            }
+    }
+
+    private void chooseImage(Graphics g, Character character, int i, int j) {
+        chooseImageImovable(g, character, i, j);
+        chooseImageMovable(g, character, i, j);
+    }
+
+    private void chooseImageMovable(Graphics g, Character character, int i, int j) {
+        switch(character) {
+            case 'H':
+                g.drawImage(loadedImages.get("hero"), j * 32, i * 32, null);
+                break;
+            case 'A':
+                g.drawImage(loadedImages.get("heroArmed"), j * 32, i * 32, null);
+                break;
+            case 'K':
+                g.drawImage(loadedImages.get("heroArmedWithKey"), j * 32, i * 32, null);
+                break;
+            case 'G':
+                g.drawImage(loadedImages.get("guard"), j * 32, i * 32, null);
+                break;
+            case '0':
+                g.drawImage(loadedImages.get("ogre"), j * 32, i * 32, null);
+                break;
+            case '*':
+                g.drawImage(loadedImages.get("club"), j *32, i* 32, null);
+                break;
+        }
+    }
+
+    private void chooseImageImovable(Graphics g, Character character, int i, int j) {
+        switch(character) {
+            case 'X':
+                g.drawImage(loadedImages.get("wall"), j * 32, i * 32, null);
+                break;
+            case 'I':
+                g.drawImage(loadedImages.get("closedDoor"), j * 32, i * 32, null);
+                break;
+            case 'k':
+                if (gui.getGame().getLevel().getObject() instanceof Key)
+                    g.drawImage(loadedImages.get("key"), j * 32, i * 32, null);
+                else g.drawImage(loadedImages.get("lever"), j * 32, i * 32, null);
+                break;
+            case 'S':
+                g.drawImage(loadedImages.get("openedDoor"), j * 32, i * 32, null);
+                break;
         }
     }
 

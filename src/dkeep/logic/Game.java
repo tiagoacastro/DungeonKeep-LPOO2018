@@ -150,13 +150,10 @@ public class Game {
                         lose = true;
                         this.state = gameState.LOSE;
                         break;
-                    case NONE: break;
-                }
-                if(stop) break;
-            }
+                    case NONE: break;}
+                if(stop) break;}
             if(lose) return;
-            incLevel();
-        } this.state = gameState.WIN;
+            incLevel(); } this.state = gameState.WIN;
     }
 
     public void setState(gameState state) {
