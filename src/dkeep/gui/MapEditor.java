@@ -22,7 +22,7 @@ import javax.swing.event.ChangeListener;
 import static dkeep.gui.MapEditor.charButtonPressed.DOOR;
 
 
-public class MapEditor extends JPanel implements MouseListener, MouseMotionListener{
+public class MapEditor extends JFrame implements MouseListener, MouseMotionListener{
 
 	private JFrame frame;
 	private GamePanel gameBox;

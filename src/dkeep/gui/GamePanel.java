@@ -11,11 +11,10 @@ import java.util.HashMap;
 public class GamePanel extends JPanel{
 
     private Game game;
-    private DungeonKeepGUI gui;
 
     private HashMap<String, BufferedImage> loadedImages;
 
-    public GamePanel(DungeonKeepGUI d){
+    public GamePanel(Game game){
         loadedImages = new HashMap<>();
         try {
             loadedImages.put("background",ImageIO.read(new File("images/background.png")));
@@ -33,19 +32,16 @@ public class GamePanel extends JPanel{
         } catch(IOException e) {
             e.printStackTrace();
         }
-        gui = d;
+        this.game = game;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if(gui.checkGameStart()) {
-            game = gui.getGame();
-            Character[][] map = game.getLevel().getPlayMap();
+        Character[][] map = game.getLevel().getPlayMap();
 
-            drawImagePanel(g, map);
-        }
+        drawImagePanel(g, map);
     }
 
     public void drawBackground(Graphics g, Character[][] map) {
@@ -101,7 +97,7 @@ public class GamePanel extends JPanel{
                 g.drawImage(loadedImages.get("closedDoor"), j * 32, i * 32, null);
                 break;
             case 'k':
-                if (gui.getGame().getLevel().getObject() instanceof Key)
+                if (game.getLevel().getObject() instanceof Key)
                     g.drawImage(loadedImages.get("key"), j * 32, i * 32, null);
                 else g.drawImage(loadedImages.get("lever"), j * 32, i * 32, null);
                 break;
