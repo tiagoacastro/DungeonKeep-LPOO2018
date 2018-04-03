@@ -6,10 +6,12 @@ import java.util.Random;
 public class DrunkenGuard extends Guard{
 
     private boolean sleeping;
+    private int timer;
 
     public DrunkenGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
         sleeping = false;
+        timer = 3;
     }
 
     public boolean sleeping(){
@@ -21,16 +23,21 @@ public class DrunkenGuard extends Guard{
         int n = 5;
         int randnum = rand.nextInt(n);
 
-        switch(randnum){
-            case 0:
-                if(!sleeping)
-                    sleep();
-                break;
-            default:
-                if(sleeping)
-                    wake();
-                break;
-        }
+        if(sleeping) {
+            timer--;
+            if(timer == 0) {
+                timer = 3;
+                wake();
+            }
+        }else
+            switch(randnum){
+                case 0:
+                    if(!sleeping)
+                      sleep();
+                     break;
+                default:
+                    break;
+            }
 
         if(!sleeping) {
             bidirectionalMovement(map);
