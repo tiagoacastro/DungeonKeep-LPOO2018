@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-//TODO meter drunken a dormir mais que uma ronda, organizar funcoes
+//TODO
 
 public class Main {
 

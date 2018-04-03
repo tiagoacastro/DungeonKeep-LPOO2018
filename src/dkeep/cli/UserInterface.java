@@ -5,6 +5,8 @@ import dkeep.logic.*;
 import java.io.*;
 import java.util.*;
 
+//TODO
+
 public class UserInterface {
 
         public enum Direction {
@@ -61,7 +63,7 @@ public class UserInterface {
     public static void saveState(String filename, Game game) {
             Level level = game.getLevel();
 
-        try (PrintWriter writer = new PrintWriter("levels/" + filename + ".txt", "UTF-8")) {
+        try (PrintWriter writer = new PrintWriter("saves/" + filename + ".txt", "UTF-8")) {
             writer.println(game.getCurrentLevel() + "\n");
 
             for(int i = 0; i < level.getMap().length; ++i) {
@@ -90,7 +92,7 @@ public class UserInterface {
     }
 
     public static void loadState(Game game, String filename) {
-        try (BufferedReader br = new BufferedReader(new FileReader("map/" + filename + ".txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("saves/" + filename + ".txt"))) {
             String sCurrentLine;
             boolean readingMap = true;
             ArrayList<Character[]>lines = new ArrayList<>();
