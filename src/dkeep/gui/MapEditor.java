@@ -117,7 +117,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	void initializePanel() {
 		//game box
-				gameBox = new GamePanel(gui);
+				gameBox = new GamePanel(game);
 				GridBagConstraints gbc_panel = new GridBagConstraints();
 				gbc_panel.gridx = 4;
 				gbc_panel.gridy = 3;
@@ -237,33 +237,33 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 			if (checkBoundaries(cellX, cellY)){
 				if (currButton == DOOR) {
 					Door d = new Door(cellX, cellY);
-					this.gui.getGame().getLevel().addDoor(d);
-					this.gui.getGame().getLevel().draw();
-					this.gui.getGame().getLevel().setMap(map);
+					this.game.getLevel().addDoor(d);
+					this.game.getLevel().draw();
+					this.game.getLevel().setMap(map);
 					this.gameBox.repaint();
 				}
 			}else {
 				currButtonHandler(cellX,cellY);
-				this.gui.getGame().getLevel().draw();
-				this.gui.getGame().getLevel().setMap(map);
+				this.game.getLevel().draw();
+				this.game.getLevel().setMap(map);
 				this.gameBox.repaint();
 			}
 	}
 
 	public void currButtonHandler(int cellX, int cellY) {
-		int ogres = gui.getOgres();
+		int ogres = game.getLevel().getChars().size();
 		switch (currButton) {
           case HERO:
-              this.gui.getGame().getLevel().getHero().setX(cellX);
-              this.gui.getGame().getLevel().getHero().setY(cellY);
+              this.game.getLevel().getHero().setX(cellX);
+              this.game.getLevel().getHero().setY(cellY);
               break;
           case OGRE:
 			  if (ogreCount >= ogres)
 				  ogreCount = 0;
-              this.gui.getGame().getLevel().getChars().get(ogreCount).setX(cellX);
-              this.gui.getGame().getLevel().getChars().get(ogreCount).setY(cellY);
-              if (this.gui.getGame().getLevel().getChars().get(ogreCount) instanceof Ogre)
-				  ((Ogre)this.gui.getGame().getLevel().getChars().get(ogreCount)).updateClub(map);
+              this.game.getLevel().getChars().get(ogreCount).setX(cellX);
+              this.game.getLevel().getChars().get(ogreCount).setY(cellY);
+              if (this.game.getLevel().getChars().get(ogreCount) instanceof Ogre)
+				  ((Ogre)this.game.getLevel().getChars().get(ogreCount)).updateClub(map);
 
               ogreCount++;
               break;
@@ -271,9 +271,9 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
               map[cellX][cellY] = 'X';
               break;
           case KEY:
-              if (this.gui.getGame().getLevel().getObject() instanceof Key) {
-                  ((Key) this.gui.getGame().getLevel().getObject()).setX(cellX);
-                  ((Key) this.gui.getGame().getLevel().getObject()).setY(cellY);
+              if (this.game.getLevel().getObject() instanceof Key) {
+                  ((Key) this.game.getLevel().getObject()).setX(cellX);
+                  ((Key) this.game.getLevel().getObject()).setY(cellY);
               }
               break;
           default:
@@ -292,7 +292,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
                 
                 if (mazeSize >= 9 && mazeSize <=15) {
                 	dimension = mazeSize;
-                	createMap(game);
+                	createMap();
                 	textField.setVisible(false);
                 	initializePanel();
                 	btnStartTheCreation.setVisible(false);
@@ -338,19 +338,8 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 		private class FinishedEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				gui.getGame().decLevel();
+				game.decLevel();
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-				gui.getGameBox().setVisible(true);
-				gui.getUpButton().setEnabled(true);
-				gui.getLeftButton().setEnabled(true);
-				gui.getRightButton().setEnabled(true);
-				gui.getDownButton().setEnabled(true);
-
-				gui.getStatus().setText("You can play now.");
-				gui.getGameBox().repaint();
-				gui.getGameBox().setFocusable(true);
-				gui.getGameBox().requestFocusInWindow();
-				gui.getFrame().repaint();
 			}
 		}
 }

@@ -86,8 +86,8 @@ public class SettingsMenu {
 			game.getLevel().draw();
 
 			if (type == "default")
-			 gui = new DungeonKeepGUI();
-			else if (type == "editor") mapEditor = new MapEditor();
+			 gui = new DungeonKeepGUI(game);
+			else if (type == "editor") mapEditor = new MapEditor(game);
 		} else {
 			JOptionPane.showMessageDialog(settingsMenu, "You have to insert a positive number of 5 or less!");
 		}
