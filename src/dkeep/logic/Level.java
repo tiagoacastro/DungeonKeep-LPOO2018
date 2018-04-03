@@ -82,6 +82,7 @@ public class Level {
     public GameObject getObject() {
     	return object;
     }
+
     public Game.levelState userMove(UserInterface.Direction input) {
 
             map = mapCopy();
@@ -198,28 +199,38 @@ public class Level {
             }
             else if (map[nextX][nextY] == 'k') {
                 heroSetMove(nextX, nextY);
-                if (object instanceof Lever)
-                    for (Door d : doors) {
-                        d.open(map);
-                     }
-                if (object instanceof Key) {
-                    ((Key) object).grab();
-                    hero.grabsKey();
-                } return false;
+                heroMoveToKey();
+                return false;
             } else if (map[nextX][nextY] == 'S') {
                 heroSetMove(nextX, nextY);
                 return true;
             } else if (map[nextX][nextY] == 'I') {
-                if (object instanceof Key)
-                    if (((Key)object).check()) {
-                        for (Door d : doors) {
-                            if (d.getX() == nextX && d.getY() == nextY) d.open(map);
-                        }
-                        if (hero.armed()) hero.setSymbol('A');
-                        else hero.setSymbol('H');
-                        moved = true;
-                    } return false;
+                if (object instanceof Key){
+                    checkOpenDoor(nextX, nextY);
+                    return false;}
             } return false;
+    }
+
+    private void checkOpenDoor(int nextX, int nextY) {
+        if (((Key)object).check()) {
+            for (Door d : doors) {
+                if (d.getX() == nextX && d.getY() == nextY) d.open(map);
+            }
+            if (hero.armed()) hero.setSymbol('A');
+            else hero.setSymbol('H');
+            moved = true;
+        }
+    }
+
+    private void heroMoveToKey() {
+        if (object instanceof Lever)
+            for (Door d : doors) {
+                d.open(map);
+             }
+        if (object instanceof Key) {
+            ((Key) object).grab();
+            hero.grabsKey();
+        }
     }
 
     public void heroSetMove(int nextX, int nextY) {
