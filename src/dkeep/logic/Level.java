@@ -193,22 +193,22 @@ public class Level {
     }
 
     public boolean heroMove(int nextX, int nextY) {
-            if (map[nextX][nextY] == ' ') {
-                heroSetMove(nextX, nextY);
-                return false;
-            }
-            else if (map[nextX][nextY] == 'k') {
-                heroSetMove(nextX, nextY);
-                heroMoveToKey();
-                return false;
-            } else if (map[nextX][nextY] == 'S') {
-                heroSetMove(nextX, nextY);
-                return true;
-            } else if (map[nextX][nextY] == 'I') {
-                if (object instanceof Key){
-                    checkOpenDoor(nextX, nextY);
-                    return false;}
-            } return false;
+            switch (map[nextX][nextY]) {
+                case ' ':
+                    heroSetMove(nextX, nextY);
+                    return false;
+                case 'k':
+                    heroSetMove(nextX, nextY);
+                    heroMoveToKey();
+                    return false;
+                case 'S':
+                    heroSetMove(nextX, nextY);
+                    return true;
+                case 'I':
+                    if (object instanceof Key) {
+                        checkOpenDoor(nextX, nextY);
+                        return false; }
+            }return false;
     }
 
     private void checkOpenDoor(int nextX, int nextY) {
