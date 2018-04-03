@@ -165,6 +165,21 @@ public class Level {
     public boolean checkCollision(Hero h, GameCharacter v){
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
         boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
+        Boolean heroAndClub = checkCollisionOgreClub(h, v, heroAndVillain);
+        if (heroAndClub != null) return heroAndClub;
+        if (checkCollisionDrunkenGuard(v)) return false;
+        return heroAndVillain;
+    }
+
+    private boolean checkCollisionDrunkenGuard(GameCharacter v) {
+        if (v instanceof DrunkenGuard) {
+            if(((DrunkenGuard) v).sleeping())
+                return true;
+        }
+        return false;
+    }
+
+    private Boolean checkCollisionOgreClub(Hero h, GameCharacter v, boolean heroAndVillain) {
         if (v instanceof Ogre) {
             if(h.armed() && heroAndVillain) {
                 ((Ogre) v).stun(map);
@@ -173,11 +188,7 @@ public class Level {
 
             return heroAndClub;
         }
-        if (v instanceof DrunkenGuard) {
-            if(((DrunkenGuard) v).sleeping())
-                return false;
-        }
-        return heroAndVillain;
+        return null;
     }
 
     public boolean heroMove(int nextX, int nextY) {
