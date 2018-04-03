@@ -74,16 +74,20 @@ public class SettingsMenu {
 		settingsMenu.getContentPane().add(ogres);
 	}
 
-	public void startGame() {
+	public void startGame(String type) {
 
 		game = new Game();
 		game.loadLevel1(guardType.getSelectedItem().toString());
+		DungeonKeepGUI gui;
+		MapEditor mapEditor;
 
 		if (ogres.getText().equals("1") || ogres.getText().equals("2") || ogres.getText().equals("3") || ogres.getText().equals("4") || ogres.getText().equals("5")) {
 			game.loadLevel2(Integer.parseInt(ogres.getText()));
 			game.getLevel().draw();
 
-			DungeonKeepGUI gui = new DungeonKeepGUI();
+			if (type == "default")
+			 gui = new DungeonKeepGUI();
+			else if (type == "editor") mapEditor = new MapEditor();
 		} else {
 			JOptionPane.showMessageDialog(settingsMenu, "You have to insert a positive number of 5 or less!");
 		}
@@ -93,7 +97,7 @@ public class SettingsMenu {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
-			startGame();
+			startGame("default");
 			
 		}
 		
@@ -103,6 +107,7 @@ public class SettingsMenu {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			startGame("editor");
 		}
 	}
 }

@@ -28,7 +28,6 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 	private GamePanel gameBox;
 	private Character[][] map;
 	private int dimension;
-    private DungeonKeepGUI gui;
     private Game game;
     private int ogreCount;
     private JButton btnStartTheCreation;
@@ -43,7 +42,7 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 
 	private charButtonPressed currButton = charButtonPressed.NONE;
 
-	public void createMap(Game g) {
+	public void createMap() {
 
 		Character[][]map1 = new Character [dimension][dimension];
 		
@@ -58,15 +57,14 @@ public class MapEditor extends JPanel implements MouseListener, MouseMotionListe
 		}
 		
 		map = map1;
-		this.gui.getGame().getLevel().setMap(map1);
-		this.gui.getGame().getLevel().setLvlMap(map1);
+		this.game.getLevel().setMap(map1);
+		this.game.getLevel().setLvlMap(map1);
 	}
 	
-	public MapEditor(DungeonKeepGUI d) {
-		
-		gui = d;
-		game = d.getGame();
-		game.incLevel();
+	public MapEditor(Game game) {
+
+		this.game = game;
+		this.game.incLevel();
 
 		initializeFrame();
 
