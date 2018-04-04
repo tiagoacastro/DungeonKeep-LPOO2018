@@ -73,21 +73,13 @@ public class UserInterface {
         }
     }
 
-    public static Game loadState(String filename) {
+    public static Game loadState(String filename) throws IOException, ClassNotFoundException {
         Game game  = null;
-        try {
             FileInputStream fileIn = new FileInputStream("saves/" + filename + ".txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             game = (Game) in.readObject();
             in.close();
             fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-            return game;
-        } catch (ClassNotFoundException c) {
-            c.printStackTrace();
-            return game;
-        }
         return game;
     }
 }

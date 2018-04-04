@@ -209,7 +209,7 @@ public class DungeonKeepGUI extends JPanel{
 	private class endGameEvent implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg) {
-			System.exit(0);
+			frame.setVisible(false);
 		}
 	}
 

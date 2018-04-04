@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MainMenu extends JPanel {
 
@@ -92,9 +93,23 @@ public class MainMenu extends JPanel {
 
     private class loadGameEvent implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
-			String file = JOptionPane.showInputDialog(null,
-					"Enter file name:");
-			Game game = UserInterface.loadState(file);
+			Game game = null;
+			boolean success = false;
+			JOptionPane pane = new JOptionPane();
+			while(!success) {
+
+				String file = pane.showInputDialog(null,
+						"Enter file name:");
+				try {
+					if(file == null)
+						return;
+					game = null;
+					game = UserInterface.loadState(file);
+					success = true;
+				} catch (IOException i) {
+					JOptionPane.showMessageDialog(pane, "File Not Found");
+				} catch (ClassNotFoundException c) {
+					c.printStackTrace(); }}
 			new DungeonKeepGUI(game);
         }
     }
