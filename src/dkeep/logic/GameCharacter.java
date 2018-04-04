@@ -1,9 +1,10 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 
-public abstract class GameCharacter {
+public abstract class GameCharacter implements Serializable {
     protected int x;
     protected int y;
 

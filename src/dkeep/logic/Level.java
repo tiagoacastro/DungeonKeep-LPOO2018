@@ -1,10 +1,10 @@
 package dkeep.logic;
 
 import dkeep.cli.UserInterface;
-
 import java.util.ArrayList;
+import java.io.*;
 
-public class Level {
+public class Level implements Serializable{
 
     private Character[][] lvlMap;
     private Character[][] map;

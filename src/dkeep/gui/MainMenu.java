@@ -1,20 +1,15 @@
 package dkeep.gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
-import javax.imageio.*;
-import java.io.*;
-import java.awt.image.*;
+import dkeep.logic.Game;
 
-import dkeep.gui.MapEditor.charButtonPressed;
+import dkeep.cli.UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class MainMenu extends JPanel {
 
@@ -29,7 +24,7 @@ public class MainMenu extends JPanel {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainMenu window = new MainMenu();
+				new MainMenu();
 			}
 		});
 	}
@@ -83,18 +78,24 @@ public class MainMenu extends JPanel {
 	
 	private class exitGameEvent implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+
 			menuWindow.dispatchEvent(new WindowEvent(menuWindow, WindowEvent.WINDOW_CLOSING));
 		}
 	}
 	
 	private class newGameEvent implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-		    SettingsMenu settings = new SettingsMenu();
+
+			SettingsMenu settings = new SettingsMenu();
 		}
 	}
 
     private class loadGameEvent implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
+			String file = JOptionPane.showInputDialog(null,
+					"Enter file name:");
+			Game game = UserInterface.loadState(file);
+			new DungeonKeepGUI(game);
         }
     }
 }

@@ -4,8 +4,9 @@ import dkeep.cli.UserInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.*;
 
-public class Game {
+public class Game implements Serializable{
 
     private ArrayList<Level> levels = new ArrayList<Level>();
     private int level;
@@ -188,10 +189,6 @@ public class Game {
 
     public Level getLevel(){
         return levels.get(level);
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public int getCurrentLevel() {

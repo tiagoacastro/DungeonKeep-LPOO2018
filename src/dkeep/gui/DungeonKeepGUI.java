@@ -144,6 +144,7 @@ public class DungeonKeepGUI extends JPanel{
 		rightButton.setEnabled(false);
 		downButton.setEnabled(false);
 		gameBox.setFocusable(false);
+		saveGameButton.setEnabled(false);
 	}
 	
 	public void movementHandler(UserInterface.Direction way){
@@ -197,7 +198,7 @@ public class DungeonKeepGUI extends JPanel{
 			rightButton.setEnabled(true);
 			downButton.setEnabled(true);
 			saveGameButton.setEnabled(true);
-			startGameButton.setEnabled(false);
+			startGameButton.setEnabled(false); //here
 			status.setText("You can play now.");
 			gameBox.repaint();
 			gameBox.setFocusable(true);
@@ -215,7 +216,10 @@ public class DungeonKeepGUI extends JPanel{
 	private class saveGameEvent implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg) {
-			new SaveState(game);
+			String file = JOptionPane.showInputDialog(null,
+					"Enter file name:");
+			UserInterface.saveState(file, game);
+			gameBox.requestFocusInWindow();
 		}
 	}
 

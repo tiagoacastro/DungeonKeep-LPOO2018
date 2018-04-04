@@ -1,6 +1,8 @@
 package dkeep.logic;
 
-public class Hero {
+import java.io.Serializable;
+
+public class Hero implements Serializable {
 
     private char symbol;
     private boolean armed;
