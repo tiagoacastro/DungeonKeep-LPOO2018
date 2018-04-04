@@ -124,7 +124,7 @@ public class Ogre extends GameCharacter {
         }
 
        else if (map[next_x][next_y] == 'k') {
-            clubSymbol = '$';
+            clubSymbol = 'C';
             xClub=next_x;
             yClub=next_y;
         }

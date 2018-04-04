@@ -18,7 +18,7 @@ public class MainMenu extends JPanel {
 	private JButton btnNewGame;
 	private JButton btnLoadGame;
 	private JButton btnExitGame;
-	private BufferedImage background;
+	private MenuBackground background;
 
 	//main function
 
@@ -31,50 +31,48 @@ public class MainMenu extends JPanel {
 	}
 
 	public MainMenu() {
+
 		initializeFrame();
 		initializeButtons();
+		initializePanel();
 	}
 	
 	public void initializeFrame() {
 		//frame
 		menuWindow = new JFrame("Dungeon Balls");
-		menuWindow.setBounds(100, 100, 640, 480);
+		menuWindow.setBounds(100, 100, 660, 520);
 		menuWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		menuWindow.getContentPane().setLayout(gridBagLayout);
+		menuWindow.setVisible(true);
 	}
-	
+
+	public void initializePanel() {
+
+		background = new MenuBackground();
+		background.setBounds(1, 1, 640, 480);
+		background.setVisible(true);
+		background.setFocusable(false);
+		menuWindow.getContentPane().add(background);
+	}
 	public void initializeButtons() {
 		btnNewGame = new JButton("New Game");
+		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnNewGame.addActionListener(new newGameEvent());
-		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
-		gbc_btnNewGame.gridwidth = 3;
-		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewGame.gridx = 9;
-		gbc_btnNewGame.gridy = 6;
-		menuWindow.getContentPane().add(btnNewGame, gbc_btnNewGame);
+		btnNewGame.setBounds(117, 121, 170, 50);
+		menuWindow.getContentPane().setLayout(null);
+		menuWindow.getContentPane().add(btnNewGame);
 		
 		btnLoadGame = new JButton("Load Game");
+		btnLoadGame.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLoadGame.addActionListener(new loadGameEvent());
-		GridBagConstraints gbc_btnLoadGame = new GridBagConstraints();
-		gbc_btnLoadGame.gridwidth = 5;
-		gbc_btnLoadGame.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLoadGame.gridx = 8;
-		gbc_btnLoadGame.gridy = 8;
-		menuWindow.getContentPane().add(btnLoadGame, gbc_btnLoadGame);
+		btnLoadGame.setBounds(117, 225, 170, 50);
+		menuWindow.getContentPane().add(btnLoadGame);
 		
 		btnExitGame = new JButton("Exit Game");
+		btnExitGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnExitGame.addActionListener(new exitGameEvent());
-		GridBagConstraints gbc_btnExitGame = new GridBagConstraints();
-		gbc_btnExitGame.insets = new Insets(0, 0, 0, 5);
-		gbc_btnExitGame.gridx = 10;
-		gbc_btnExitGame.gridy = 11;
-		menuWindow.getContentPane().add(btnExitGame, gbc_btnExitGame);
-		menuWindow.setVisible(true);
+		btnExitGame.setBounds(117, 342, 170, 50);
+		menuWindow.getContentPane().add(btnExitGame);
+
 	}
 	
 	private class exitGameEvent implements ActionListener {

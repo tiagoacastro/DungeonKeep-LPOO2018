@@ -20,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import static dkeep.gui.MapEditor.charButtonPressed.DOOR;
+import static dkeep.gui.MapEditor.charButtonPressed.WALL;
 
 
 public class MapEditor extends JFrame implements MouseListener, MouseMotionListener {
@@ -250,25 +251,22 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 				if (currButton == DOOR) {
 					Door d = new Door(cellX, cellY);
 					this.game.getLevels().get(1).addDoor(d);
-					this.game.getLevels().get(1).draw();
-					this.game.getLevels().get(1).setMap(map);
-					this.gameBox.repaint();
-				}
+				} else if (currButton == WALL)
+					map[cellX][cellY] = 'X';
 			} else {
 				currButtonHandler(cellX, cellY);
-				this.game.getLevels().get(1).draw();
-				this.game.getLevels().get(1).setMap(map);
-				this.gameBox.repaint();
 			}
 		} else if (arg0.getButton() == MouseEvent.BUTTON3)
 			mouseRightPress(cellX,cellY);
+
+		this.game.getLevels().get(1).draw();
+		this.game.getLevels().get(1).setMap(map);
+		this.gameBox.repaint();
 	}
 
 	public void mouseRightPress(int cellX, int cellY) {
 		if (map[cellX][cellY] == 'X') {
 			map[cellX][cellY] = ' ';
-			game.getLevels().get(1).draw();
-			this.gameBox.repaint();
 		}
 	}
 
@@ -289,9 +287,9 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
               ogreCount++;
               break;
-          case WALL:
-              map[cellX][cellY] = 'X';
-              break;
+			case WALL:
+				map[cellX][cellY] = 'X';
+				break;
               case KEY:
                   this.game.getLevels().get(1).getObject().setX(cellX);
                   this.game.getLevels().get(1).getObject().setY(cellY);
@@ -340,7 +338,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		
 		private class WallEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				currButton = charButtonPressed.WALL;
+				currButton = WALL;
 			}
 		}
 		

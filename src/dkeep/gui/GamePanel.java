@@ -20,13 +20,17 @@ public class GamePanel extends JPanel{
             loadedImages.put("background",ImageIO.read(new File("images/background.png")));
             loadedImages.put("wall",ImageIO.read(new File("images/wall.png")));
             loadedImages.put("guard",ImageIO.read(new File ("images/guard.png")));
+            loadedImages.put("guardSleeping",ImageIO.read(new File ("images/guardSleeping.png")));
             loadedImages.put("hero",ImageIO.read(new File ("images/hero.png")));
             loadedImages.put("heroArmed", ImageIO.read(new File ("images/heroArmed.png")));
             loadedImages.put("closedDoor",ImageIO.read(new File ("images/closedDoor.png")));
             loadedImages.put("openedDoor",ImageIO.read(new File ("images/openedDoor.png")));
             loadedImages.put("lever", ImageIO.read(new File ("images/lever.png")));
             loadedImages.put("ogre", ImageIO.read(new File ("images/ogre.png")));
+            loadedImages.put("ogreStunned", ImageIO.read(new File ("images/ogreStunned.png")));
+            loadedImages.put("ogreKey", ImageIO.read(new File ("images/ogreKey.png")));
             loadedImages.put("club", ImageIO.read(new File ("images/club.png")));
+            loadedImages.put("clubWithKey", ImageIO.read(new File ("images/clubWithKey.png")));
             loadedImages.put("key", ImageIO.read(new File("images/key.png")));
             loadedImages.put("heroArmedWithKey", ImageIO.read(new File("images/heroArmedWithKey.png")));
         } catch(IOException e) {
@@ -79,8 +83,17 @@ public class GamePanel extends JPanel{
             case 'G':
                 g.drawImage(loadedImages.get("guard"), j * 32, i * 32, null);
                 break;
+            case 'g':
+                g.drawImage(loadedImages.get("guardSleeping"), j * 32, i * 32, null);
+                break;
             case '0':
                 g.drawImage(loadedImages.get("ogre"), j * 32, i * 32, null);
+                break;
+            case '8':
+                g.drawImage(loadedImages.get("ogreStunned"), j * 32, i * 32, null);
+                break;
+            case '$':
+                g.drawImage(loadedImages.get("ogreKey"), j * 32, i * 32, null);
                 break;
             case '*':
                 g.drawImage(loadedImages.get("club"), j *32, i* 32, null);
@@ -100,6 +113,9 @@ public class GamePanel extends JPanel{
                 if (game.getLevel().getObject() instanceof Key)
                     g.drawImage(loadedImages.get("key"), j * 32, i * 32, null);
                 else g.drawImage(loadedImages.get("lever"), j * 32, i * 32, null);
+                break;
+            case 'C':
+                    g.drawImage(loadedImages.get("clubWithKey"), j * 32, i * 32, null);
                 break;
             case 'S':
                 g.drawImage(loadedImages.get("openedDoor"), j * 32, i * 32, null);

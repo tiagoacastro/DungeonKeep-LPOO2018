@@ -201,6 +201,7 @@ public class Level implements Serializable{
     }
 
     public boolean heroMove(int nextX, int nextY) {
+        if (nextX == -1 || nextY== -1) return false;
             switch (map[nextX][nextY]) {
                 case ' ':
                     heroSetMove(nextX, nextY);
@@ -216,7 +217,7 @@ public class Level implements Serializable{
                     if (object instanceof Key) {
                         checkOpenDoor(nextX, nextY);
                         return false; }
-            }return false;
+            } return false;
     }
 
     private void checkOpenDoor(int nextX, int nextY) {
