@@ -35,7 +35,6 @@ public class MainMenu extends JPanel {
 	}
 
 	public MainMenu() {
-		
 		initializeFrame();
 		initializeButtons();
 	}

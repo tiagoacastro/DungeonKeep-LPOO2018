@@ -59,6 +59,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		map = map1;
 		this.game.getLevels().get(1).setMap(map1);
 		this.game.getLevels().get(1).setLvlMap(map1);
+
 	}
 
 	public MapEditor(Game game) {
@@ -370,7 +371,11 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	private class DefaultButtonEvent implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 
+			int i = game.getLevels().get(1).getChars().size();
+			game.getLevels().remove(1);
+			game.loadLevel2(i);
 			createMap();
+			game.getLevels().get(1).draw();
 			gameBox.repaint();
 		}
 	}
