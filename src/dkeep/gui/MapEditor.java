@@ -22,45 +22,45 @@ import javax.swing.event.ChangeListener;
 import static dkeep.gui.MapEditor.charButtonPressed.DOOR;
 
 
-public class MapEditor extends JFrame implements MouseListener, MouseMotionListener{
+public class MapEditor extends JFrame implements MouseListener, MouseMotionListener {
 
 	private JFrame frame;
 	private GamePanel gameBox;
 	private Character[][] map;
 	private int dimension;
-    private Game game;
-    private int ogreCount;
-    private JButton btnStartTheCreation;
-    private JTextField textField;
-    private JLabel lblSize;
+	private Game game;
+	private int ogreCount;
+	private JButton btnStartTheCreation;
+	private JTextField textField;
+	private JLabel lblSize;
 	private JButton ogre;
 	private JButton hero;
 	private JButton wall;
 	private JButton key;
 	private JButton door;
 	private JButton finished;
+	private JButton defaultButton;
 
 	private charButtonPressed currButton = charButtonPressed.NONE;
 
 	public void createMap() {
 
-		Character[][]map1 = new Character [dimension][dimension];
-		
+		Character[][] map1 = new Character[dimension][dimension];
+
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++) {
 
 				if (i == 0 || i == dimension - 1 || j == 0 || j == dimension - 1) {
 					map1[i][j] = 'X';
-				}
-				else map1[i][j] = ' ';
+				} else map1[i][j] = ' ';
 			}
 		}
-		
+
 		map = map1;
-		this.game.getLevel().setMap(map1);
-		this.game.getLevel().setLvlMap(map1);
+		this.game.getLevels().get(1).setMap(map1);
+		this.game.getLevels().get(1).setLvlMap(map1);
 	}
-	
+
 	public MapEditor(Game game) {
 
 		this.game = game;
@@ -83,7 +83,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	public void initializeFrame() {
 		//frame
 		frame = new JFrame("Map Editor");
-		frame.setBounds(100, 100, 640, 480);
+		frame.setBounds(50, 50, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
@@ -96,7 +96,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	public void initializeCreateButton() {
 		btnStartTheCreation = new JButton("Start the Creation !");
-		btnStartTheCreation.addActionListener( new CreationEvent());
+		btnStartTheCreation.addActionListener(new CreationEvent());
 		GridBagConstraints gbc_btnStartTheCreation = new GridBagConstraints();
 		gbc_btnStartTheCreation.gridx = 4;
 		gbc_btnStartTheCreation.gridy = 2;
@@ -117,15 +117,15 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	void initializePanel() {
 		//game box
-				gameBox = new GamePanel(game);
-				GridBagConstraints gbc_panel = new GridBagConstraints();
-				gbc_panel.gridx = 4;
-				gbc_panel.gridy = 3;
-				gbc_panel.fill = GridBagConstraints.BOTH;
-				gameBox.setVisible(false);
-				gameBox.setFocusable(true);
-				gameBox.addMouseListener(this);
-				frame.add(gameBox,gbc_panel);
+		gameBox = new GamePanel(game);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridx = 4;
+		gbc_panel.gridy = 3;
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gameBox.setVisible(false);
+		gameBox.setFocusable(true);
+		gameBox.addMouseListener(this);
+		frame.add(gameBox, gbc_panel);
 	}
 
 	public enum charButtonPressed {
@@ -144,137 +144,156 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		initializeDoorButton();
 
 		initializeFinishButton();
+
+		initializeDefaultButton();
 	}
 
 	private void initializeFinishButton() {
 		finished = new JButton("Finished");
-		finished.addActionListener( new FinishedEvent());
-		finished.setBounds(400,10,100,50);
+		finished.addActionListener(new FinishedEvent());
+		finished.setBounds(475, 340, 150, 60);
 		finished.setVisible(true);
 		frame.getContentPane().add(finished);
 	}
 
+	private void initializeDefaultButton() {
+		defaultButton = new JButton("Default Map");
+		defaultButton.addActionListener(new DefaultButtonEvent());
+		defaultButton.setBounds(475, 270, 150, 60);
+		defaultButton.setVisible(true);
+		frame.getContentPane().add(defaultButton);
+	}
+
 	private void initializeDoorButton() {
 		door = new JButton("Door");
-		door.addActionListener( new DoorEvent());
-		door.setBounds(450,360,100,50);
+		door.addActionListener(new DoorEvent());
+		door.setBounds(500, 210, 100, 30);
 		door.setVisible(true);
 		frame.getContentPane().add(door);
 	}
 
 	private void initializeKeyButton() {
 		key = new JButton("Key");
-		key.addActionListener( new KeyEvent());
-		key.setBounds(450,295,100,50);
+		key.addActionListener(new KeyEvent());
+		key.setBounds(500, 170, 100, 30);
 		key.setVisible(true);
 		frame.getContentPane().add(key);
 	}
 
 	private void initializeWallButton() {
 		wall = new JButton("Wall");
-		wall.addActionListener( new WallEvent());
-		wall.setBounds(450,230,100,50);
+		wall.addActionListener(new WallEvent());
+		wall.setBounds(500, 130, 100, 30);
 		wall.setVisible(true);
 		frame.getContentPane().add(wall);
 	}
 
 	private void initializeHeroButton() {
 		hero = new JButton("Hero");
-		hero.addActionListener( new HeroEvent());
-		hero.setBounds(450,165,100,50);
+		hero.addActionListener(new HeroEvent());
+		hero.setBounds(500, 90, 100, 30);
 		hero.setVisible(true);
 		frame.getContentPane().add(hero);
 	}
 
 	private void initializeOgreButton() {
 		ogre = new JButton("Ogre");
-		ogre.addActionListener( new OgreEvent());
-		ogre.setBounds(450,100,100,50);
+		ogre.addActionListener(new OgreEvent());
+		ogre.setBounds(500, 50, 100, 30);
 		ogre.setVisible(true);
 		frame.getContentPane().add(ogre);
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 
-		}
+	}
 
-		@Override
-		public void mouseMoved(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
-		}
+	}
 
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
 
-		}
+	}
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
-		}
+	}
 
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
-		}
-		public boolean checkBoundaries(int cellX, int cellY) {
-			if ((cellX == 0) || (cellY == 0) || (cellX == dimension-1) || (cellY == dimension-1))
-				return true;
-			else return false;
-		}
+	}
 
-		@Override
-		public void mousePressed(MouseEvent arg0) {
+	public boolean checkBoundaries(int cellX, int cellY) {
+		if ((cellX == 0) || (cellY == 0) || (cellX == dimension - 1) || (cellY == dimension - 1))
+			return true;
+		else return false;
+	}
 
-			int cellX = arg0.getY() / 32;
-			int cellY = arg0.getX() / 32;
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		int cellX = arg0.getY() / 32;
+		int cellY = arg0.getX() / 32;
 
-			if (checkBoundaries(cellX, cellY)){
+		if (arg0.getButton() == MouseEvent.BUTTON1) {
+			if (checkBoundaries(cellX, cellY)) {
 				if (currButton == DOOR) {
 					Door d = new Door(cellX, cellY);
-					this.game.getLevel().addDoor(d);
-					this.game.getLevel().draw();
-					this.game.getLevel().setMap(map);
+					this.game.getLevels().get(1).addDoor(d);
+					this.game.getLevels().get(1).draw();
+					this.game.getLevels().get(1).setMap(map);
 					this.gameBox.repaint();
 				}
-			}else {
-				currButtonHandler(cellX,cellY);
-				this.game.getLevel().draw();
-				this.game.getLevel().setMap(map);
+			} else {
+				currButtonHandler(cellX, cellY);
+				this.game.getLevels().get(1).draw();
+				this.game.getLevels().get(1).setMap(map);
 				this.gameBox.repaint();
 			}
+		} else if (arg0.getButton() == MouseEvent.BUTTON3)
+			mouseRightPress(cellX,cellY);
+	}
+
+	public void mouseRightPress(int cellX, int cellY) {
+		if (map[cellX][cellY] == 'X') {
+			map[cellX][cellY] = ' ';
+			game.getLevels().get(1).draw();
+			this.gameBox.repaint();
+		}
 	}
 
 	public void currButtonHandler(int cellX, int cellY) {
 		int ogres = game.getLevel().getChars().size();
 		switch (currButton) {
           case HERO:
-              this.game.getLevel().getHero().setX(cellX);
-              this.game.getLevel().getHero().setY(cellY);
+			  this.game.getLevels().get(1).getHero().setX(cellX);
+			  this.game.getLevels().get(1).getHero().setY(cellY);
               break;
           case OGRE:
 			  if (ogreCount >= ogres)
 				  ogreCount = 0;
-              this.game.getLevel().getChars().get(ogreCount).setX(cellX);
-              this.game.getLevel().getChars().get(ogreCount).setY(cellY);
-              if (this.game.getLevel().getChars().get(ogreCount) instanceof Ogre)
-				  ((Ogre)this.game.getLevel().getChars().get(ogreCount)).updateClub(map);
+			  this.game.getLevels().get(1).getChars().get(ogreCount).setX(cellX);
+              this.game.getLevels().get(1).getChars().get(ogreCount).setY(cellY);
+              if (this.game.getLevels().get(1).getChars().get(ogreCount) instanceof Ogre)
+				  ((Ogre)this.game.getLevels().get(1).getChars().get(ogreCount)).updateClub(map);
 
               ogreCount++;
               break;
           case WALL:
               map[cellX][cellY] = 'X';
               break;
-          case KEY:
-              if (this.game.getLevel().getObject() instanceof Key) {
-                  ((Key) this.game.getLevel().getObject()).setX(cellX);
-                  ((Key) this.game.getLevel().getObject()).setY(cellY);
-              }
+              case KEY:
+                  this.game.getLevels().get(1).getObject().setX(cellX);
+                  this.game.getLevels().get(1).getObject().setY(cellY);
               break;
           default:
               break;
@@ -290,7 +309,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent arg0) {
                 int mazeSize = Integer.parseInt(textField.getText());
                 
-                if (mazeSize >= 9 && mazeSize <=15) {
+                if (mazeSize >= 8 && mazeSize <=13) {
                 	dimension = mazeSize;
                 	createMap();
                 	textField.setVisible(false);
@@ -298,10 +317,11 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
                 	frame.getContentPane().setLayout(null);
-                	gameBox.setBounds(100, 100, 32* dimension, 32 *dimension);
+                	gameBox.setBounds(50, 50, 32* dimension, 32 *dimension);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
                 }
+                else JOptionPane.showMessageDialog(frame, "You have to insert a positive number between 8 and 13!");
 			}
 		}
 		
@@ -338,8 +358,20 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 		private class FinishedEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-				game.decLevel();
+
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				DungeonKeepGUI gui = new DungeonKeepGUI(game);
+
+				game.decLevel();
+
 			}
 		}
+
+	private class DefaultButtonEvent implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+
+			createMap();
+			gameBox.repaint();
+		}
+	}
 }

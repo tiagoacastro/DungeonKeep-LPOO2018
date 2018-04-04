@@ -3,6 +3,7 @@ package dkeep.test;
 import static org.junit.Assert.*;
 
 import dkeep.cli.UserInterface;
+import dkeep.logic.*;
 import org.junit.Test;
 
 import dkeep.logic.*;
@@ -30,7 +31,7 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals(2, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
-       }
+    }
 
     @Test
     public void testMoveHeroIntoToWall() {

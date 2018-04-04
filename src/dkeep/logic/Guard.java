@@ -19,6 +19,14 @@ public abstract class Guard extends GameCharacter {
         way = true;
     }
 
+    public void setMov(int mov ){
+        this.mov = mov;
+    }
+
+    public int getMov(){
+        return mov;
+    }
+
     public boolean getWay() {
         return way;
     }
