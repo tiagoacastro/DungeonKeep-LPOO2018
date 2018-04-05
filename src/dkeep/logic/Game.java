@@ -115,7 +115,6 @@ public class Game implements Serializable{
 
     public void loadLevel(Level l){
         levels.add(l);
-        levelsCopy.add(new Level(l));
     }
 
     public void substLevel(Level l, int pos){
