@@ -54,6 +54,7 @@ public class MainMenu extends JPanel {
 		background.setFocusable(false);
 		menuWindow.getContentPane().add(background);
 	}
+
 	public void initializeButtons() {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));

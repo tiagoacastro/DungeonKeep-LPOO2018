@@ -10,7 +10,7 @@ import dkeep.logic.*;
 public class TestRandomBehaviour extends TestLevels {
 
     @Test(timeout = 1000)
-    public void RandomBehaviour() {
+    public void RandomBehaviourOgre() {
 
         boolean OgreUpClubUp = false, OgreUpClubLeft = false, OgreUpClubDown = false, OgreUpClubRight = false;
         boolean OgreLeftClubUp = false, OgreLeftClubDown = false, OgreLeftClubLeft = false, OgreLeftClubRight = false;
@@ -38,8 +38,8 @@ public class TestRandomBehaviour extends TestLevels {
 
                 nextOX = newGame.getLevel().getChars().get(0).getX();
                 nextOY = newGame.getLevel().getChars().get(0).getY();
-                nextCX = ((Ogre)newGame.getLevel().getChars().get(0)).getClubX();
-                nextCY = ((Ogre)newGame.getLevel().getChars().get(0)).getClubY();
+                nextCX = ((Ogre) newGame.getLevel().getChars().get(0)).getClubX();
+                nextCY = ((Ogre) newGame.getLevel().getChars().get(0)).getClubY();
 
                 if (nextOX > oX && nextCX > cX)
                     OgreRightClubRight = true;
@@ -83,4 +83,61 @@ public class TestRandomBehaviour extends TestLevels {
             }
         }
     }
+
+    @Test(timeout = 1000)
+    public void testMoveSuspiciousGuard() {
+
+        Game newGame = new Game();
+
+        loadTestLevel1(newGame, "Suspicious", false);
+
+        assertEquals(1, newGame.getLevel().getChars().get(0).getX());
+        assertEquals(3, newGame.getLevel().getChars().get(0).getY());
+
+        boolean way = false;
+
+        if (newGame.getLevel().getChars().get(0) instanceof SuspiciousGuard) {
+
+            while (!way) {
+
+                newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
+                newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
+
+                if (!(((SuspiciousGuard) newGame.getLevel().getChars().get(0)).getWay())) {
+                    way = true;
+                }
+            }
+        }
+        assertTrue(way);
+
+    }
+
+    @Test(timeout = 1000)
+    public void TestSleepDrunkenGuard() {
+        Game game = new Game();
+
+        loadTestLevel1(game, "Drunken", false);
+
+        assertEquals(1, game.getLevel().getChars().get(0).getX());
+        assertEquals(3, game.getLevel().getChars().get(0).getY());
+
+        boolean way = false;
+        boolean sleeping = false;
+
+        if (game.getLevel().getChars().get(0) instanceof DrunkenGuard) {
+
+            DrunkenGuard g = (DrunkenGuard)game.getLevel().getChars().get(0);
+
+            while (!sleeping) {
+
+                if (!g.sleeping()) {
+                    sleeping = true;}
+
+                g.update(game.getLevel().getMap());
+                g.draw(game.getLevel().getMap());
+            }
+        }
+        assertTrue(sleeping);
+    }
+
 }

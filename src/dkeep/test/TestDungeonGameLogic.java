@@ -201,31 +201,30 @@ public class TestDungeonGameLogic extends TestLevels{
     }
 
     @Test
-    public void testMoveSuspiciousGuard() {
+    public void testMoveRookieGuard() {
 
         Game newGame = new Game();
 
-        loadTestLevel1(newGame, "Suspicious", false);
+        loadTestLevel1(newGame, "Rookie", false);
 
         assertEquals(1, newGame.getLevel().getChars().get(0).getX());
         assertEquals(3, newGame.getLevel().getChars().get(0).getY());
 
-        boolean way = false;
+        int counter = 0;
 
-        if (newGame.getLevel().getChars().get(0) instanceof SuspiciousGuard) {
+        if (newGame.getLevel().getChars().get(0) instanceof RookieGuard) {
 
-            while (!way) {
+            while (counter != ((RookieGuard) newGame.getLevel().getChars().get(0)).getPath().size()) {
 
                 newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
                 newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
 
-                if (!(((SuspiciousGuard) newGame.getLevel().getChars().get(0)).getWay())) {
-                    way = true;
-                }
+                counter++;
             }
         }
-        assertTrue(way);
 
+        assertEquals(1, newGame.getLevel().getChars().get(0).getX());
+        assertEquals(2, newGame.getLevel().getChars().get(0).getY());
     }
 
 }

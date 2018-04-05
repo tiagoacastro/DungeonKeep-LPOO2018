@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import dkeep.cli.UserInterface;
 import org.junit.Test;
+import java.io.ByteArrayInputStream;
 
 import dkeep.logic.*;
 
@@ -205,6 +206,6 @@ public class TestKeepGameLogic extends TestLevels{
         newGame.userMove(UserInterface.Direction.LEFT);
 
         assertEquals(Game.gameState.WIN, newGame.getState());
-
     }
+
 }
