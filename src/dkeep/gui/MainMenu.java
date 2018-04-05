@@ -40,7 +40,7 @@ public class MainMenu extends JPanel {
 	public void initializeFrame() {
 		//frame
 		menuWindow = new JFrame("Dungeon Balls");
-		menuWindow.setBounds(100, 100, 660, 520);
+		menuWindow.setBounds(100, 100, 640, 480);
 		menuWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuWindow.setVisible(true);
 		menuWindow.setResizable(false);
@@ -49,7 +49,7 @@ public class MainMenu extends JPanel {
 	public void initializePanel() {
 
 		background = new MenuBackground();
-		background.setBounds(1, 1, 640, 480);
+		background.setBounds(0, 0, 640, 480);
 		background.setVisible(true);
 		background.setFocusable(false);
 		menuWindow.getContentPane().add(background);
@@ -58,7 +58,7 @@ public class MainMenu extends JPanel {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnNewGame.addActionListener(new newGameEvent());
-		btnNewGame.setBounds(117, 81, 170, 50);
+		btnNewGame.setBounds(117, 60, 170, 50);
 		btnNewGame.setBackground(Color.white);
 		menuWindow.getContentPane().setLayout(null);
 		menuWindow.getContentPane().add(btnNewGame);
@@ -66,14 +66,14 @@ public class MainMenu extends JPanel {
 		btnLoadGame = new JButton("Load Game");
 		btnLoadGame.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLoadGame.addActionListener(new loadGameEvent());
-		btnLoadGame.setBounds(117, 205, 170, 50);
+		btnLoadGame.setBounds(117, 190, 170, 50);
 		btnLoadGame.setBackground(Color.white);
 		menuWindow.getContentPane().add(btnLoadGame);
 		
 		btnExitGame = new JButton("Exit Game");
 		btnExitGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnExitGame.addActionListener(new exitGameEvent());
-		btnExitGame.setBounds(117, 342, 170, 50);
+		btnExitGame.setBounds(117, 340, 170, 50);
 		btnExitGame.setBackground(Color.white);
 		menuWindow.getContentPane().add(btnExitGame);
 

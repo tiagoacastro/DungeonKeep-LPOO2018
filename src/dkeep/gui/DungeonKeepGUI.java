@@ -75,7 +75,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
-		frame.getContentPane().setBackground(Color.gray);
+		frame.getContentPane().setBackground(new Color(32,32,32));
 	}
 
 	public void initializeButtons() {
@@ -135,7 +135,7 @@ public class DungeonKeepGUI extends JPanel{
 			@Override
 			public void keyTyped(KeyEvent e) { }
 		});
-		gameBox.setBackground(Color.gray);
+		gameBox.setBackground(new Color(32,32,32));
 		frame.add(gameBox);
 	}
 

@@ -35,7 +35,7 @@ public class SettingsMenu {
 		settingsMenu.getContentPane().setLayout(null);
 		settingsMenu.setVisible(true);
 		settingsMenu.setResizable(false);
-		settingsMenu.getContentPane().setBackground(Color.black);
+		settingsMenu.getContentPane().setBackground(new Color(32,32,32));
 	}
 
 	private void initializeButtons() {

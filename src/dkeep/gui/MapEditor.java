@@ -87,7 +87,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setLayout(null);
-		frame.getContentPane().setBackground(Color.black);
+		frame.getContentPane().setBackground(new Color(32,32,32));
 	}
 
 	public void initializeCreateButton() {
@@ -301,9 +301,8 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent arg0) {
                 int mazeSize = Integer.parseInt(textField.getText());
                 
-                if (mazeSize >= 8 && mazeSize <=13) {
-					frame.setBounds(50, 50, 670, 480);
-					frame.getContentPane().setBackground(Color.gray);
+                if (mazeSize >= 9 && mazeSize <=11) {
+					frame.setBounds(50, 50, 670, 500);
 					dimension = mazeSize;
                 	createMap();
                 	textField.setVisible(false);
