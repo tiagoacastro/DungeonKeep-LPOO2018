@@ -3,10 +3,8 @@ package dkeep.cli;
 import java.util.Scanner;
 import dkeep.logic.*;
 import java.io.*;
-import java.util.*;
 
 //TODO
-
 public class UserInterface {
 
         public enum Direction {

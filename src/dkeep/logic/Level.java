@@ -43,6 +43,10 @@ public class Level implements Serializable{
         charactersCopy(l);
     }
 
+    public boolean moved() {
+        return moved;
+    }
+
     private void charactersCopy(Level l) {
         for(GameCharacter c : l.getChars()){
             if(c instanceof RookieGuard)

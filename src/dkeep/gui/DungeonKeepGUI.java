@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import dkeep.cli.UserInterface;
 
-//TODO: dizer que o heroi se moveu so se se tiver movido mesmo(mover contra parede tambem esta a dar print)
 public class DungeonKeepGUI extends JPanel{
 	
 	private JFrame frame;
@@ -165,7 +164,8 @@ public class DungeonKeepGUI extends JPanel{
 				stateHandler(gameState.LOSE);
 				break;
 			case NONE:
-				printWayMove(way);
+				if(game.getLevel().moved())
+					printWayMove(way);
 				break;
 		}
 	}
