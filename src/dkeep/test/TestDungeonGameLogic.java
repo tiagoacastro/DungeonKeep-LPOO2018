@@ -22,6 +22,11 @@ public class TestDungeonGameLogic extends TestLevels{
 
         newGame.getLevel().freezeLevel();
 
+        if( newGame.getLevel().getChars().get(0) instanceof Guard) {
+            ((Guard)newGame.getLevel().getChars().get(0)).setMov(0);
+            assertEquals(0, ((Guard) newGame.getLevel().getChars().get(0)).getMov());
+        }
+
         assertEquals(1, newGame.getCurrentLevel());
 
         assertEquals(1, newGame.getLevel().getHero().getX());
@@ -31,6 +36,8 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals(2, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
+
+        assertEquals(Game.levelState.NONE,newGame.getLevelState());
     }
 
     @Test
@@ -49,6 +56,18 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals(1, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
+
+        newGame.incLevel();
+        assertEquals(2, newGame.getCurrentLevel());
+
+        newGame.decLevel();
+        assertEquals(1, newGame.getCurrentLevel());
+
+        newGame.setLevelState(Game.levelState.WIN);
+        assertEquals(false,newGame.isGameWon());
+        newGame.setState(Game.gameState.WIN);
+        assertEquals(Game.gameState.WIN,newGame.getState());
+        assertEquals(true,newGame.isGameWon());
     }
 
     @Test
@@ -75,6 +94,8 @@ public class TestDungeonGameLogic extends TestLevels{
         loadTestLevel1(newGame, "Rookie",true);
 
         newGame.getLevel().freezeLevel();
+        newGame.getLevel().checkFrozenLevel();
+
         assertEquals(1, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
 
@@ -83,12 +104,17 @@ public class TestDungeonGameLogic extends TestLevels{
         assertEquals(2, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
 
+        assertTrue(newGame.getLevel().moved());
+
         newGame.userMove(UserInterface.Direction.LEFT);
 
         assertEquals(2, newGame.getLevel().getHero().getX());
         assertEquals(1, newGame.getLevel().getHero().getY());
 
+        assertFalse(newGame.getLevel().moved());
+
         assertFalse(newGame.isGameOver());
+
     }
 
     @Test
@@ -177,6 +203,8 @@ public class TestDungeonGameLogic extends TestLevels{
 
         assertEquals(1,newGame.getLevel().getChars().get(0).getX());
         assertEquals(3,newGame.getLevel().getChars().get(0).getY());
+
+        assertEquals(true, ((Guard)newGame.getLevel().getChars().get(0)).getWay());
 
         if(newGame.getLevel().getChars().get(0) instanceof DrunkenGuard) {
 

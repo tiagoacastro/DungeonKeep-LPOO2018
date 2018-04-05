@@ -69,8 +69,12 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 		initializeFrame();
 
-		lblSize = new JLabel("Size");
+		lblSize = new JLabel("Height");
 		lblSize.setBounds(85, 40, 60, 20);
+		lblSize.setForeground(Color.white);
+		frame.getContentPane().add(lblSize);
+		lblSize = new JLabel("Width");
+		lblSize.setBounds(85, 60, 60, 20);
 		lblSize.setForeground(Color.white);
 		frame.getContentPane().add(lblSize);
 
@@ -260,6 +264,19 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	public void mouseRightPress(int cellX, int cellY) {
 		if (map[cellX][cellY] == 'X') {
 			map[cellX][cellY] = ' ';
+		} else if (map[cellX][cellY] == 'A' || map[cellX][cellY] == 'H') {
+			game.getLevel().setHero(null);
+		}
+	}
+
+	public void heroPressedHandler(int cellX, int cellY) {
+
+		if(game.getLevel().getHero() != null){
+			this.game.getLevels().get(1).getHero().setX(cellX);
+			this.game.getLevels().get(1).getHero().setY(cellY);
+		} else {
+			Hero hero = new Hero(cellX,cellY);
+			this.game.getLevel().setHero(hero);
 		}
 	}
 
@@ -267,8 +284,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		int ogres = game.getLevel().getChars().size();
 		switch (currButton) {
           case HERO:
-			  this.game.getLevels().get(1).getHero().setX(cellX);
-			  this.game.getLevels().get(1).getHero().setY(cellY);
+			  heroPressedHandler(cellX,cellY);
               break;
           case OGRE:
 			  if (ogreCount >= ogres)

@@ -37,7 +37,7 @@ public abstract class Guard extends GameCharacter {
 
     public char getSymbol() {
         return symbol;
-    };
+    }
 
     public abstract void update(Character[][] map);
 

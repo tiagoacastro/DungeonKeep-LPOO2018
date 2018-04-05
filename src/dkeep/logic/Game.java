@@ -20,6 +20,12 @@ public class Game implements Serializable{
         else return false;
     }
 
+    public boolean isGameWon(){
+        if (this.state == gameState.WIN)
+            return true;
+        else return false;
+    }
+
     public gameState getState(){
         return this.state;
     }
@@ -162,7 +168,9 @@ public class Game implements Serializable{
     }
 
     public void setState(gameState state) {
-		this.state = state;
+        if (state == gameState.WIN) {
+            this.state = state;
+        }
 	}
 
 	public void setLevelState(levelState levelState) {
