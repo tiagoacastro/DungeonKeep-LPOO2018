@@ -9,6 +9,7 @@ import java.io.*;
 public class Game implements Serializable{
 
     private ArrayList<Level> levels = new ArrayList<Level>();
+    private ArrayList<Level> levelsCopy = new ArrayList<Level>();
     private int level;
     private gameState state;
     private levelState levelState;
@@ -47,7 +48,6 @@ public class Game implements Serializable{
         };
 
         Hero h = new Hero(1, 1);
-
         levels.add(new Level(map1, h));
 
         Character[] route = new Character[]{'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u'};
@@ -60,6 +60,8 @@ public class Game implements Serializable{
 
         Lever l = new Lever(8, 7);
         levels.get(0).addLever(l);
+
+        levelsCopy.add(new Level(levels.get(0)));
     }
 
     public void loadGuardToLevel(String guardType, Character[] route) {
@@ -107,10 +109,13 @@ public class Game implements Serializable{
             Ogre o = new Ogre(1, 1+i, 2, 1+i);
             levels.get(1).addOgre(o);
         }
+
+        levelsCopy.add(new Level(levels.get(1)));
     }
 
     public void loadLevel(Level l){
         levels.add(l);
+        levelsCopy.add(new Level(l));
     }
 
     public void substLevel(Level l, int pos){
@@ -193,5 +198,19 @@ public class Game implements Serializable{
 
     public int getCurrentLevel() {
     	return level+1;
+    }
+
+    public void restart(){
+        levels.clear();
+        for(Level l : levelsCopy)
+            levels.add(new Level(l));
+
+        level = 0;
+        state = gameState.NONE;
+    }
+
+    public void updateLevel2Copy() {
+        levelsCopy.remove(1);
+        levelsCopy.add(new Level(levels.get(1)));
     }
 }

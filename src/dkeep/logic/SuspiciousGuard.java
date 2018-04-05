@@ -9,6 +9,8 @@ public class SuspiciousGuard extends Guard{
         super(xCoord, yCoord, p);
     }
 
+    public SuspiciousGuard(SuspiciousGuard g) { super(g.getX(), g.getY(), g.getPath()); }
+
     public void update(Character[][] map){
         Random rand = new Random();
         int n = 10;

@@ -58,6 +58,7 @@ public class MainMenu extends JPanel {
 		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnNewGame.addActionListener(new newGameEvent());
 		btnNewGame.setBounds(117, 121, 170, 50);
+		btnNewGame.setBackground(Color.white);
 		menuWindow.getContentPane().setLayout(null);
 		menuWindow.getContentPane().add(btnNewGame);
 		
@@ -65,12 +66,14 @@ public class MainMenu extends JPanel {
 		btnLoadGame.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLoadGame.addActionListener(new loadGameEvent());
 		btnLoadGame.setBounds(117, 225, 170, 50);
+		btnLoadGame.setBackground(Color.white);
 		menuWindow.getContentPane().add(btnLoadGame);
 		
 		btnExitGame = new JButton("Exit Game");
 		btnExitGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnExitGame.addActionListener(new exitGameEvent());
 		btnExitGame.setBounds(117, 342, 170, 50);
+		btnExitGame.setBackground(Color.white);
 		menuWindow.getContentPane().add(btnExitGame);
 
 	}

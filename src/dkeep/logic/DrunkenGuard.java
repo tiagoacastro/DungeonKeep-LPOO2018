@@ -14,6 +14,12 @@ public class DrunkenGuard extends Guard{
         timer = 3;
     }
 
+    public DrunkenGuard(DrunkenGuard g) {
+        super(g.getX(), g.getY(), g.getPath());
+        sleeping = false;
+        timer = 3;
+    }
+
     public boolean sleeping(){
         return sleeping;
     }

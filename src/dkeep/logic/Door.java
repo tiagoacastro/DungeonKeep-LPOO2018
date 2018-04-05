@@ -9,6 +9,11 @@ public class Door extends GameObject {
         symbol = 'I';
     }
 
+    public Door (Door d){
+        super(d.getX(), d.getY());
+        symbol = 'I';
+    }
+
     public void open(Character[][] map) {
         symbol = 'S';
         draw(map);

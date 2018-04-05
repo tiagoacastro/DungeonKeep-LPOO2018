@@ -21,6 +21,16 @@ public class Ogre extends GameCharacter {
         stunTimer = 0;
     }
 
+    public Ogre(Ogre o) {
+        super(o.getX(), o.getY());
+        xClub = o.getClubX();
+        yClub = o.getClubY();
+        symbol = '0';
+        clubSymbol = '*';
+        stunned = false;
+        stunTimer = 0;
+    }
+
     public boolean isStunned() {
         return stunned;
     }

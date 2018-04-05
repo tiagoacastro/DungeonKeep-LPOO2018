@@ -27,6 +27,10 @@ public abstract class Guard extends GameCharacter {
         return mov;
     }
 
+    public ArrayList<Character> getPath() {
+        return path;
+    }
+
     public boolean getWay() {
         return way;
     }

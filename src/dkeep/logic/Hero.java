@@ -16,6 +16,15 @@ public class Hero implements Serializable {
         symbol = 'H';
     }
 
+    public Hero(Hero h) {
+        x=h.getX();
+        y=h.getY();
+
+        armed = h.armed();
+
+        symbol = 'H';
+    }
+
     public void setSymbol(char s) { symbol = s; }
 
     public void arm() {

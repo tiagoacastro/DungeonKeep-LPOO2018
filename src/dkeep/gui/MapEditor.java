@@ -362,7 +362,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 				DungeonKeepGUI gui = new DungeonKeepGUI(game);
 
 				game.decLevel();
-
+				game.updateLevel2Copy();
 			}
 		}
 

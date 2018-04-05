@@ -198,14 +198,34 @@ public class DungeonKeepGUI extends JPanel{
 			rightButton.setEnabled(true);
 			downButton.setEnabled(true);
 			saveGameButton.setEnabled(true);
-			startGameButton.setEnabled(false); //here
+			startGameButton.setText("Restart");
 			status.setText("You can play now.");
+			gameBox.repaint();
+			gameBox.setFocusable(true);
+			gameBox.requestFocusInWindow();
+			startGameButton.addActionListener(new restartGameEvent());
+			startGameButton.removeActionListener(this);
+		}
+	}
+
+	private class restartGameEvent implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg) {
+			gamePlaying = true;
+			game.restart();
+			game.getLevel().draw();
+			upButton.setEnabled(true);
+			leftButton.setEnabled(true);
+			rightButton.setEnabled(true);
+			downButton.setEnabled(true);
+			saveGameButton.setEnabled(true);
+			status.setText("You can try again now.");
 			gameBox.repaint();
 			gameBox.setFocusable(true);
 			gameBox.requestFocusInWindow();
 		}
 	}
-	
+
 	private class endGameEvent implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg) {

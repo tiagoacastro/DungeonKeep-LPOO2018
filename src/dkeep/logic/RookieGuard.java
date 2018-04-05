@@ -7,6 +7,10 @@ public class RookieGuard extends Guard {
         super(xCoord, yCoord, p);
     }
 
+    public RookieGuard(RookieGuard g) {
+        super(g.getX(), g.getY(), g.getPath());
+    }
+
     public void update(Character[][] map) {
         switch (path.get(mov)) {
             case 'u':

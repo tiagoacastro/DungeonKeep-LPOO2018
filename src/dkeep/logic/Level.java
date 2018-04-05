@@ -27,6 +27,34 @@ public class Level implements Serializable{
     public Level(){
     }
 
+    public Level(Level l){
+        lvlMap = mapCopyWithParam(l.getMap());
+
+        hero = new Hero(l.getHero());
+
+        if(l.getObject() instanceof Key)
+            object = new Key((Key)l.getObject());
+        else if(l.getObject() instanceof Lever)
+            object = new Lever((Lever)l.getObject());
+
+        for (Door d : l.getDoors())
+            addDoor(new Door(d));
+
+        charactersCopy(l);
+    }
+
+    private void charactersCopy(Level l) {
+        for(GameCharacter c : l.getChars()){
+            if(c instanceof RookieGuard)
+                addGuard(new RookieGuard((RookieGuard)c));
+                else if(c instanceof DrunkenGuard)
+                    addGuard(new DrunkenGuard((DrunkenGuard)c));
+                    else if(c instanceof SuspiciousGuard)
+                        addGuard(new SuspiciousGuard((SuspiciousGuard)c));
+            if (c instanceof Ogre)
+                addOgre(new Ogre((Ogre)c));}
+    }
+
     public void setHero(Hero hero) {
         this.hero = hero;
     }
@@ -256,6 +284,10 @@ public class Level implements Serializable{
     }
 
     public Character[][] mapCopy(){
+        return mapCopyWithParam(lvlMap);
+    }
+
+    public Character[][] mapCopyWithParam(Character[][] lvlMap){
         Character[][] map = new Character[lvlMap.length][];
         for(int i = 0; i < lvlMap.length; i++)
         {
