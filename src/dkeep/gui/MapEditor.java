@@ -7,10 +7,9 @@ import javax.swing.JSlider;
 import javax.swing.JOptionPane;
 
 import dkeep.logic.*;
-import java.awt.GridBagLayout;
+
+import java.awt.*;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -71,11 +70,9 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		initializeFrame();
 
 		lblSize = new JLabel("Size");
-		GridBagConstraints gbc_lblSize = new GridBagConstraints();
-		gbc_lblSize.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSize.gridx = 1;
-		gbc_lblSize.gridy = 1;
-		frame.getContentPane().add(lblSize, gbc_lblSize);
+		lblSize.setBounds(85, 40, 60, 20);
+		lblSize.setForeground(Color.white);
+		frame.getContentPane().add(lblSize);
 
 		initializeTextField();
 		initializeCreateButton();
@@ -85,49 +82,38 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	public void initializeFrame() {
 		//frame
 		frame = new JFrame("Map Editor");
-		frame.setBounds(50, 50, 750, 550);
+		frame.setBounds(50, 50, 200, 250);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
 		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.setLayout(null);
+		frame.getContentPane().setBackground(Color.black);
 	}
 
 	public void initializeCreateButton() {
-		btnStartTheCreation = new JButton("Start the Creation !");
+		btnStartTheCreation = new JButton("Start Creation");
 		btnStartTheCreation.addActionListener(new CreationEvent());
-		GridBagConstraints gbc_btnStartTheCreation = new GridBagConstraints();
-		gbc_btnStartTheCreation.gridx = 4;
-		gbc_btnStartTheCreation.gridy = 2;
-		frame.getContentPane().add(btnStartTheCreation, gbc_btnStartTheCreation);
+		btnStartTheCreation.setBounds(40, 140, 120, 20);
+		btnStartTheCreation.setBackground(Color.white);
+		frame.getContentPane().add(btnStartTheCreation);
 	}
 
 	public void initializeTextField() {
 		textField = new JTextField();
 		textField.setText("11");
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 4;
-		gbc_textField.gridy = 1;
-		frame.getContentPane().add(textField, gbc_textField);
+		frame.getContentPane().add(textField);
+		textField.setBounds(70, 60, 60, 20);
+		textField.setHorizontalAlignment(JTextField.CENTER);
 		textField.setColumns(10);
 	}
 
 	void initializePanel() {
 		//game box
 		gameBox = new GamePanel(game);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridx = 4;
-		gbc_panel.gridy = 3;
-		gbc_panel.fill = GridBagConstraints.BOTH;
 		gameBox.setVisible(false);
 		gameBox.setFocusable(true);
 		gameBox.addMouseListener(this);
-		frame.add(gameBox, gbc_panel);
+		frame.add(gameBox);
 	}
 
 	public enum charButtonPressed {
@@ -155,6 +141,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		finished.addActionListener(new FinishedEvent());
 		finished.setBounds(475, 340, 150, 60);
 		finished.setVisible(true);
+		finished.setBackground(Color.white);
 		frame.getContentPane().add(finished);
 	}
 
@@ -163,6 +150,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		defaultButton.addActionListener(new DefaultButtonEvent());
 		defaultButton.setBounds(475, 270, 150, 60);
 		defaultButton.setVisible(true);
+		defaultButton.setBackground(Color.white);
 		frame.getContentPane().add(defaultButton);
 	}
 
@@ -171,6 +159,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		door.addActionListener(new DoorEvent());
 		door.setBounds(500, 210, 100, 30);
 		door.setVisible(true);
+		door.setBackground(Color.white);
 		frame.getContentPane().add(door);
 	}
 
@@ -179,6 +168,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		key.addActionListener(new KeyEvent());
 		key.setBounds(500, 170, 100, 30);
 		key.setVisible(true);
+		key.setBackground(Color.white);
 		frame.getContentPane().add(key);
 	}
 
@@ -187,6 +177,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		wall.addActionListener(new WallEvent());
 		wall.setBounds(500, 130, 100, 30);
 		wall.setVisible(true);
+		wall.setBackground(Color.white);
 		frame.getContentPane().add(wall);
 	}
 
@@ -195,6 +186,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		hero.addActionListener(new HeroEvent());
 		hero.setBounds(500, 90, 100, 30);
 		hero.setVisible(true);
+		hero.setBackground(Color.white);
 		frame.getContentPane().add(hero);
 	}
 
@@ -203,6 +195,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		ogre.addActionListener(new OgreEvent());
 		ogre.setBounds(500, 50, 100, 30);
 		ogre.setVisible(true);
+		ogre.setBackground(Color.white);
 		frame.getContentPane().add(ogre);
 	}
 
@@ -309,13 +302,14 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
                 int mazeSize = Integer.parseInt(textField.getText());
                 
                 if (mazeSize >= 8 && mazeSize <=13) {
-                	dimension = mazeSize;
+					frame.setBounds(50, 50, 670, 480);
+					frame.getContentPane().setBackground(Color.gray);
+					dimension = mazeSize;
                 	createMap();
                 	textField.setVisible(false);
                 	initializePanel();
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
-                	frame.getContentPane().setLayout(null);
                 	gameBox.setBounds(50, 50, 32* dimension, 32 *dimension);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();

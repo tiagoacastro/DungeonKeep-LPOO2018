@@ -4,6 +4,7 @@ import dkeep.logic.*;
 import dkeep.logic.Game.gameState;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import dkeep.cli.UserInterface;
 
@@ -37,7 +38,8 @@ public class DungeonKeepGUI extends JPanel{
 	private void initializeStatus() {
 		//game status
 		status = new JLabel("You can start a new game");
-		status.setBounds(10, 450, 400, 20);
+		status.setBounds(50, 450, 400, 20);
+		status.setForeground(Color.white);
 		frame.add(status);
 	}
 
@@ -45,54 +47,63 @@ public class DungeonKeepGUI extends JPanel{
 		//start game button
 		startGameButton = new JButton("Start Game");
 		startGameButton.addActionListener(new startGameEvent());
-		startGameButton.setBounds(460, 80, 100, 25);
+		startGameButton.setBounds(460, 50, 100, 25);
+		startGameButton.setBackground(Color.white);
 		frame.add(startGameButton);
 
 		//save game button
 		saveGameButton = new JButton("Save Game");
 		saveGameButton.addActionListener(new saveGameEvent());
-		saveGameButton.setBounds(460, 370, 100, 25);
+		saveGameButton.setBounds(460, 410, 100, 25);
 		saveGameButton.setEnabled(false);
+		saveGameButton.setBackground(Color.white);
 		frame.add(saveGameButton);
 
 		//end game button
 		JButton endGameButton = new JButton("End Game");
 		endGameButton.addActionListener(new endGameEvent());
-		endGameButton.setBounds(460, 335, 100, 25);
+		endGameButton.setBounds(460, 445, 100, 25);
+		endGameButton.setBackground(Color.white);
 		frame.add(endGameButton);
 	}
 
 	public void initializeFrame() {
 		//frame
-		frame = new JFrame("Dungeon Keep");
+		frame = new JFrame("Dungeon Balls");
 		frame.setBounds(100, 100, 640, 530);
 		frame.getContentPane().setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setVisible(true);
+		frame.getContentPane().setBackground(Color.gray);
 	}
 
 	public void initializeButtons() {
 		upButton = new JButton("Up");
 		upButton.addActionListener(new moveUpEvent());
-		upButton.setBounds(472, 168, 75, 25);
+		upButton.setBounds(472, 188, 75, 25);
+		upButton.setBackground(Color.white);
 		upButton.setEnabled(false);
 		frame.add(upButton);
 
 		leftButton = new JButton("Left");
 		leftButton.addActionListener(new moveLeftEvent());
-		leftButton.setBounds(417, 208, 75, 25);
+		leftButton.setBounds(417, 228, 75, 25);
+		leftButton.setBackground(Color.white);
 		leftButton.setEnabled(false);
 		frame.add(leftButton);
 
 		rightButton = new JButton("Right");
 		rightButton.addActionListener(new moveRightEvent());
-		rightButton.setBounds(518, 208, 75, 25);
+		rightButton.setBounds(518, 228, 75, 25);
 		rightButton.setEnabled(false);
+		rightButton.setBackground(Color.white);
 		frame.add(rightButton);
 
 		downButton = new JButton("Down");
 		downButton.addActionListener(new moveDownEvent());
-		downButton.setBounds(472, 248, 75, 25);
+		downButton.setBounds(472, 268, 75, 25);
+		downButton.setBackground(Color.white);
 		downButton.setEnabled(false);
 		frame.add(downButton);
 	}
@@ -124,6 +135,7 @@ public class DungeonKeepGUI extends JPanel{
 			@Override
 			public void keyTyped(KeyEvent e) { }
 		});
+		gameBox.setBackground(Color.gray);
 		frame.add(gameBox);
 	}
 

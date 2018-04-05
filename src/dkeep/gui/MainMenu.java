@@ -43,6 +43,7 @@ public class MainMenu extends JPanel {
 		menuWindow.setBounds(100, 100, 660, 520);
 		menuWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuWindow.setVisible(true);
+		menuWindow.setResizable(false);
 	}
 
 	public void initializePanel() {
@@ -57,7 +58,7 @@ public class MainMenu extends JPanel {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnNewGame.addActionListener(new newGameEvent());
-		btnNewGame.setBounds(117, 121, 170, 50);
+		btnNewGame.setBounds(117, 81, 170, 50);
 		btnNewGame.setBackground(Color.white);
 		menuWindow.getContentPane().setLayout(null);
 		menuWindow.getContentPane().add(btnNewGame);
@@ -65,7 +66,7 @@ public class MainMenu extends JPanel {
 		btnLoadGame = new JButton("Load Game");
 		btnLoadGame.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLoadGame.addActionListener(new loadGameEvent());
-		btnLoadGame.setBounds(117, 225, 170, 50);
+		btnLoadGame.setBounds(117, 205, 170, 50);
 		btnLoadGame.setBackground(Color.white);
 		menuWindow.getContentPane().add(btnLoadGame);
 		

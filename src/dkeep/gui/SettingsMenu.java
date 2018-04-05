@@ -34,17 +34,21 @@ public class SettingsMenu {
 		settingsMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		settingsMenu.getContentPane().setLayout(null);
 		settingsMenu.setVisible(true);
+		settingsMenu.setResizable(false);
+		settingsMenu.getContentPane().setBackground(Color.black);
 	}
 
 	private void initializeButtons() {
 		defaultKeep = new JButton("Use default keep level");
 		defaultKeep.addActionListener(new defaultKeepEvent());
 		defaultKeep.setBounds(40, 274, 210, 21);
+		defaultKeep.setBackground(Color.white);
 		settingsMenu.getContentPane().add(defaultKeep);
 		
 		editKeep = new JButton("Edit the keep level");
 		editKeep.addActionListener(new editKeepEvent());
 		editKeep.setBounds(40, 300, 210, 21);
+		editKeep.setBackground(Color.white);
 		settingsMenu.getContentPane().add(editKeep);
 	}
 	
@@ -53,6 +57,7 @@ public class SettingsMenu {
 		JLabel guardLabel = new JLabel();
 		guardLabel.setText("Guard personality");
 		guardLabel.setBounds(30, 30, 100, 20);
+		guardLabel.setForeground(Color.white);
 		settingsMenu.getContentPane().add(guardLabel);
 
 		guardType = new JComboBox();
@@ -68,6 +73,7 @@ public class SettingsMenu {
 		JLabel ogreLabel = new JLabel();
 		ogreLabel.setText("Number of Ogres");
 		ogreLabel.setBounds(30, 80, 100, 20);
+		ogreLabel.setForeground(Color.white);
 		settingsMenu.getContentPane().add(ogreLabel);
 
 		ogres = new JTextField(10);
