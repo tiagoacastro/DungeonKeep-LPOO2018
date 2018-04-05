@@ -1,7 +1,6 @@
 package dkeep.logic;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Guard extends GameCharacter {
 

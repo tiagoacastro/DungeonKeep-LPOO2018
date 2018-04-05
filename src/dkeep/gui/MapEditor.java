@@ -2,8 +2,6 @@ package dkeep.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JOptionPane;
 
 import dkeep.logic.*;
@@ -12,11 +10,7 @@ import java.awt.*;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTabbedPane;
 import java.awt.event.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import static dkeep.gui.MapEditor.charButtonPressed.DOOR;
 import static dkeep.gui.MapEditor.charButtonPressed.WALL;
@@ -69,11 +63,11 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 		initializeFrame();
 
-		lblSize = new JLabel("Height");
+		lblSize = new JLabel("Width");
 		lblSize.setBounds(85, 40, 60, 20);
 		lblSize.setForeground(Color.white);
 		frame.getContentPane().add(lblSize);
-		lblSize = new JLabel("Width");
+		lblSize = new JLabel("Heigh");
 		lblSize.setBounds(85, 60, 60, 20);
 		lblSize.setForeground(Color.white);
 		frame.getContentPane().add(lblSize);
@@ -233,9 +227,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	public boolean checkBoundaries(int cellX, int cellY) {
-		if ((cellX == 0) || (cellY == 0) || (cellX == dimension - 1) || (cellY == dimension - 1))
-			return true;
-		else return false;
+		return (cellX == 0) || (cellY == 0) || (cellX == dimension - 1) || (cellY == dimension - 1);
 	}
 
 	@Override

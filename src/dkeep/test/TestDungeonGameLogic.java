@@ -3,13 +3,9 @@ package dkeep.test;
 import static org.junit.Assert.*;
 
 import dkeep.cli.UserInterface;
-import dkeep.logic.*;
 import org.junit.Test;
 
 import dkeep.logic.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestDungeonGameLogic extends TestLevels{
 

@@ -15,15 +15,11 @@ public class Game implements Serializable{
     private levelState levelState;
 
     public boolean isGameOver(){
-        if (this.state == gameState.LOSE)
-            return true;
-        else return false;
+        return this.state == gameState.LOSE;
     }
 
     public boolean isGameWon(){
-        if (this.state == gameState.WIN)
-            return true;
-        else return false;
+        return this.state == gameState.WIN;
     }
 
     public gameState getState(){

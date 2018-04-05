@@ -206,8 +206,7 @@ public class Level implements Serializable{
 
     private boolean checkCollisionDrunkenGuard(GameCharacter v) {
         if (v instanceof DrunkenGuard) {
-            if(((DrunkenGuard) v).sleeping())
-                return true;
+            return ((DrunkenGuard) v).sleeping();
         }
         return false;
     }
@@ -215,9 +214,8 @@ public class Level implements Serializable{
     private Boolean checkCollisionOgre(Hero h, GameCharacter v, boolean heroAndVillain) {
         if (v instanceof Ogre) {
             checkStun(h, (Ogre) v, heroAndVillain);
-            boolean heroAndClub = checkCollisionClub(h, (Ogre) v);
 
-            return heroAndClub;
+            return checkCollisionClub(h, (Ogre) v);
         }
         return null;
     }

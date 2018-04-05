@@ -2,7 +2,6 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
-import dkeep.cli.UserInterface;
 import org.junit.Test;
 
 import dkeep.logic.*;
