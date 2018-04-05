@@ -173,8 +173,6 @@ public class Game implements Serializable{
         level++;
     }
 
-
-
     public void userMove(UserInterface.Direction input) {
 
         levelState lvlState = levels.get(level).userMove(input);

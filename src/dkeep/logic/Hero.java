@@ -20,9 +20,10 @@ public class Hero implements Serializable {
         x=h.getX();
         y=h.getY();
 
-        armed = h.armed();
-
         symbol = 'H';
+
+        if(h.armed())
+            arm();
     }
 
     public void setSymbol(char s) { symbol = s; }
