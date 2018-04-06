@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * GameCharacter class
+ */
 public abstract class GameCharacter implements Serializable {
     protected int x;
     protected int y;

@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
+/**
+ * Guard class
+ */
 public abstract class Guard extends GameCharacter {
 
     ArrayList<Character> path = new ArrayList<Character>();

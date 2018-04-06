@@ -3,6 +3,9 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * DrunkenGuard class
+ */
 public class DrunkenGuard extends Guard{
 
     private boolean sleeping;

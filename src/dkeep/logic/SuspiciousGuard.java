@@ -3,6 +3,9 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * SuspiciousGuard class
+ */
 public class SuspiciousGuard extends Guard{
 
     /**

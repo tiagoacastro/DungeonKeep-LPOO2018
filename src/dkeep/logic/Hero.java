@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * Hero class
+ */
 public class Hero implements Serializable {
 
     private char symbol;

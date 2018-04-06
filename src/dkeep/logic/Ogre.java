@@ -1,6 +1,9 @@
 package dkeep.logic;
 import java.util.Random;
 
+/**
+ * Ogre class
+ */
 public class Ogre extends GameCharacter {
 
     private int xClub;

@@ -1,5 +1,8 @@
 package dkeep.logic;
 
+/**
+ * Door class
+ */
 public class Door extends GameObject {
 
     private char symbol;

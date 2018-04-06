@@ -1,5 +1,8 @@
 package dkeep.logic;
 
+/**
+ * Key class
+ */
 public class Key extends GameObject {
 
     private boolean grabbed;

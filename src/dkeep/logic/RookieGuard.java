@@ -1,6 +1,9 @@
 package dkeep.logic;
 import java.util.ArrayList;
 
+/**
+ * RookieGuard class
+ */
 public class RookieGuard extends Guard {
 
     /**

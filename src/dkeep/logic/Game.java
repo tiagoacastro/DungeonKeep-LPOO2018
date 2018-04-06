@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
 
+/**
+ * Game Class
+ */
 public class Game implements Serializable{
 
     private ArrayList<Level> levels = new ArrayList<Level>();

@@ -4,6 +4,9 @@ import dkeep.cli.UserInterface;
 import java.util.ArrayList;
 import java.io.*;
 
+/**
+ * Level class
+ */
 public class Level implements Serializable{
 
     private Character[][] lvlMap;

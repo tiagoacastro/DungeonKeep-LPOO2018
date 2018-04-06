@@ -1,5 +1,8 @@
 package dkeep.logic;
 
+/**
+ * Lever class
+ */
 public class Lever extends GameObject {
 
     /**
