@@ -11,7 +11,7 @@ public class MenuBackground extends JPanel {
 
     BufferedImage background;
 
-    public MenuBackground() {
+    MenuBackground() {
 
         try {
             background = ImageIO.read(new File("images/menuBackground.png"));

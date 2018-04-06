@@ -15,18 +15,34 @@ public class Level implements Serializable{
     private boolean moved;
     private boolean frozenLevel;
 
+    /**
+     * Level constructor
+     * @param m     map
+     * @param h     hero
+     */
     public Level(Character[][] m, Hero h) {
         lvlMap = m;
         hero = h;
     }
 
+    /**
+     * level constructor without hero
+     * @param m     map
+     */
     public Level(Character[][]m){
         lvlMap = m;
     }
 
+    /**
+     * Level default constructor
+     */
     public Level(){
     }
 
+    /**
+     * Level copy constructor
+     * @param l     Level that will be copied
+     */
     public Level(Level l){
         lvlMap = mapCopyWithParam(l.getMap());
 
@@ -43,6 +59,10 @@ public class Level implements Serializable{
         charactersCopy(l);
     }
 
+    /**
+     * checks if the hero moved
+     * @return  if it moved or not
+     */
     public boolean moved() {
         return moved;
     }
@@ -59,62 +79,122 @@ public class Level implements Serializable{
                 addOgre(new Ogre((Ogre)c));}
     }
 
+    /**
+     * Setter for the hero
+     * @param hero  new hero
+     */
     public void setHero(Hero hero) {
         this.hero = hero;
     }
 
+    /**
+     * adds a guard
+     * @param g     guard
+     */
     public void addGuard(Guard g) {
         chars.add(g);
     }
 
+    /**
+     * adds a lever as the object
+     * @param l     new object (lever)
+     */
     public void addLever(Lever l) {
         object = l;
     }
 
+    /**
+     * adds a key as the new object
+     * @param k     new object (key)
+     */
     public void addKey(Key k){
         object = k;
     }
 
+    /**
+     * add a door
+     * @param d     door
+     */
     public void addDoor(Door d){
         doors.add(d);
     }
 
+    /**
+     * add an ogre
+     * @param o     ogre
+     */
     public void addOgre(Ogre o) {
         chars.add(o);
     }
 
+    /**
+     * freeze all characters except hero
+     */
     public void freezeLevel() {
         frozenLevel = true;
     }
 
+    /**
+     * Getter for the original map (walls and doors (openable or not) only))
+     * @return  map
+     */
     public Character[][] getMap() {
         return lvlMap;
     }
-    
+
+    /**
+     * Getter for the map with objects and chars
+     * @return  map
+     */
     public Character[][] getMapCopy() {
         return map;
     }
 
+    /**
+     * Getter for the doors
+     * @return  doors
+     */
     public ArrayList<Door> getDoors() {
         return doors;
     }
 
+    /**
+     * Getter for the characters
+     * @return  chars
+     */
     public ArrayList<GameCharacter> getChars() {
         return chars;
     }
 
+    /**
+     * Setter for the original map
+     * @param map   map
+     */
     public void setMap(Character [][] map) {
         this.lvlMap = map;
     }
 
+    /**
+     * Getter for the hero
+     * @return  hero
+     */
     public Hero getHero() {
         return hero;
     }
 
+    /**
+     * Getter for  the object
+     * @return  object
+     */
     public GameObject getObject() {
     	return object;
     }
 
+    /**
+     * Moves the hero and draws everything, it's the level's most important method
+     * @param input     hero's movement
+     * @return  how the level  state is after the movement
+     */
     public Game.levelState userMove(UserInterface.Direction input) {
 
             map = mapCopy();
@@ -133,7 +213,7 @@ public class Level implements Serializable{
         return Game.levelState.NONE;
     }
 
-    public Game.levelState checkWhereHeroMove(UserInterface.Direction input) {
+    private Game.levelState checkWhereHeroMove(UserInterface.Direction input) {
         switch (input) {
             case UP:
                 if( heroMove(hero.getX()-1,hero.getY()) ) {
@@ -163,7 +243,7 @@ public class Level implements Serializable{
         return null;
     }
 
-    public boolean checkCharactersCollision() {
+    private boolean checkCharactersCollision() {
         if(hero.getX() != 0 && hero.getY() != 0){
                 for(int i = 0; i < chars.size() ; i++)
                     if (checkCollision(hero, chars.get(i))) {
@@ -180,6 +260,9 @@ public class Level implements Serializable{
         return false;
     }
 
+    /**
+     * Check  if the level is frozen and updates chars if it  is not
+     */
     public void checkFrozenLevel() {
         if (!frozenLevel) {
             if (moved)
@@ -195,7 +278,7 @@ public class Level implements Serializable{
         drawMovable(map);
     }
 
-    public boolean checkCollision(Hero h, GameCharacter v){
+    private boolean checkCollision(Hero h, GameCharacter v){
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
         boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
         Boolean heroAndClub = checkCollisionOgre(h, v, heroAndVillain);
@@ -226,11 +309,11 @@ public class Level implements Serializable{
 
     private void checkStun(Hero h, Ogre v, boolean heroAndVillain) {
         if(h.armed() && heroAndVillain) {
-            v.stun(map);
+            v.stun();
         }
     }
 
-    public boolean heroMove(int nextX, int nextY) {
+    private boolean heroMove(int nextX, int nextY) {
         if (nextX == -1 || nextY== -1) return false;
             switch (map[nextX][nextY]) {
                 case ' ':
@@ -272,24 +355,27 @@ public class Level implements Serializable{
         }
     }
 
-    public void heroSetMove(int nextX, int nextY) {
+    private void heroSetMove(int nextX, int nextY) {
         hero.setX(nextX);
         hero.setY(nextY);
 
         moved = true;
     }
 
+    /**
+     * draws all objects and characters
+     */
     public void draw(){
         map = mapCopy();
         drawImovable(map);
         drawMovable(map);
     }
 
-    public Character[][] mapCopy(){
+    private Character[][] mapCopy(){
         return mapCopyWithParam(lvlMap);
     }
 
-    public Character[][] mapCopyWithParam(Character[][] lvlMap){
+    private Character[][] mapCopyWithParam(Character[][] lvlMap){
         Character[][] map = new Character[lvlMap.length][];
         for(int i = 0; i < lvlMap.length; i++)
         {
@@ -301,6 +387,10 @@ public class Level implements Serializable{
         return map;
     }
 
+    /**
+     * Draws objects
+     * @param map   map
+     */
     public void drawImovable(Character[][] map){
         object.draw(map);
 
@@ -308,7 +398,7 @@ public class Level implements Serializable{
             d.draw(map);
     }
 
-    public void drawMovable(Character[][] map){
+    private void drawMovable(Character[][] map){
         hero.draw(map);
 
         for(GameCharacter c : chars)
@@ -318,19 +408,11 @@ public class Level implements Serializable{
         for(GameCharacter c : chars)
             c.draw(map);
     }
-    
-   	public String getMapString() {
-    	String stringMap = "";
-    	for(int i = 0; i < map.length; ++i) {
-    		for(int j = 0; j < map[i].length; ++j) {
-    			stringMap += map[i][j];
-    			stringMap += " ";
-    		}
-    		stringMap += "\n";
-    	}
-    	return stringMap;
-    }
 
+    /**
+     * Returns the map with objects and chars
+     * @return  map
+     */
     public Character[][] getPlayMap() {
         Character[][] map = mapCopy();
         drawImovable(map);
@@ -338,7 +420,11 @@ public class Level implements Serializable{
 
         return map;
     }
-    
+
+    /**
+     * Setter for the original map
+     * @param map   map
+     */
     public void setLvlMap(Character [][] map) {
     	this.lvlMap = map;
     }

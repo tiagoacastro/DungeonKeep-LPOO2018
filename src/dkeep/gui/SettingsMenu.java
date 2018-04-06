@@ -6,9 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import dkeep.Hardcoded.GameLevels;
 import dkeep.logic.Game;
 
-public class SettingsMenu {
+class SettingsMenu {
 
 	private JFrame settingsMenu;
 	private JComboBox<String> guardType;
@@ -17,7 +18,7 @@ public class SettingsMenu {
 	private JTextField ogres;
 	private Game game;
 	
-	public SettingsMenu() {
+	SettingsMenu() {
 
 		initializeFrame();
 
@@ -51,8 +52,8 @@ public class SettingsMenu {
 		editKeep.setBackground(Color.white);
 		settingsMenu.getContentPane().add(editKeep);
 	}
-	
-	public void initializeGuardInput() {
+
+	private void initializeGuardInput() {
 		//guard input
 		JLabel guardLabel = new JLabel();
 		guardLabel.setText("Guard personality");
@@ -67,8 +68,8 @@ public class SettingsMenu {
 		guardType.addItem("Suspicious");
 		settingsMenu.getContentPane().add(guardType);
 	}
-	
-	public void initializeOgreInput() {
+
+	private void initializeOgreInput() {
 		//ogre input
 		JLabel ogreLabel = new JLabel();
 		ogreLabel.setText("Number of Ogres");
@@ -81,15 +82,15 @@ public class SettingsMenu {
 		settingsMenu.getContentPane().add(ogres);
 	}
 
-	public void startGame(String type) {
+	private void startGame(String type) {
 
 		game = new Game();
-		game.loadLevel1(guardType.getSelectedItem().toString());
+		GameLevels.loadLevel1(guardType.getSelectedItem().toString(), game);
 		DungeonKeepGUI gui;
 		MapEditor mapEditor;
 
 		if (ogres.getText().equals("1") || ogres.getText().equals("2") || ogres.getText().equals("3") || ogres.getText().equals("4") || ogres.getText().equals("5")) {
-			game.loadLevel2(Integer.parseInt(ogres.getText()));
+			GameLevels.loadLevel2(Integer.parseInt(ogres.getText()), game);
 			game.getLevel().draw();
 
 			if (type == "default")

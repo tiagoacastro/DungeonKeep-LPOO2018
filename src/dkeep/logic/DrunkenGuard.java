@@ -8,22 +8,36 @@ public class DrunkenGuard extends Guard{
     private boolean sleeping;
     private int timer;
 
+    /**
+     * Drunken Guard constructor with path and coordinates
+     * @param xCoord    x coordinate
+     * @param yCoord    y coordinate
+     * @param p         patrol path
+     */
     public DrunkenGuard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord, p);
         sleeping = false;
         timer = 3;
     }
 
-    public DrunkenGuard(DrunkenGuard g) {
+    DrunkenGuard(DrunkenGuard g) {
         super(g.getX(), g.getY(), g.getPath());
         sleeping = false;
         timer = 3;
     }
 
+    /**
+     * Checks if the guard is sleeping
+     * @return      if it's sleeping or not
+     */
     public boolean sleeping(){
         return sleeping;
     }
 
+    /**
+     * updates guard position
+     * @param map   map where guard is moving
+     */
     public void update(Character[][] map){
         Random rand = new Random();
         int n = 5;
@@ -52,11 +66,14 @@ public class DrunkenGuard extends Guard{
         }
     }
 
-    public void sleep(){
+    private void sleep(){
         sleeping = true;
         symbol = 'g';
     }
 
+    /**
+     * wake guard up
+     */
     public void wake(){
         Random rand = new Random();
         int n = 2;

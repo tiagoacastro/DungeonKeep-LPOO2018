@@ -10,7 +10,13 @@ public class Ogre extends GameCharacter {
     private boolean stunned;
     private int stunTimer;
 
-    //constructor
+    /**
+     * Ogre constructor
+     * @param xCoord        x coordinate
+     * @param yCoord        y coordinate
+     * @param xClubCoord    x coordinate (club)
+     * @param yClubCoord    y coordinate (club)
+     */
     public Ogre(int xCoord, int yCoord, int xClubCoord, int yClubCoord) {
         super(xCoord, yCoord);
         xClub = xClubCoord;
@@ -21,6 +27,10 @@ public class Ogre extends GameCharacter {
         stunTimer = 0;
     }
 
+    /**
+     * Ogre copy constructor
+     * @param o     ogre that will be copied
+     */
     public Ogre(Ogre o) {
         super(o.getX(), o.getY());
         xClub = o.getClubX();
@@ -31,24 +41,43 @@ public class Ogre extends GameCharacter {
         stunTimer = 0;
     }
 
+    /**
+     * checks if the ogre is stunned
+     * @return stunned
+     */
     public boolean isStunned() {
         return stunned;
     }
 
+    /**
+     * Getter for the club x coord
+     * @return  x coord for the club
+     */
     public int getClubX() {
         return xClub;
     }
 
+    /**
+     * Getter for the club y coord
+     * @return  y coord for the club
+     */
     public int getClubY() {
         return yClub;
     }
 
-    public void stun(Character[][] map){
+    /**
+     * Stuns the ogre
+     */
+    public void stun(){
         stunned = true;
         stunTimer = 0;
         symbol = '8';
     }
 
+    /**
+     * Moves ogre (implements abstract function)
+     * @param map   map where it will be moved
+     */
     public void update(Character[][] map){
         if(!stunned) {
             Random rand = new Random();
@@ -71,7 +100,7 @@ public class Ogre extends GameCharacter {
         }
     }
 
-    public void ogreWhereToMove(Character[][] map, int randnum) {
+    private void ogreWhereToMove(Character[][] map, int randnum) {
         switch (randnum) {
             case 0:
                 move(map, x + 1, y);
@@ -104,7 +133,10 @@ public class Ogre extends GameCharacter {
         }
     }
 
-
+    /**
+     * Updates the Club position (around ogre
+     * @param map   map where it will be drawn
+     */
     public void updateClub (Character[][] map){
         Random rand = new Random();
         int n = 4;
@@ -126,6 +158,12 @@ public class Ogre extends GameCharacter {
         }
     }
 
+    /**
+     * draws the club and updates it
+     * @param map       map
+     * @param next_x    new x coord
+     * @param next_y    new y coord
+     */
     private void clubMove(Character[][] map, int next_x, int next_y) {
         if (map[next_x][next_y] == ' ') {
             clubSymbol = '*';
@@ -144,10 +182,18 @@ public class Ogre extends GameCharacter {
         }
     }
 
+    /**
+     * draws the ogre (implements abstract method)
+     * @param map   map where it will be drawn
+     */
     public void draw(Character[][] map){
         map[x][y] = symbol;
     }
 
+    /**
+     * draws the club
+     * @param map   map where it will be drawn
+     */
     public void drawClub(Character[][] map){
         map[xClub][yClub] = clubSymbol;
     }

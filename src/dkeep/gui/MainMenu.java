@@ -30,14 +30,14 @@ public class MainMenu extends JPanel {
 		});
 	}
 
-	public MainMenu() {
+	private MainMenu() {
 
 		initializeFrame();
 		initializeButtons();
 		initializePanel();
 	}
-	
-	public void initializeFrame() {
+
+	private void initializeFrame() {
 		//frame
 		menuWindow = new JFrame("Dungeon Balls");
 		menuWindow.setBounds(100, 100, 640, 480);
@@ -46,7 +46,7 @@ public class MainMenu extends JPanel {
 		menuWindow.setResizable(false);
 	}
 
-	public void initializePanel() {
+	private void initializePanel() {
 
 		background = new MenuBackground();
 		background.setBounds(0, 0, 640, 480);
@@ -55,7 +55,7 @@ public class MainMenu extends JPanel {
 		menuWindow.getContentPane().add(background);
 	}
 
-	public void initializeButtons() {
+	private void initializeButtons() {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Impact", Font.PLAIN, 12));
 		btnNewGame.addActionListener(new newGameEvent());

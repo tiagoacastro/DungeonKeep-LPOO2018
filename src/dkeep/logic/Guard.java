@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 public abstract class Guard extends GameCharacter {
 
-    protected ArrayList<Character> path = new ArrayList<Character>();
-    protected int mov;
-    protected char symbol;
+    ArrayList<Character> path = new ArrayList<Character>();
+    int mov;
+    char symbol;
     private boolean way;
 
-    //constructor
+    /**
+     * Guard Constructor
+     * @param xCoord    x coordinate
+     * @param yCoord    y coordinate
+     * @param p         path
+     */
     public Guard(int xCoord, int yCoord, ArrayList<Character> p) {
         super(xCoord, yCoord);
         mov = 0;
@@ -18,40 +23,68 @@ public abstract class Guard extends GameCharacter {
         way = true;
     }
 
+    /**
+     * setter for the current movement
+     * @param mov   current movement
+     */
     public void setMov(int mov ){
         this.mov = mov;
     }
 
+    /**
+     * Getter for the current movement
+     * @return  current movement
+     */
     public int getMov(){
         return mov;
     }
 
+    /**
+     * Getter for the path
+     * @return  Path
+     */
     public ArrayList<Character> getPath() {
         return path;
     }
 
+    /**
+     * Getter for the way on which it is moving
+     * @return  way
+     */
     public boolean getWay() {
         return way;
     }
 
+    /**
+     * Getter for the symbol
+     * @return  symbol
+     */
     public char getSymbol() {
         return symbol;
     }
 
+    /**
+     * abstract function to move the Guard
+     * @param map   map where it will be moved
+     */
     public abstract void update(Character[][] map);
 
+    /**
+     * draw for the guard (implementation from abstract function)
+     * @param map   map where it will be drawn
+     */
     public void draw(Character[][] map){
         map[x][y] = symbol;
     }
 
-    public void move(Character[][] map,int nextX, int nextY) {
+    void move(Character[][] map,int nextX, int nextY) {
         if (map[nextX][nextY] == ' ') {
             x = nextX;
             y = nextY;
         }
     }
 
-    public void bidirectionalMovement( Character[][] map){
+    void bidirectionalMovement( Character[][] map){
         switch (path.get(mov)) {
             case 'u':
                 if(way) move(map, x - 1, y);
@@ -72,7 +105,7 @@ public abstract class Guard extends GameCharacter {
         }
     }
 
-    public void wayDecision(int randnum){
+    void wayDecision(int randnum){
         switch(randnum){
             case 0:
                 if(way) {
@@ -92,7 +125,7 @@ public abstract class Guard extends GameCharacter {
         }
     }
 
-    public void movementIncrementation(){
+    void movementIncrementation(){
         if(way) {
             mov += 1;
             if (mov == path.size())

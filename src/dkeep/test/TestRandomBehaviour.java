@@ -2,6 +2,7 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+import dkeep.Hardcoded.TestLevels;
 import org.junit.Test;
 
 import dkeep.logic.*;

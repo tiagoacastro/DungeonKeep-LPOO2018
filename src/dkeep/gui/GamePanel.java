@@ -14,7 +14,7 @@ public class GamePanel extends JPanel{
 
     private HashMap<String, BufferedImage> loadedImages;
 
-    public GamePanel(Game game){
+    GamePanel(Game game){
         loadedImages = new HashMap<>();
         try {
             loadedImages.put("background",ImageIO.read(new File("images/background.png")));
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel{
         drawImagePanel(g, map);
     }
 
-    public void drawBackground(Graphics g, Character[][] map) {
+    private void drawBackground(Graphics g, Character[][] map) {
 
         for (int i = 0; i < map.length; ++i)
             for (int j = 0; j < map[i].length; ++j) {
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel{
             }
     }
 
-    public void drawImagePanel(Graphics g, Character[][] map) {
+    private void drawImagePanel(Graphics g, Character[][] map) {
         drawBackground(g,map);
         for (int i = 0; i < map.length; ++i)
             for (int j = 0; j < map[i].length; ++j){

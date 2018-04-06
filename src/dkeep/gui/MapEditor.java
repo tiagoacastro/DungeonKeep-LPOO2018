@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import dkeep.Hardcoded.GameLevels;
 import dkeep.logic.*;
 
 import java.awt.*;
@@ -37,7 +38,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	private charButtonPressed currButton = charButtonPressed.NONE;
 
-	public void createMap() {
+	private void createMap() {
 
 		Character[][] map1 = new Character[dimension][dimension];
 
@@ -56,7 +57,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	}
 
-	public MapEditor(Game game) {
+	MapEditor(Game game) {
 
 		this.game = game;
 		this.game.incLevel();
@@ -77,7 +78,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		ogreCount = 0;
 	}
 
-	public void initializeFrame() {
+	private void initializeFrame() {
 		//frame
 		frame = new JFrame("Map Editor");
 		frame.setBounds(50, 50, 200, 250);
@@ -88,7 +89,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		frame.getContentPane().setBackground(new Color(32,32,32));
 	}
 
-	public void initializeCreateButton() {
+	private void initializeCreateButton() {
 		btnStartTheCreation = new JButton("Start Creation");
 		btnStartTheCreation.addActionListener(new CreationEvent());
 		btnStartTheCreation.setBounds(40, 140, 120, 20);
@@ -96,7 +97,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		frame.getContentPane().add(btnStartTheCreation);
 	}
 
-	public void initializeTextField() {
+	private void initializeTextField() {
 		textField = new JTextField();
 		textField.setText("11");
 		frame.getContentPane().add(textField);
@@ -105,7 +106,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		textField.setColumns(10);
 	}
 
-	void initializePanel() {
+	private void initializePanel() {
 		//game box
 		gameBox = new GamePanel(game);
 		gameBox.setVisible(false);
@@ -118,7 +119,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		HERO, OGRE, WALL, KEY, DOOR, NONE
 	}
 
-	void initializeCharButtons() {
+	private void initializeCharButtons() {
 		initializeOgreButton();
 
 		initializeHeroButton();
@@ -226,7 +227,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	}
 
-	public boolean checkBoundaries(int cellX, int cellY) {
+	private boolean checkBoundaries(int cellX, int cellY) {
 		return (cellX == 0) || (cellY == 0) || (cellX == dimension - 1) || (cellY == dimension - 1);
 	}
 
@@ -253,7 +254,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		this.gameBox.repaint();
 	}
 
-	public void mouseRightPress(int cellX, int cellY) {
+	private void mouseRightPress(int cellX, int cellY) {
 		if (map[cellX][cellY] == 'X') {
 			map[cellX][cellY] = ' ';
 		} else if (map[cellX][cellY] == 'A' || map[cellX][cellY] == 'H') {
@@ -261,7 +262,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		}
 	}
 
-	public void heroPressedHandler(int cellX, int cellY) {
+	private void heroPressedHandler(int cellX, int cellY) {
 
 		if(game.getLevel().getHero() != null){
 			this.game.getLevels().get(1).getHero().setX(cellX);
@@ -272,7 +273,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		}
 	}
 
-	public void currButtonHandler(int cellX, int cellY) {
+	private void currButtonHandler(int cellX, int cellY) {
 		int ogres = game.getLevel().getChars().size();
 		switch (currButton) {
           case HERO:
@@ -363,7 +364,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 				DungeonKeepGUI gui = new DungeonKeepGUI(game);
 
 				game.decLevel();
-				game.updateLevel2Copy();
+				game.updateLevelCopy(1);
 			}
 		}
 
@@ -372,7 +373,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 			int i = game.getLevels().get(1).getChars().size();
 			game.getLevels().remove(1);
-			game.loadLevel2(i);
+			GameLevels.loadLevel2(i, game);
 			createMap();
 			game.getLevels().get(1).draw();
 			gameBox.repaint();

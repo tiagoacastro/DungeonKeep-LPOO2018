@@ -2,12 +2,14 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+import dkeep.Hardcoded.GameLevels;
+import dkeep.Hardcoded.TestLevels;
 import dkeep.cli.UserInterface;
 import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestDungeonGameLogic extends TestLevels{
+public class TestDungeonGameLogic extends TestLevels {
 
     @Test
     public void testMoveHeroIntoToFreeCell(){
@@ -145,9 +147,9 @@ public class TestDungeonGameLogic extends TestLevels{
 
         Game newGame = new Game();
 
-        newGame.loadLevel1("Rookie");
+        GameLevels.loadLevel1("Rookie", newGame);
 
-        newGame.loadLevel2(0);
+        GameLevels.loadLevel2(0, newGame);
 
         newGame.getLevel().freezeLevel();
         assertEquals(1, newGame.getLevel().getHero().getX());

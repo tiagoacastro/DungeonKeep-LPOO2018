@@ -22,7 +22,7 @@ public class DungeonKeepGUI extends JPanel{
 	private JLabel status;
 	private boolean gamePlaying;
 
-	public DungeonKeepGUI(Game game) {
+	DungeonKeepGUI(Game game) {
 		this.game = game;
 		gamePlaying = false;
 
@@ -43,7 +43,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.add(status);
 	}
 
-	public void initializeStartEndButtons() {
+	private void initializeStartEndButtons() {
 		//start game button
 		startGameButton = new JButton("Start Game");
 		startGameButton.addActionListener(new startGameEvent());
@@ -67,7 +67,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.add(endGameButton);
 	}
 
-	public void initializeFrame() {
+	private void initializeFrame() {
 		//frame
 		frame = new JFrame("Dungeon Balls");
 		frame.setBounds(100, 100, 640, 530);
@@ -78,7 +78,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.getContentPane().setBackground(new Color(32,32,32));
 	}
 
-	public void initializeButtons() {
+	private void initializeButtons() {
 		upButton = new JButton("Up");
 		upButton.addActionListener(new moveUpEvent());
 		upButton.setBounds(472, 188, 75, 25);
@@ -108,7 +108,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.add(downButton);
 	}
 
-	public void initializePanel() {
+	private void initializePanel() {
 
 		createPanel();
 		gameBox.addKeyListener(new KeyListener(){
@@ -139,7 +139,7 @@ public class DungeonKeepGUI extends JPanel{
 		frame.add(gameBox);
 	}
 
-	public void createPanel() {
+	private void createPanel() {
 		//game box
 		gameBox = new GamePanel(game);
 		gameBox.setBounds(50, 50, 360, 400);
@@ -147,7 +147,7 @@ public class DungeonKeepGUI extends JPanel{
 		gameBox.setFocusable(false);
 	}
 
-	public void stateHandler(gameState gameState) {
+	private void stateHandler(gameState gameState) {
 
 		game.setState(gameState);
 		upButton.setEnabled(false);
@@ -157,8 +157,8 @@ public class DungeonKeepGUI extends JPanel{
 		gameBox.setFocusable(false);
 		saveGameButton.setEnabled(false);
 	}
-	
-	public void movementHandler(UserInterface.Direction way){
+
+	private void movementHandler(UserInterface.Direction way){
 		game.userMove(way);
 		gameBox.repaint();
 		switch(game.getLevelState()) {
@@ -182,7 +182,7 @@ public class DungeonKeepGUI extends JPanel{
 		}
 	}
 
-	public void printWayMove(UserInterface.Direction way) {
+	private void printWayMove(UserInterface.Direction way) {
 		switch (way) {
 			case UP:
                 status.setText("The hero was moved Up");

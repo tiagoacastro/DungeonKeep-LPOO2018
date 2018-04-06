@@ -2,12 +2,13 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+import dkeep.Hardcoded.TestLevels;
 import dkeep.cli.UserInterface;
 import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestKeepGameLogic extends TestLevels{
+public class TestKeepGameLogic extends TestLevels {
 
     @Test
     public void testMoveHeroIntoToAdjOgre() {
