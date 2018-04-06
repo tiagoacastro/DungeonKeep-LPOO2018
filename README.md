@@ -7,7 +7,7 @@ up201605926 - João Malheiro de Sousa (up201605926@fe.up.pt)
 [JavaDoc](https://tiagoacastro.github.io/)
 
 ### Pit Screenshot
-[![Screenshot](https://i.imgur.com/2HJKeAL.png))]
+![Screenshot](https://i.imgur.com/2HJKeAL.png)
 
 ### EclEmma Screenshot
 [EclEmma]()
