@@ -248,7 +248,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	private boolean checkNotCorners(int cellX, int cellY) {
 		return (cellX != 0 && cellY != dimensionX - 1 && cellY != 0) ||
-				(cellY != 0 && cellX != dimensionX - 1 && cellX != 0) ||
+				(cellY != 0 && cellX != dimensionY - 1 && cellX != 0) ||
 				(cellX != dimensionY - 1 && cellY != dimensionX - 1 && cellY != 0) ||
 				(cellY != dimensionX - 1 && cellX != dimensionY - 1 && cellX != 0);
 	}
