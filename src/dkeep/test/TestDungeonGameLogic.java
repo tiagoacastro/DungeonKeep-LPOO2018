@@ -225,6 +225,7 @@ public class TestDungeonGameLogic extends TestLevels {
                 if (c ==getSimetrical(((Guard)newGame.getLevel().getChars().get(0)).getPath().get(i)))
                     way = true;
             }
+            i++;
         }
     }
 
