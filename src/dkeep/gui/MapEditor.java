@@ -41,6 +41,8 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	private charButtonPressed currButton = charButtonPressed.NONE;
 
+	private JLabel instruction;
+
 	private void createMap() {
 
 		Character[][] map1 = new Character[dimensionY][dimensionX];
@@ -80,6 +82,12 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		ogreCount = 0;
 	}
 
+	private void initializeInstructionLabel() {
+		lblSize2 = new JLabel("You can remove certain objetcs by clicking right button on the mouse!");
+		lblSize2.setBounds(50, 50+20 + dimensionY*32, 400, 20);
+		lblSize2.setForeground(Color.white);
+		frame.getContentPane().add(lblSize2);
+	}
 	private void initializeFrame() {
 		//frame
 		frame = new JFrame("Map Editor");
@@ -362,6 +370,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
                 	gameBox.setBounds(50, 50, 32* dimensionX, 32 *dimensionY);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
+					initializeInstructionLabel();
                 }
                 else JOptionPane.showMessageDialog(frame, "You have to insert a positive number between 9 and 11");
 			}
