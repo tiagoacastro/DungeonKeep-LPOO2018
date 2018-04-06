@@ -11,6 +11,9 @@ public class TestRandomBehaviour extends TestLevels {
 
     @Test(timeout = 1000)
     public void RandomBehaviourOgre() {
+    	
+    	Ogre o = new Ogre(0,0,1,1);
+    	Ogre o2 = new Ogre(o);
 
         boolean OgreUpClubUp = false, OgreUpClubLeft = false, OgreUpClubDown = false, OgreUpClubRight = false;
         boolean OgreLeftClubUp = false, OgreLeftClubDown = false, OgreLeftClubLeft = false, OgreLeftClubRight = false;
