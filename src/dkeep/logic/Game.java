@@ -184,6 +184,7 @@ public class Game implements Serializable{
      */
     public void restart(){
         levels.clear();
+
         for(Level l : levelsCopy)
             levels.add(new Level(l));
 
@@ -197,6 +198,6 @@ public class Game implements Serializable{
      */
     public void updateLevelCopy(int i) {
         levelsCopy.remove(i);
-        levelsCopy.add(new Level(levels.get(i)));
+        levelsCopy.add(i, new Level(levels.get(i)));
     }
 }
