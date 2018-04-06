@@ -341,8 +341,6 @@ public class Level implements Serializable{
             for (Door d : doors) {
                 if (d.getX() == nextX && d.getY() == nextY) d.open(map);
             }
-            if (hero.armed()) hero.setSymbol('A');
-            else hero.setSymbol('H');
             moved = true;
         }
     }
