@@ -278,9 +278,13 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 				this.game.getLevel().getDoors().remove(i);
 				this.game.getLevel().getMap()[cellX][cellY] = 'X';
 			}
-		} else if (map[cellX][cellY] == 'X')
-				map[cellX][cellY] = ' ';
+		} else if (map[cellX][cellY] == 'X') {
+            map[cellX][cellY] = ' ';
+        } else if (this.game.getLevel().findOgre(cellX,cellY) != -1){
+			this.game.getLevel().getChars().remove(this.game.getLevel().findOgre(cellX,cellY));
+			this.game.getLevel().getMap()[cellX][cellY] = ' ';
 		}
+	}
 
 	private void heroPressedHandler(int cellX, int cellY) {
 
@@ -293,6 +297,20 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		}
 	}
 
+	private Ogre createOgreForEditing(int cellX, int cellY) {
+
+		if (map[cellX + 1][cellY] != 'X' && map[cellX + 1][cellY] != 'I')
+			return new Ogre(cellX, cellY, cellX + 1, cellY);
+		else if (map[cellX - 1][cellY] != 'X' && map[cellX - 1][cellY] != 'I')
+			return new Ogre(cellX, cellY, cellX - 1, cellY);
+		else if (map[cellX][cellY + 1] != 'X' && map[cellX][cellY + 1] != 'I')
+			return new Ogre(cellX, cellY, cellX, cellY + 1);
+		else if (map[cellX][cellY - 1] != 'X' && map[cellX][cellY - 1] != 'I')
+			return new Ogre(cellX, cellY, cellX, cellY - 1);
+
+		return new Ogre(0,0,0,0);
+	}
+
 	private void currButtonHandler(int cellX, int cellY) {
 		int ogres = game.getLevel().getChars().size();
 		switch (currButton) {
@@ -300,14 +318,10 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 			  heroPressedHandler(cellX,cellY);
               break;
           case OGRE:
-			  if (ogreCount >= ogres)
-				  ogreCount = 0;
-			  this.game.getLevels().get(1).getChars().get(ogreCount).setX(cellX);
-              this.game.getLevels().get(1).getChars().get(ogreCount).setY(cellY);
-              if (this.game.getLevels().get(1).getChars().get(ogreCount) instanceof Ogre)
-				  ((Ogre)this.game.getLevels().get(1).getChars().get(ogreCount)).updateClub(map);
-
-              ogreCount++;
+          	  Ogre o = createOgreForEditing(cellX,cellY);
+          	  if(o.getClubX()== 0 && o.getClubY() ==0)
+          	  	return;
+			  this.game.getLevel().addOgre(o);
               break;
 			case WALL:
 				map[cellX][cellY] = 'X';
@@ -387,12 +401,22 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		private class FinishedEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 
-				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-				DungeonKeepGUI gui = new DungeonKeepGUI(game);
+				if (canPlay()) {
+					frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+					DungeonKeepGUI gui = new DungeonKeepGUI(game);
 
-				game.decLevel();
-				game.updateLevelCopy(1);
+					game.decLevel();
+					game.updateLevelCopy(1);
+				} else JOptionPane.showMessageDialog( frame, "A level must contain a hero, between 1 and 5 ogres, a door and a key!");
 			}
+		}
+
+		private boolean canPlay() {
+
+		if (game.getLevel().getChars().size() >0 && game.getLevel().getChars().size() <= 5 )
+			if (game.getLevel().getDoors().size() != 0)
+				return true;
+			return false;
 		}
 
 	private class DefaultButtonEvent implements ActionListener {

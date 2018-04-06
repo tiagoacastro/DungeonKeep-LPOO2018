@@ -7,7 +7,7 @@ import java.io.*;
 /**
  * Level class
  */
-public class Level implements Serializable{
+public class Level implements Serializable {
 
     private Character[][] lvlMap;
     private Character[][] map;
@@ -20,8 +20,9 @@ public class Level implements Serializable{
 
     /**
      * Level constructor
-     * @param m     map
-     * @param h     hero
+     *
+     * @param m map
+     * @param h hero
      */
     public Level(Character[][] m, Hero h) {
         lvlMap = m;
@@ -30,31 +31,33 @@ public class Level implements Serializable{
 
     /**
      * level constructor without hero
-     * @param m     map
+     *
+     * @param m map
      */
-    public Level(Character[][]m){
+    public Level(Character[][] m) {
         lvlMap = m;
     }
 
     /**
      * Level default constructor
      */
-    public Level(){
+    public Level() {
     }
 
     /**
      * Level copy constructor
-     * @param l     Level that will be copied
+     *
+     * @param l Level that will be copied
      */
-    public Level(Level l){
+    public Level(Level l) {
         lvlMap = mapCopyWithParam(l.getMap());
 
         hero = new Hero(l.getHero());
 
-        if(l.getObject() instanceof Key)
-            object = new Key((Key)l.getObject());
-        else if(l.getObject() instanceof Lever)
-            object = new Lever((Lever)l.getObject());
+        if (l.getObject() instanceof Key)
+            object = new Key((Key) l.getObject());
+        else if (l.getObject() instanceof Lever)
+            object = new Lever((Lever) l.getObject());
 
         for (Door d : l.getDoors())
             addDoor(new Door(d));
@@ -64,27 +67,30 @@ public class Level implements Serializable{
 
     /**
      * checks if the hero moved
-     * @return  if it moved or not
+     *
+     * @return if it moved or not
      */
     public boolean moved() {
         return moved;
     }
 
     private void charactersCopy(Level l) {
-        for(GameCharacter c : l.getChars()){
-            if(c instanceof RookieGuard)
-                addGuard(new RookieGuard((RookieGuard)c));
-                else if(c instanceof DrunkenGuard)
-                    addGuard(new DrunkenGuard((DrunkenGuard)c));
-                    else if(c instanceof SuspiciousGuard)
-                        addGuard(new SuspiciousGuard((SuspiciousGuard)c));
+        for (GameCharacter c : l.getChars()) {
+            if (c instanceof RookieGuard)
+                addGuard(new RookieGuard((RookieGuard) c));
+            else if (c instanceof DrunkenGuard)
+                addGuard(new DrunkenGuard((DrunkenGuard) c));
+            else if (c instanceof SuspiciousGuard)
+                addGuard(new SuspiciousGuard((SuspiciousGuard) c));
             if (c instanceof Ogre)
-                addOgre(new Ogre((Ogre)c));}
+                addOgre(new Ogre((Ogre) c));
+        }
     }
 
     /**
      * Setter for the hero
-     * @param hero  new hero
+     *
+     * @param hero new hero
      */
     public void setHero(Hero hero) {
         this.hero = hero;
@@ -92,7 +98,8 @@ public class Level implements Serializable{
 
     /**
      * adds a guard
-     * @param g     guard
+     *
+     * @param g guard
      */
     public void addGuard(Guard g) {
         chars.add(g);
@@ -100,7 +107,8 @@ public class Level implements Serializable{
 
     /**
      * adds a lever as the object
-     * @param l     new object (lever)
+     *
+     * @param l new object (lever)
      */
     public void addLever(Lever l) {
         object = l;
@@ -108,23 +116,26 @@ public class Level implements Serializable{
 
     /**
      * adds a key as the new object
-     * @param k     new object (key)
+     *
+     * @param k new object (key)
      */
-    public void addKey(Key k){
+    public void addKey(Key k) {
         object = k;
     }
 
     /**
      * add a door
-     * @param d     door
+     *
+     * @param d door
      */
-    public void addDoor(Door d){
+    public void addDoor(Door d) {
         doors.add(d);
     }
 
     /**
      * add an ogre
-     * @param o     ogre
+     *
+     * @param o ogre
      */
     public void addOgre(Ogre o) {
         chars.add(o);
@@ -139,7 +150,8 @@ public class Level implements Serializable{
 
     /**
      * Getter for the original map (walls and doors (openable or not) only))
-     * @return  map
+     *
+     * @return map
      */
     public Character[][] getMap() {
         return lvlMap;
@@ -147,7 +159,8 @@ public class Level implements Serializable{
 
     /**
      * Getter for the map with objects and chars
-     * @return  map
+     *
+     * @return map
      */
     public Character[][] getMapCopy() {
         return map;
@@ -155,7 +168,8 @@ public class Level implements Serializable{
 
     /**
      * Getter for the doors
-     * @return  doors
+     *
+     * @return doors
      */
     public ArrayList<Door> getDoors() {
         return doors;
@@ -163,7 +177,8 @@ public class Level implements Serializable{
 
     /**
      * Getter for the characters
-     * @return  chars
+     *
+     * @return chars
      */
     public ArrayList<GameCharacter> getChars() {
         return chars;
@@ -171,15 +186,17 @@ public class Level implements Serializable{
 
     /**
      * Setter for the original map
-     * @param map   map
+     *
+     * @param map map
      */
-    public void setMap(Character [][] map) {
+    public void setMap(Character[][] map) {
         this.lvlMap = map;
     }
 
     /**
      * Getter for the hero
-     * @return  hero
+     *
+     * @return hero
      */
     public Hero getHero() {
         return hero;
@@ -187,22 +204,24 @@ public class Level implements Serializable{
 
     /**
      * Getter for  the object
-     * @return  object
+     *
+     * @return object
      */
     public GameObject getObject() {
-    	return object;
+        return object;
     }
 
     /**
      * Moves the hero and draws everything, it's the level's most important method
-     * @param input     hero's movement
-     * @return  how the level  state is after the movement
+     *
+     * @param input hero's movement
+     * @return how the level  state is after the movement
      */
     public Game.levelState userMove(UserInterface.Direction input) {
 
-            map = mapCopy();
-            drawImovable(map);
-            moved = false;
+        map = mapCopy();
+        drawImovable(map);
+        moved = false;
 
         Game.levelState x = checkWhereHeroMove(input);
         if (x != null) return x;
@@ -219,25 +238,25 @@ public class Level implements Serializable{
     private Game.levelState checkWhereHeroMove(UserInterface.Direction input) {
         switch (input) {
             case UP:
-                if( heroMove(hero.getX()-1,hero.getY()) ) {
+                if (heroMove(hero.getX() - 1, hero.getY())) {
                     win();
                     return Game.levelState.WIN;
                 }
                 break;
             case LEFT:
-                if( heroMove(hero.getX(),hero.getY()-1) ) {
+                if (heroMove(hero.getX(), hero.getY() - 1)) {
                     win();
                     return Game.levelState.WIN;
                 }
                 break;
             case RIGHT:
-                if( heroMove(hero.getX(),hero.getY()+1) ) {
+                if (heroMove(hero.getX(), hero.getY() + 1)) {
                     win();
                     return Game.levelState.WIN;
                 }
                 break;
             case DOWN:
-                if( heroMove(hero.getX()+1,hero.getY()) ) {
+                if (heroMove(hero.getX() + 1, hero.getY())) {
                     win();
                     return Game.levelState.WIN;
                 }
@@ -247,19 +266,19 @@ public class Level implements Serializable{
     }
 
     private boolean checkCharactersCollision() {
-        if(hero.getX() != 0 && hero.getY() != 0){
-                for(int i = 0; i < chars.size() ; i++)
-                    if (checkCollision(hero, chars.get(i))) {
-                        drawMovable(map);
-                        return true;
-                    }
-                for (int i = 0; i < chars.size(); ++i) {
-                    if(chars.get(i).getX() == hero.getX() && chars.get(i).getY() == hero.getY()){
-                        drawMovable(map);
-                        return true;
-                    }
+        if (hero.getX() != 0 && hero.getY() != 0) {
+            for (int i = 0; i < chars.size(); i++)
+                if (checkCollision(hero, chars.get(i))) {
+                    drawMovable(map);
+                    return true;
+                }
+            for (int i = 0; i < chars.size(); ++i) {
+                if (chars.get(i).getX() == hero.getX() && chars.get(i).getY() == hero.getY()) {
+                    drawMovable(map);
+                    return true;
                 }
             }
+        }
         return false;
     }
 
@@ -274,16 +293,16 @@ public class Level implements Serializable{
         }
     }
 
-    private void win(){
-        if(moved)
-            for(GameCharacter c : chars)
+    private void win() {
+        if (moved)
+            for (GameCharacter c : chars)
                 c.update(map);
         drawMovable(map);
     }
 
-    private boolean checkCollision(Hero h, GameCharacter v){
+    private boolean checkCollision(Hero h, GameCharacter v) {
         //Checks if a Collision occured between the hero and another game character (ogre or guard)
-        boolean heroAndVillain =  ((h.getX()+1 == v.getX() && h.getY() == v.getY()) || (h.getX()-1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY()+1 == v.getY()) || (h.getX() == v.getX() && h.getY()-1 == v.getY()));
+        boolean heroAndVillain = ((h.getX() + 1 == v.getX() && h.getY() == v.getY()) || (h.getX() - 1 == v.getX() && h.getY() == v.getY()) || (h.getX() == v.getX() && h.getY() + 1 == v.getY()) || (h.getX() == v.getX() && h.getY() - 1 == v.getY()));
         Boolean heroAndClub = checkCollisionOgre(h, v, heroAndVillain);
         if (heroAndClub != null) return heroAndClub;
         if (checkCollisionDrunkenGuard(v)) return false;
@@ -307,37 +326,39 @@ public class Level implements Serializable{
     }
 
     private boolean checkCollisionClub(Hero h, Ogre v) {
-        return ((h.getX() == v.getClubX() && h.getY() == v.getClubY() ) || (h.getX()+1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX()-1 == v.getClubX()  && h.getY() == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()+1 == v.getClubY()) || (h.getX() == v.getClubX()  && h.getY()-1 == v.getClubY()));
+        return ((h.getX() == v.getClubX() && h.getY() == v.getClubY()) || (h.getX() + 1 == v.getClubX() && h.getY() == v.getClubY()) || (h.getX() - 1 == v.getClubX() && h.getY() == v.getClubY()) || (h.getX() == v.getClubX() && h.getY() + 1 == v.getClubY()) || (h.getX() == v.getClubX() && h.getY() - 1 == v.getClubY()));
     }
 
     private void checkStun(Hero h, Ogre v, boolean heroAndVillain) {
-        if(h.armed() && heroAndVillain) {
+        if (h.armed() && heroAndVillain) {
             v.stun();
         }
     }
 
     private boolean heroMove(int nextX, int nextY) {
-        if (nextX == -1 || nextY== -1) return false;
-            switch (map[nextX][nextY]) {
-                case ' ':
-                    heroSetMove(nextX, nextY);
+        if (nextX == -1 || nextY == -1) return false;
+        switch (map[nextX][nextY]) {
+            case ' ':
+                heroSetMove(nextX, nextY);
+                return false;
+            case 'k':
+                heroSetMove(nextX, nextY);
+                heroMoveToKey();
+                return false;
+            case 'S':
+                heroSetMove(nextX, nextY);
+                return true;
+            case 'I':
+                if (object instanceof Key) {
+                    checkOpenDoor(nextX, nextY);
                     return false;
-                case 'k':
-                    heroSetMove(nextX, nextY);
-                    heroMoveToKey();
-                    return false;
-                case 'S':
-                    heroSetMove(nextX, nextY);
-                    return true;
-                case 'I':
-                    if (object instanceof Key) {
-                        checkOpenDoor(nextX, nextY);
-                        return false; }
-            } return false;
+                }
+        }
+        return false;
     }
 
     private void checkOpenDoor(int nextX, int nextY) {
-        if (((Key)object).check()) {
+        if (((Key) object).check()) {
             for (Door d : doors) {
                 if (d.getX() == nextX && d.getY() == nextY) d.open(map);
             }
@@ -349,7 +370,7 @@ public class Level implements Serializable{
         if (object instanceof Lever)
             for (Door d : doors) {
                 d.open(map);
-             }
+            }
         if (object instanceof Key) {
             ((Key) object).grab();
             hero.grabsKey();
@@ -366,20 +387,19 @@ public class Level implements Serializable{
     /**
      * draws all objects and characters
      */
-    public void draw(){
+    public void draw() {
         map = mapCopy();
         drawImovable(map);
         drawMovable(map);
     }
 
-    private Character[][] mapCopy(){
+    private Character[][] mapCopy() {
         return mapCopyWithParam(lvlMap);
     }
 
-    private Character[][] mapCopyWithParam(Character[][] lvlMap){
+    private Character[][] mapCopyWithParam(Character[][] lvlMap) {
         Character[][] map = new Character[lvlMap.length][];
-        for(int i = 0; i < lvlMap.length; i++)
-        {
+        for (int i = 0; i < lvlMap.length; i++) {
             Character[] aMatrix = lvlMap[i];
             int aLength = aMatrix.length;
             map[i] = new Character[aLength];
@@ -390,29 +410,31 @@ public class Level implements Serializable{
 
     /**
      * Draws objects
-     * @param map   map
+     *
+     * @param map map
      */
-    public void drawImovable(Character[][] map){
+    public void drawImovable(Character[][] map) {
         object.draw(map);
 
-        for(Door d : doors)
+        for (Door d : doors)
             d.draw(map);
     }
 
-    private void drawMovable(Character[][] map){
+    private void drawMovable(Character[][] map) {
         hero.draw(map);
 
-        for(GameCharacter c : chars)
-            if(c instanceof Ogre) {
-                ((Ogre)c).drawClub(map);
+        for (GameCharacter c : chars)
+            if (c instanceof Ogre) {
+                ((Ogre) c).drawClub(map);
             }
-        for(GameCharacter c : chars)
+        for (GameCharacter c : chars)
             c.draw(map);
     }
 
     /**
      * Returns the map with objects and chars
-     * @return  map
+     *
+     * @return map
      */
     public Character[][] getPlayMap() {
         Character[][] map = mapCopy();
@@ -424,18 +446,36 @@ public class Level implements Serializable{
 
     /**
      * Setter for the original map
-     * @param map   map
+     *
+     * @param map map
      */
-    public void setLvlMap(Character [][] map) {
-    	this.lvlMap = map;
+    public void setLvlMap(Character[][] map) {
+        this.lvlMap = map;
     }
 
     public int findDoor(int cellX, int cellY) {
 
         int i = 0;
-        for (Door door: doors) {
-
+        for (Door door : doors) {
+            if (i<0) return -2;
             if (door.getX() == cellX && door.getY() == cellY)
+                return i;
+            else i++;
+        }
+        return -1;
+    }
+
+    /**
+     * Finds an ogre based on its position
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     */
+    public int findOgre(int x, int y) {
+        int i = 0;
+        for (GameCharacter ogre : chars) {
+            if (i<0) return -2;
+            if (ogre.getX() == x && ogre.getY() == y)
                 return i;
             else i++;
         }

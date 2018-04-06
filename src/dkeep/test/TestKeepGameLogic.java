@@ -155,7 +155,7 @@ public class TestKeepGameLogic extends TestLevels {
 
         assertFalse(newGame.isGameOver());
 
-        assertEquals('A', newGame.getLevel().getHero().getSymbol());
+        assertEquals('K', newGame.getLevel().getHero().getSymbol());
 
         assertEquals('S', newGame.getLevel().getDoors().get(0).getSymbol());
 
@@ -227,6 +227,10 @@ public class TestKeepGameLogic extends TestLevels {
 
         assertEquals(3, newGame.getLevel().getObject().getX());
         assertEquals(4, newGame.getLevel().getObject().getY());
+
+        assertEquals(0 , newGame.getLevel().findOgre(1,4));
+
+        assertEquals(-1 , newGame.getLevel().findOgre(1,1));
 
     }
 
