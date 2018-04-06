@@ -22,12 +22,15 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	private JFrame frame;
 	private GamePanel gameBox;
 	private Character[][] map;
-	private int dimension;
+	private int dimensionX;
+	private int dimensionY;
 	private Game game;
 	private int ogreCount;
 	private JButton btnStartTheCreation;
 	private JTextField textField;
+	private JTextField textField2;
 	private JLabel lblSize;
+	private JLabel lblSize2;
 	private JButton ogre;
 	private JButton hero;
 	private JButton wall;
@@ -40,19 +43,18 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	private void createMap() {
 
-		Character[][] map1 = new Character[dimension][dimension];
+		Character[][] map1 = new Character[dimensionY][dimensionX];
 
-		for (int i = 0; i < dimension; i++) {
-			for (int j = 0; j < dimension; j++) {
+		for (int i = 0; i < dimensionY; i++) {
+			for (int j = 0; j < dimensionX; j++) {
 
-				if (i == 0 || i == dimension - 1 || j == 0 || j == dimension - 1) {
+				if (i == 0 || i == dimensionY - 1 || j == 0 || j == dimensionX - 1) {
 					map1[i][j] = 'X';
 				} else map1[i][j] = ' ';
 			}
 		}
 
 		map = map1;
-		this.game.getLevels().get(1).setMap(map1);
 		this.game.getLevels().get(1).setLvlMap(map1);
 
 	}
@@ -68,10 +70,10 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		lblSize.setBounds(85, 40, 60, 20);
 		lblSize.setForeground(Color.white);
 		frame.getContentPane().add(lblSize);
-		lblSize = new JLabel("Heigh");
-		lblSize.setBounds(85, 60, 60, 20);
-		lblSize.setForeground(Color.white);
-		frame.getContentPane().add(lblSize);
+		lblSize2 = new JLabel("Heigh");
+		lblSize2.setBounds(85, 80, 60, 20);
+		lblSize2.setForeground(Color.white);
+		frame.getContentPane().add(lblSize2);
 
 		initializeTextField();
 		initializeCreateButton();
@@ -99,11 +101,16 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 	private void initializeTextField() {
 		textField = new JTextField();
-		textField.setText("11");
 		frame.getContentPane().add(textField);
 		textField.setBounds(70, 60, 60, 20);
 		textField.setHorizontalAlignment(JTextField.CENTER);
 		textField.setColumns(10);
+
+		textField2 = new JTextField();
+		frame.getContentPane().add(textField2);
+		textField2.setBounds(70, 100, 60, 20);
+		textField2.setHorizontalAlignment(JTextField.CENTER);
+		textField2.setColumns(10);
 	}
 
 	private void initializePanel() {
@@ -228,7 +235,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	private boolean checkBoundaries(int cellX, int cellY) {
-		return (cellX == 0) || (cellY == 0) || (cellX == dimension - 1) || (cellY == dimension - 1);
+		return (cellX == 0) || (cellY == 0) || (cellX == dimensionX - 1) || (cellY == dimensionY - 1);
 	}
 
 	@Override
@@ -308,21 +315,28 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		
 		private class CreationEvent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
-                int mazeSize = Integer.parseInt(textField.getText());
+
+				String width = textField.getText();
+				String height = textField2.getText();
                 
-                if (mazeSize >= 9 && mazeSize <=11) {
+                if ((width.equals("9") || width.equals("10") || width.equals("11")) || (height.equals("9") || height.equals("10") || height.equals("11"))) {
+					int mazeWidth = Integer.parseInt(textField.getText());
+					int mazeHeight = Integer.parseInt(textField2.getText());
 					frame.setBounds(50, 50, 670, 500);
-					dimension = mazeSize;
+					dimensionX = mazeWidth;
+					dimensionY = mazeHeight;
                 	createMap();
                 	textField.setVisible(false);
+					textField2.setVisible(false);
                 	initializePanel();
                 	btnStartTheCreation.setVisible(false);
                 	lblSize.setVisible(false);
-                	gameBox.setBounds(50, 50, 32* dimension, 32 *dimension);
+					lblSize2.setVisible(false);
+                	gameBox.setBounds(50, 50, 32* dimensionX, 32 *dimensionY);
                 	gameBox.setVisible(true);
                 	initializeCharButtons();
                 }
-                else JOptionPane.showMessageDialog(frame, "You have to insert a positive number between 8 and 13!");
+                else JOptionPane.showMessageDialog(frame, "You have to insert a positive number between 9 and 11");
 			}
 		}
 		
