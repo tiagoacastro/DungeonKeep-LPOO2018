@@ -208,4 +208,26 @@ public class TestKeepGameLogic extends TestLevels {
         assertEquals(Game.gameState.WIN, newGame.getState());
     }
 
+    @Test
+    public void testEditLevel() {
+
+        Game newGame = new Game();
+
+        loadTestLevel2(newGame);
+
+        newGame.getLevel().freezeLevel();
+
+        newGame.getLevel().getHero().setX(3);
+        newGame.getLevel().getHero().setY(3);
+        newGame.getLevel().getObject().setX(3);
+        newGame.getLevel().getObject().setY(4);
+
+        assertEquals(3, newGame.getLevel().getHero().getX());
+        assertEquals(3, newGame.getLevel().getHero().getY());
+
+        assertEquals(3, newGame.getLevel().getObject().getX());
+        assertEquals(4, newGame.getLevel().getObject().getY());
+
+    }
+
 }

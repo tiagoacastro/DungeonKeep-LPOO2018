@@ -191,6 +191,72 @@ public class TestDungeonGameLogic extends TestLevels {
 
     }
 
+    @Test(timeout = 1000)
+    public void test2waysSuspiciousGuard(){
+
+        Game newGame = new Game();
+        loadTestLevel1(newGame, "Suspicious",false);
+
+        assertEquals(1,newGame.getLevel().getChars().get(0).getX());
+        assertEquals(3,newGame.getLevel().getChars().get(0).getY());
+
+        int oldX, oldY;
+
+        oldX = newGame.getLevel().getChars().get(0).getX();
+        oldY = newGame.getLevel().getChars().get(0).getY();
+
+        int currX, currY;
+        int i = 0;
+
+        boolean way = false;
+        char c ;
+
+        while(!way) {
+
+            newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
+            newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
+
+            currX = newGame.getLevel().getChars().get(0).getX();
+            currY = newGame.getLevel().getChars().get(0).getY();
+
+            c = directionMove(oldX, oldY, currX, currY);
+
+            if (c != ((Guard) newGame.getLevel().getChars().get(0)).getPath().get(i)) {
+                if (c ==getSimetrical(((Guard)newGame.getLevel().getChars().get(0)).getPath().get(i)))
+                    way = true;
+            }
+        }
+    }
+
+    private char getSimetrical(char x) {
+
+        switch(x) {
+            case 'l':
+                return 'r';
+            case 'r':
+                return 'l';
+            case 'u':
+                return 'd';
+            case 'd':
+                return 'u';
+                default:
+                    return ' ';
+        }
+    }
+    private char directionMove(int oldX, int oldY, int currX, int currY){
+
+        //right
+        if (currX > oldX) return 'r';
+        //left
+        else if (currX <oldX) return 'l';
+        //down
+        else if (currY > oldY) return 'd';
+        //up
+        else if (currY < oldY) return 'u';
+
+        return ' ';
+    }
+
     @Test
     public void testMoveDrunkenGuard() {
 
@@ -207,7 +273,7 @@ public class TestDungeonGameLogic extends TestLevels {
         if(newGame.getLevel().getChars().get(0) instanceof DrunkenGuard) {
 
             while (!sleep) {
-                newGame.getLevel().getChars().get(0).update(newGame.getLevel().getMap());
+                ((DrunkenGuard)newGame.getLevel().getChars().get(0)).update(newGame.getLevel().getMap());
                 newGame.getLevel().getChars().get(0).draw(newGame.getLevel().getMap());
                 if (((DrunkenGuard) newGame.getLevel().getChars().get(0)).sleeping()) {
 
@@ -253,4 +319,29 @@ public class TestDungeonGameLogic extends TestLevels {
         assertEquals(2, newGame.getLevel().getChars().get(0).getY());
     }
 
+    @Test
+    public void testRestart() {
+
+
+        Game newGame = new Game();
+        loadTestLevel1(newGame, "Rookie", true);
+
+        assertEquals(1,newGame.getLevels().size());
+
+        newGame.restart();
+
+        assertEquals(0,newGame.getLevels().size());
+
+        loadTestLevel1(newGame, "Rookie", true);
+
+        int doorX = newGame.getLevel().getDoors().get(0).getX();
+        int doorY = newGame.getLevel().getDoors().get(0).getY();
+
+        newGame.getLevel().getDoors().get(0).open(newGame.getLevel().getMap());
+        Character map [][] = newGame.getLevel().getMap();
+        assertEquals("S", map[newGame.getLevel().getDoors().get(0).getX()][newGame.getLevel().getDoors().get(0).getY()].toString());
+
+        Character map2[][] = {{'a', 'b'}, {'b','a'}};
+        newGame.getLevel().setLvlMap(map2);
+    }
 }
