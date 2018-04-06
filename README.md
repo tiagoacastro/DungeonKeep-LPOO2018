@@ -8,3 +8,9 @@ up201605926 - João Malheiro de Sousa (up201605926@fe.up.pt)
 
 ### Pit Screenshot
 [Pit](https://imgur.com/a/ADpUP)
+
+### EclEmma Screenshot
+[EclEmma]()
+
+### BetterCodeHub Status Badge
+[BCH Badge]()
