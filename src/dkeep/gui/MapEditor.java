@@ -70,7 +70,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		lblSize.setBounds(85, 40, 60, 20);
 		lblSize.setForeground(Color.white);
 		frame.getContentPane().add(lblSize);
-		lblSize2 = new JLabel("Heigh");
+		lblSize2 = new JLabel("Height");
 		lblSize2.setBounds(85, 80, 60, 20);
 		lblSize2.setForeground(Color.white);
 		frame.getContentPane().add(lblSize2);
@@ -235,7 +235,14 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	private boolean checkBoundaries(int cellX, int cellY) {
-		return (cellX == 0) || (cellY == 0) || (cellX == dimensionX - 1) || (cellY == dimensionY - 1);
+		return (cellX == 0) || (cellY == 0) || (cellX == dimensionY - 1) || (cellY == dimensionX - 1);
+	}
+
+	private boolean checkNotCorners(int cellX, int cellY) {
+		return (cellX != 0 && cellY != dimensionX - 1 && cellY != 0) ||
+				(cellY != 0 && cellX != dimensionX - 1 && cellX != 0) ||
+				(cellX != dimensionY - 1 && cellY != dimensionX - 1 && cellY != 0) ||
+				(cellY != dimensionX - 1 && cellX != dimensionY - 1 && cellX != 0);
 	}
 
 	@Override
@@ -246,8 +253,11 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 		if (arg0.getButton() == MouseEvent.BUTTON1) {
 			if (checkBoundaries(cellX, cellY)) {
 				if (currButton == DOOR) {
-					Door d = new Door(cellX, cellY);
-					this.game.getLevels().get(1).addDoor(d);
+					if (checkNotCorners(cellX,cellY)) {
+						Door d = new Door(cellX, cellY);
+						this.game.getLevel().addDoor(d);
+						this.game.getLevel().getPlayMap()[cellX][cellY] = 'I';
+					}
 				} else if (currButton == WALL)
 					map[cellX][cellY] = 'X';
 			} else {
@@ -262,12 +272,15 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	private void mouseRightPress(int cellX, int cellY) {
-		if (map[cellX][cellY] == 'X') {
-			map[cellX][cellY] = ' ';
-		} else if (map[cellX][cellY] == 'A' || map[cellX][cellY] == 'H') {
-			game.getLevel().setHero(null);
+		if (checkBoundaries(cellX,cellY)) {
+			int i= this.game.getLevel().findDoor(cellX,cellY);
+			if (i>= 0) {
+				this.game.getLevel().getDoors().remove(i);
+				this.game.getLevel().getMap()[cellX][cellY] = 'X';
+			}
+		} else if (map[cellX][cellY] == 'X')
+				map[cellX][cellY] = ' ';
 		}
-	}
 
 	private void heroPressedHandler(int cellX, int cellY) {
 
@@ -319,7 +332,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 				String width = textField.getText();
 				String height = textField2.getText();
                 
-                if ((width.equals("9") || width.equals("10") || width.equals("11")) || (height.equals("9") || height.equals("10") || height.equals("11"))) {
+                if ((width.equals("9") || width.equals("10") || width.equals("11")) && (height.equals("9") || height.equals("10") || height.equals("11"))) {
 					int mazeWidth = Integer.parseInt(textField.getText());
 					int mazeHeight = Integer.parseInt(textField2.getText());
 					frame.setBounds(50, 50, 670, 500);
@@ -387,6 +400,7 @@ public class MapEditor extends JFrame implements MouseListener, MouseMotionListe
 
 			int i = game.getLevels().get(1).getChars().size();
 			game.getLevels().remove(1);
+			game.getLevelsCopy().remove(1);
 			GameLevels.loadLevel2(i, game);
 			createMap();
 			game.getLevels().get(1).draw();

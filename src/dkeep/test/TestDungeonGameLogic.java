@@ -337,11 +337,17 @@ public class TestDungeonGameLogic extends TestLevels {
         int doorX = newGame.getLevel().getDoors().get(0).getX();
         int doorY = newGame.getLevel().getDoors().get(0).getY();
 
+
         newGame.getLevel().getDoors().get(0).open(newGame.getLevel().getMap());
         Character map [][] = newGame.getLevel().getMap();
         assertEquals("S", map[newGame.getLevel().getDoors().get(0).getX()][newGame.getLevel().getDoors().get(0).getY()].toString());
 
+        assertEquals(0 , newGame.getLevel().findDoor(doorX,doorY));
+
+        assertEquals(-1 , newGame.getLevel().findDoor(1,1));
+
         Character map2[][] = {{'a', 'b'}, {'b','a'}};
         newGame.getLevel().setLvlMap(map2);
     }
+
 }

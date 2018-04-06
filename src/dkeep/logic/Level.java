@@ -432,4 +432,15 @@ public class Level implements Serializable{
     	this.lvlMap = map;
     }
 
+    public int findDoor(int cellX, int cellY) {
+
+        int i = 0;
+        for (Door door: doors) {
+
+            if (door.getX() == cellX && door.getY() == cellY)
+                return i;
+            else i++;
+        }
+        return -1;
+    }
 }
