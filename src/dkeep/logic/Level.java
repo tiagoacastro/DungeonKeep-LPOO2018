@@ -453,6 +453,12 @@ public class Level implements Serializable {
         this.lvlMap = map;
     }
 
+    /**
+     * Finds a door based on its position
+     * @param cellX x coordinate
+     * @param cellY y coordinate
+     * @return door index
+     */
     public int findDoor(int cellX, int cellY) {
 
         int i = 0;
@@ -467,9 +473,9 @@ public class Level implements Serializable {
 
     /**
      * Finds an ogre based on its position
-     *
      * @param x x coordinate
      * @param y y coordinate
+     * @return ogre index
      */
     public int findOgre(int x, int y) {
         int i = 0;
